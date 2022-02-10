@@ -11,10 +11,10 @@ module pc_reg (input wire clk,
     
     always @(posedge clk) begin //时钟上升沿触发
         if (rst == `RstDisable) begin //复位信号有效的时候，指令存储器使能信号无效
-            ce <= `ChipDisable;         
+            ce <= `ChipDisable;
         end
         else begin              //复位信号无效的时候，指令存储器使能信号有效
-            ce <= `ChipEnable;         
+            ce <= `ChipEnable;
         end
     end
     
