@@ -16,7 +16,7 @@
  *
  * @Author: Groot
  * @Date: 2022-02-11 10:28:52
- * @LastEditTime: 2022-02-12 09:51:57
+ * @LastEditTime: 2022-02-12 10:22:13
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /groot/openMIPS/id.v
@@ -57,11 +57,11 @@ module id (input wire rst,
     //****************************第一段：对指令进行译码***************************
     always @(*) begin
         if (rst == `RstEnable) begin
-            aluop_o  <= `EXE_NOP_OP;
-            alusel_o <= `EXE_RES_NOP;
-            wd_o     <= `NOPRegAddr;
-            wreg_o   <= `WriteDisable;
-            instvalid <= `InstValid;
+            aluop_o     <= `EXE_NOP_OP;
+            alusel_o    <= `EXE_RES_NOP;
+            wd_o        <= `NOPRegAddr;
+            wreg_o      <= `WriteDisable;
+            instvalid   <= `InstValid;
             reg1_read_o <= `ReadDisable;
             reg2_read_o <= `ReadDisable;
             reg1_addr_o <= `NOPRegAddr;
@@ -78,33 +78,70 @@ module id (input wire rst,
             reg2_read_o <= `ReadDisable;
             reg1_addr_o <= inst_i[25:21];   //默认通过Regfile读端口1读取的寄存器地址
             reg2_addr_o <= inst_i[20:16];   //默认通过Regfile读端口2读取的寄存器地址
-            imm         <= `ZeroWorld;
+            imm         <= `ZeroWord;
             
             case (op)
-            `EXE_ORI : begin            //依据op的值判断是否是ori指令
-            
-            //ori指令需要将结果写入目的寄存器，所以wreg_o为WriteEnable
-            wreg_o <= `WriteEnable;
-            
-            //运算类型是逻辑运算
-            alusel_o <= `EXE_RES_LOGIC;
-            
-            //运算的子类型是逻辑“或”运算
-            aluop_o <= `EXE_OR_OP;
-            
-            //需要通过Regfile的读端口1读取寄存器
-            reg1_read_o <= `ReadEnable;
-            
-            //不需要通过Regfile的读端口2读取寄存器
-            reg2_read_o <= `ReadDisable;
-            
-            //指令执行需要的立即数
-            imm = {16'h0000,  inst_i[15:0]};
+                `EXE_ORI : begin            //依据op的值判断是否是ori指令
+                    
+                    //ori指令需要将结果写入目的寄存器，所以wreg_o为WriteEnable
+                    wreg_o <= `WriteEnable;
+                    
+                    //运算类型是逻辑运算
+                    alusel_o <= `EXE_RES_LOGIC;
+                    
+                    //运算的子类型是逻辑“或”运算
+                    aluop_o <= `EXE_OR_OP;
+                    
+                    //需要通过Regfile的读端口1读取寄存器
+                    reg1_read_o <= `ReadEnable;
+                    
+                    //不需要通过Regfile的读端口2读取寄存器
+                    reg2_read_o <= `ReadDisable;
+                    
+                    //指令执行需要的立即数
+                    imm = {16'h0000,  inst_i[15:0]};
+                    
+                    //指令执行要写的目的寄存器地址
+                    wd_o <= inst_i[20:16];
+                    
+                    //ori指令是有效指令
+                    instvalid <= `InstValid;
+                end
+                
+                //有待填写
+                default : begin
+                    
+                end
+            endcase
         end
-        
-        endcase
-        
-        
     end
+    
+    //****************************第二段：确定进行运算的源操作数1***************************
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            reg1_o <= `ZeroWord;
+        end
+        else if (reg1_read_o == `ReadEnable) begin
+            reg1_o <= reg1_data_i;                  //Regfile读端口1的输出值
+        end
+            else if (reg1_read_o == `ReadDisable) begin
+            reg1_o <= imm;
+            end
+        else begin
+            reg1_o <= `ZeroWord;
+        end
+    end
+    
+    //****************************第三段：确定进行运算的源操作数2***************************
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            reg2_o <= `ZeroWord;
+            end else if (reg2_read_o == `ReadEnable) begin
+            reg2_o <= reg2_data_i;                              //Regfile读端口2的输出值
+            end else if (reg2_read_o == `ReadDisable) begin
+            reg2_o <= imm;                                      //立即数
+            end else begin
+            reg2_o <= `ZeroWord;
+        end
     end
 endmodule //id
