@@ -16,7 +16,7 @@
  *
  * @Author: Groot
  * @Date: 2022-02-09 07:50:51
- * @LastEditTime: 2022-02-10 04:22:27
+ * @LastEditTime: 2022-02-12 09:52:50
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /groot/openMIPS/define.v
@@ -26,7 +26,7 @@
 //*************************     全局的宏定义     **************************
 `define RstEnable       1'b1            //复位信号有效
 `define RstDisable      1'b0            //复位信号无效
-`define ZeroWorld       32'h00000000    //32位数值0
+`define ZeroWord       32'h00000000    //32位数值0
 `define WriteEnable     1'b1            //使能写
 `define WriteDisable    1'b0            //禁止写
 `define ReadEnable      1'b1            //使能读

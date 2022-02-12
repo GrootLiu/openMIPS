@@ -16,13 +16,13 @@
  *
  * @Author: Groot
  * @Date: 2022-02-10 07:09:12
- * @LastEditTime: 2022-02-10 07:52:57
+ * @LastEditTime: 2022-02-12 09:57:01
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /groot/openMIPS/regfile.v
  * 版权声明
  */
-`include "define.v"
+`include "openMIPS/define.v"
 module regfile (input wire clk,
                 input wire rst,
                 
@@ -35,34 +35,34 @@ module regfile (input wire clk,
                 //读端口1
                 input wire re1,                //读端口1使能信号
                 input wire[`RegAddBus] raddr1, //第一个读寄存器端口要读取的寄存器的地址
-                input wire[`RegBus] rdata1,    //第一个读寄存器端口输出的寄存器值
+                output reg[`RegBus] rdata1,    //第一个读寄存器端口输出的寄存器值
 
                 //读端口2
                 input wire re2,                //读端口2使能信号
                 input wire[`RegAddBus] raddr2, //第二个读寄存器端口要读取的寄存器的地址
-                input wire[`RegBus] rdata2    //第二个读寄存器端口输出的寄存器值
+                output reg[`RegBus] rdata2    //第二个读寄存器端口输出的寄存器值
                 );
     
     //*****************************第一段：定义32个32位寄存器***************************
-    reg [`RegBus] regs[0:RegNum-1];
+    reg [`RegBus] regs[0:`RegNum-1];
     
     //*****************************第二段：写操作***************************
     always @(posedge clk) begin
         if (rst == `RstDisable) begin
-            if ((we == `WriteEnable) && (waddr ! = `RegNumLog2'h0000)) begin
+            if ((we == `WriteEnable) && (waddr != `RegNumLog2'h0)) begin
                 regs[waddr] <= wdata;
             end
         end
     end
     
     //*****************************第三段：读端口1的读操作***************************
-    always @(posedge *) begin
+    always @( * ) begin
         //复位信号有效，通用寄存器输出为0
         if (rst == `RstEnable) begin
-            rdata1 <= `ZeroWords;
+            rdata1 <= `ZeroWord;
         end
         //复位信号无效，如果读零地址，通用寄存器输出为0
-        else if (raddr1 == `RegNumLog2'h00000) begin
+        else if (raddr1 == `RegNumLog2'h0) begin
         rdata1 <= `ZeroWord;
     end
 
@@ -79,18 +79,18 @@ module regfile (input wire clk,
     
     //地址无效，直接输出0
     else begin
-    rdata1 <= `RegNumLog2'h00000;
+    rdata1 <= `RegNumLog2'h0;
     end
     end
     
     //*****************************第四段：读端口2的读操作***************************
-    always @(posedge *) begin
+    always @( *) begin
         //复位信号有效，通用寄存器输出为0
         if (rst == `RstEnable) begin
-            rdata2 <= `ZeroWords;
+            rdata2 <= `ZeroWord;
         end
         //复位信号无效，如果读零地址，通用寄存器输出为0
-        else if (raddr2 == `RegNumLog2'h00000) begin
+        else if (raddr2 == `RegNumLog2'h0) begin
         rdata2 <= `ZeroWord;
     end
 
@@ -107,7 +107,7 @@ module regfile (input wire clk,
     
     //地址无效，直接输出0
     else begin
-    rdata2 <= `RegNumLog2'h00000;
+    rdata2 <= `RegNumLog2'h0;
     end
     end
 endmodule //regfile

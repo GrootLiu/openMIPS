@@ -16,14 +16,15 @@
  * 
  * @Author: Groot
  * @Date: 2022-02-10 06:12:30
- * @LastEditTime: 2022-02-10 07:10:29
+ * @LastEditTime: 2022-02-12 09:53:07
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /groot/openMIPS/pc_reg.v
  * 版权声明
  */
 
-`include "define.v"
+`include "openMIPS/define.v"
+
 module pc_reg (input wire clk,
                input wire rst,
                output reg ce,
@@ -44,7 +45,7 @@ module pc_reg (input wire clk,
     end
     
     always @(posedge clk) begin //时钟上升沿触发
-        if (ce == `ChioDisable) begin   //指令存储器使能信号无效的时候，pc保持为0
+        if (ce == `ChipDisable) begin   //指令存储器使能信号无效的时候，pc保持为0
             pc <= 32'h00000000;
         end
         else begin              //指令存储器使能信号有效的时候，pc在每个时钟加1
