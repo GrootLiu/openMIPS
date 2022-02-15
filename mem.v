@@ -15,35 +15,34 @@
  *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
  * 
  * @Author: Groot
- * @Date: 2022-02-10 06:12:30
- * @LastEditTime: 2022-02-15 03:46:40
+ * @Date: 2022-02-15 08:55:18
+ * @LastEditTime: 2022-02-15 09:04:27
  * @LastEditors: Groot
  * @Description: 
- * @FilePath: /groot/openMIPS/if_id.v
+ * @FilePath: /groot/openMIPS/mem.v
  * 版权声明
  */
+
 `include "openMIPS/define.v"
+module mem (input wire rst,
+            input wire[`RegAddBus] wd_i,
+            input wire wreg_i,
+            input wire[`RegBus] wdata_i,
+            output reg[`RegAddBus] wd_o,
+            output reg wreg_o,
+            output reg[`RegBus] wdata_o);
 
-module if_id (input wire clk,
-              input wire rst,
-              
-              //来自取指阶段的信号，其中宏定义InstBus表示指令宽度，为32cd
-              input wire[`InstAddrBus] if_pc, 
-              input wire[`InstBus] if_inst,
-
-              //对应译码阶段的信号
-              output reg[`InstAddrBus] id_pc, 
-              output reg[`InstBus] id_inst);
+            always @( * ) begin
+                if (rst == `RstEnable) begin
+                    wd_o <= `NOPRegAddr;
+                    wreg_o <= `WriteDisable;
+                    wdata_o <= `ZeroWord;
+                end
+                else begin
+                    wd_o <= wd_i;
+                    wreg_o <= wreg_i;
+                    wdata_o <= wdata_i;
+                end
+            end
     
-    always @(posedge clk) begin
-        if (rst == `RstEnable) begin
-            id_pc   <= `ZeroWord;               //复位的时候pc为0
-            id_inst <= `ZeroWord;                //复位的时候指令也为0，实际就是空指令
-        end
-        else begin
-            id_pc   <= if_pc;                   //其余时 刻向下传递取值阶段的值
-            id_inst <= if_inst;
-        end
-    end
-endmodule //if_id
-//其中只有一个时许电路，IF/ID模块只是简单的将取值阶段的结果在每个时钟周期的上升沿传递到译码阶段
+endmodule //mem

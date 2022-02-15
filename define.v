@@ -16,7 +16,7 @@
  *
  * @Author: Groot
  * @Date: 2022-02-09 07:50:51
- * @LastEditTime: 2022-02-14 12:49:41
+ * @LastEditTime: 2022-02-15 03:49:19
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /groot/openMIPS/define.v
@@ -41,8 +41,8 @@
 `define ChipDisable     1'b0            //芯片禁止
 
 //*************************     与具体指令有关的宏定义     **************************
-`define EXE_ORI         8'b00100101     //指令ori的指令码
-`define EXE_NOP         8'b00000000
+`define EXE_ORI         6'b001101     //指令ori的指令码
+`define EXE_NOP         6'b000000
 
 
 //AluOp
