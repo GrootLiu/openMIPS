@@ -16,7 +16,7 @@
  *
  * @Author: Groot
  * @Date: 2022-02-15 09:21:00
- * @LastEditTime: 2022-02-16 12:38:08
+ * @LastEditTime: 2022-02-16 14:36:35
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /groot/openMIPS/openmips.v
@@ -37,8 +37,8 @@
 
 module openmips (input wire clk,
                  input wire rst,
-                 input wire[`InstBus] rom_data_i,       //存疑
-                 output reg[`InstAddrBus] rom_addr_o,   //存疑
+                 input wire[`RegBus] rom_data_i,       //存疑
+                 output wire[`RegBus] rom_addr_o,   //存疑
                  output wire rom_ce_o);
     //连接 IF/ID模块与译码阶段ID模块的变量
     wire[`InstAddrBus] pc;
