@@ -71,4 +71,3 @@
 `define RegNum          32              //通用寄存器的数量
 `define RegNumLog2      5               //寻址通用寄存器使用的地址位数
 `define NOPRegAddr      5'b00000
-
