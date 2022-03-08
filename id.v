@@ -22,8 +22,7 @@
  * @FilePath: /groot/openMIPS/id.v
  * 版权声明
  */
-
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
 
 module id (input wire rst,
            input wire[`InstAddrBus] pc_i,

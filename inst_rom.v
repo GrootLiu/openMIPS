@@ -23,7 +23,7 @@
  * 版权声明
  */
 
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
 
 
 //ROM的大小为128KB，按字节寻址，用17根地址线就可以访问到全部的存储单元
@@ -35,7 +35,7 @@ module inst_rom (input wire ce,
     reg[`InstBus] inst_mem[0:`InstMemNum-1];
 
     //使用文件inst_rom.data初始化指令存储器
-    initial $readmemh ("inst_tom.data", inst_mem);
+    initial $readmemh ("inst_rom.data", inst_mem);
 
     //当复位信号无效时，依据输入的地址，给吃指令存储器ROM中对应的元素
     always @( * ) begin

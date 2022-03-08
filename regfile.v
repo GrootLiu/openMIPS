@@ -22,7 +22,7 @@
  * @FilePath: /groot/openMIPS/regfile.v
  * 版权声明
  */
-`include "openMIPS/define.v"
+// `include "openMIPS/define.v"
 module regfile (input wire clk,
                 input wire rst,
                 

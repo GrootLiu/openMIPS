@@ -22,7 +22,8 @@
  * @FilePath: /groot/openMIPS/if_id.v
  * 版权声明
  */
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
+
 
 module if_id (input wire clk,
               input wire rst,

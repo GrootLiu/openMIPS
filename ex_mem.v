@@ -22,8 +22,7 @@
  * @FilePath: /groot/openMIPS/ex_mem.v
  * 版权声明
  */
-
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
 
 module ex_mem (input wire clk,
                input wire rst,

@@ -23,7 +23,7 @@
  * 版权声明
  */
 
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
 module mem (input wire rst,
             input wire[`RegAddBus] wd_i,
             input wire wreg_i,

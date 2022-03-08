@@ -23,7 +23,7 @@
  * 版权声明
  */
 
-`include "openMIPS/define.v"
+// `include "/home/groot/open/define.v"
 
 module ex (input wire rst,                  //译码阶段送到执行阶段的信息
            input wire[`AluOpBus] aluop_i,

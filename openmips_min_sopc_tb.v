@@ -23,10 +23,9 @@
  * 版权声明
  */
 
+`include "define.v"
 `timescale 1ns/1ps
-
-`include "openMIPS/define.v"
-`include "openMIPS/openmips_min_sopc.v"
+// `include "/home/groot/open/openmips_min_sopc.v"
 
 module openmips_min_sopc_tb ();
 
@@ -46,6 +45,14 @@ module openmips_min_sopc_tb ();
         #195 rst = `RstDisable;
         #1000 $finish;
     end
+
+    /*iverilog */
+    initial
+    begin
+        $dumpfile("wave.vcd");        //生成的vcd文件名称
+        $dumpvars(0, openmips_min_sopc_tb);    //tb模块名称
+    end
+/*iverilog */
 
     //例化最小SOPC
     openmips_min_sopc openmips_min_sopc0(
