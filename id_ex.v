@@ -22,7 +22,6 @@
  * @FilePath: /groot/openMIPS/id_ex.v
  * 版权声明
  */
-// `include "/home/groot/open/define.v"
 
 module id_ex (input wire clk,
                 input wire rst,

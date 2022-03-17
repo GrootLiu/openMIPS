@@ -14,17 +14,13 @@
  *  │ Ctrl│    │Alt │         Space         │ Alt│    │    │Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │←─┘│
  *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
  *
- * @Author: Groot
- * @Date: 2022-02-14 13:13:43
- * @LastEditTime: 2022-02-14 13:48:15
+ * @Date: 2022-03-08 06:31:02
+ * @LastEditTime: 2022-03-17 15:59:54
  * @LastEditors: Groot
  * @Description:
- * @FilePath: /groot/openMIPS/ex.v
+ * @FilePath: /openMIPS/ex.v
  * 版权声明
  */
-
-// `include "/home/groot/open/define.v"
-
 module ex (input wire rst,                  //译码阶段送到执行阶段的信息
            input wire[`AluOpBus] aluop_i,
            input wire[`AluSelBus] alusel_i,

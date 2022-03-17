@@ -22,9 +22,6 @@
  * @FilePath: /groot/openMIPS/pc_reg.v
  * 版权声明
  */
-
-// `include "/home/groot/open/define.v"
-
 module pc_reg (input wire clk,
                    input wire rst,
                    output reg ce,

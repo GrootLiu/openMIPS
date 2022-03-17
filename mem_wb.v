@@ -22,8 +22,6 @@
  * @FilePath: /groot/openMIPS/mem_wb.v
  * 版权声明
  */
-
-// `include "/home/groot/open/define.v"
 module mem_wb (input wire clk,
                input wire rst,
                input wire[`RegAddBus] mem_wd,

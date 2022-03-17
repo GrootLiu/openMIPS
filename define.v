@@ -71,3 +71,10 @@
 `define RegNum          32              //通用寄存器的数量
 `define RegNumLog2      5               //寻址通用寄存器使用的地址位数
 `define NOPRegAddr      5'b00000
+
+
+
+//Regfile.v 寄存器文件
+
+//wd 目的寄存器地址
+//wdata 要写入目的寄存器的数据

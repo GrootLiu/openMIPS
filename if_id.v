@@ -13,27 +13,21 @@
  *  ├─────┬──┴─┬─┴──┬┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐ ├───┴───┼───┤ E││
  *  │ Ctrl│    │Alt │         Space         │ Alt│    │    │Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │←─┘│
  *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
- * 
+ *
  * @Author: Groot
  * @Date: 2022-02-10 06:12:30
- * @LastEditTime: 2022-02-15 03:46:40
+ * @LastEditTime: 2022-03-17 16:00:03
  * @LastEditors: Groot
- * @Description: 
- * @FilePath: /groot/openMIPS/if_id.v
+ * @Description:
+ * @FilePath: /openMIPS/if_id.v
  * 版权声明
  */
-// `include "/home/groot/open/define.v"
-
 
 module if_id (input wire clk,
               input wire rst,
-              
-              //来自取指阶段的信号，其中宏定义InstBus表示指令宽度，为32cd
-              input wire[`InstAddrBus] if_pc, 
+              input wire[`InstAddrBus] if_pc,
               input wire[`InstBus] if_inst,
-
-              //对应译码阶段的信号
-              output reg[`InstAddrBus] id_pc, 
+              output reg[`InstAddrBus] id_pc,
               output reg[`InstBus] id_inst);
     
     always @(posedge clk) begin
@@ -47,4 +41,4 @@ module if_id (input wire clk,
         end
     end
 endmodule //if_id
-//其中只有一个时许电路，IF/ID模块只是简单的将取值阶段的结果在每个时钟周期的上升沿传递到译码阶段
+    //其中只有一个时许电路，IF/ID模块只是简单的将取值阶段的结果在每个时钟周期的上升沿传递到译码阶段
