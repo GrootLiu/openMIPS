@@ -146,11 +146,19 @@ module id (input wire rst,
                                     reg2_read_o <= `ReadEnable;
                                     instvalid   <= `InstValid;
                                 end
-                                default : begin
+                                `EXE_SYNC : begin
+                                    wreg_o      <= `WriteEnable;
+                                    alusel_o    <= `EXE_RES_NOP;
+                                    aluop_o     <= `EXE_NOP_OP;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadEnable;
+                                    instvalid   <= `InstValid;
                                 end
                                 default : begin
                                 end
                             endcase // case op3
+                        end
+                        default : begin 
                         end
                     endcase //case op2
                 end
