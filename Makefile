@@ -1,3 +1,4 @@
+.PHONY: all sim
 ifndef CROSS_COMPILE
 CROSS_COMPILE = mips-linux-gnu-
 endif
@@ -6,7 +7,8 @@ LD = $(CROSS_COMPILE)ld
 OBJCOPY = $(CROSS_COMPILE)objcopy
 OBJDUMP = $(CROSS_COMPILE)objdump
 
-OBJECTS = inst_rom.o
+
+OBJECTS = ./inst_rom/inst_rom.o
 
 export CROSS_COMPILE
 
@@ -14,22 +16,26 @@ export CROSS_COMPILE
 # Rules of Complication
 # *********************
 
-all: inst_rom.data inst_rom.asm
+all: ./inst_rom/inst_rom.data ./inst_rom/inst_rom.asm
 
-%.o:%.S
+./inst_rom/%.o:./inst_rom/%.S
 		$(CC) -mips32 $< -o $@
 
-inst_rom.om: ram.ld $(OBJECTS)
-		$(LD) -T ram.ld $(OBJECTS) -o $@
+./inst_rom/inst_rom.om: ./inst_rom/ram.ld $(OBJECTS)
+		$(LD) -T ./inst_rom/ram.ld $(OBJECTS) -o $@
 
-inst_rom.bin: inst_rom.om
+./inst_rom/inst_rom.bin: ./inst_rom/inst_rom.om
 		$(OBJCOPY) -O binary $< $@
 
-inst_rom.asm: inst_rom.om
+./inst_rom/inst_rom.asm: ./inst_rom/inst_rom.om
 		$(OBJDUMP) -D $< > $@
 
-inst_rom.data: inst_rom.bin
-		./Bin2Mem -f $< -o $@
+./inst_rom/inst_rom.data: ./inst_rom/inst_rom.bin
+		./inst_rom/Bin2Mem -f $< -o $@
 
 clean:
-		rm -f *.o *.om *.bin *.data
+		rm -f ./inst_rom/*.o ./inst_rom/*.om ./inst_rom/*.bin ./inst_rom/*.data
+
+sim: ./csrc/main.cpp ./vsrc/top.v ./include/define.v ./vsrc/if_id.v ./vsrc/id.v ./vsrc/id_ex.v ./vsrc/ex.v ./vsrc/ex_mem.v ./vsrc/mem.v ./vsrc/mem_wb.v ./vsrc/pc_reg.v ./vsrc/inst_rom.v ./vsrc/openmips.v
+		@echo "Making..."
+		verilator --Mdir sim --Wno-fatal --trace --cc --exe --build --top top -y ~/openMIPS/include ./csrc/main.cpp ./vsrc/*.v

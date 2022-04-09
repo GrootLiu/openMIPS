@@ -1,5 +1,5 @@
 
-inst_rom.om:     file format elf32-tradbigmips
+inst_rom/inst_rom.om:     file format elf32-tradbigmips
 
 
 Disassembly of section .text:

@@ -13,34 +13,38 @@
  *  ├─────┬──┴─┬─┴──┬┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐ ├───┴───┼───┤ E││
  *  │ Ctrl│    │Alt │         Space         │ Alt│    │    │Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │←─┘│
  *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
- *
+ * 
  * @Author: Groot
- * @Date: 2022-02-16 14:19:09
- * @LastEditTime: 2022-02-17 07:21:35
+ * @Date: 2022-02-16 12:35:40
+ * @LastEditTime: 2022-02-16 14:20:21
  * @LastEditors: Groot
- * @Description:
- * @FilePath: /groot/openMIPS/openmips_min_sopc.v
+ * @Description: 
+ * @FilePath: /groot/openMIPS/inst_rom.v
  * 版权声明
  */
+//ROM的大小为128KB，按字节寻址，用17根地址线就可以访问到全部的存储单元
+module inst_rom (input wire ce,
+                 input wire[`InstAddrBus] addr,
+                 output reg[`InstBus] inst);
 
-`include "define.v"
+    //定义一个数组，大小是InstMemNum，元素宽度是InstBus
+    reg[`InstBus] inst_mem[0:`InstMemNum-1];
 
-module openmips_min_sopc (input wire clk,
-                              input wire rst);
-    //连接指令存储器
-    wire[`InstAddrBus] inst_addr;
-    wire[`InstBus] inst;
-    wire rom_ce;
+    //使用文件inst_rom.data初始化指令存储器
+    initial $readmemh ("/home/groot/openMIPS/inst_rom/inst_rom.data", inst_mem);
 
-    //例化处理器openMIPS
-    openmips openmips0(.clk(clk),
-                       .rst(rst),
-                       .rom_data_i(inst),
-                       .rom_ce_o(rom_ce),
-                       .rom_addr_o(inst_addr));
-
-    //例化指令存储器ROM
-    inst_rom inst_rom0(.ce(rom_ce),
-                       .addr(inst_addr),
-                       .inst(inst));
-endmodule //openmips_min_sopc
+    //当复位信号无效时，依据输入的地址，给吃指令存储器ROM中对应的元素
+    always @( * ) begin
+        if (ce == `ChipDisable) begin
+            inst <= `ZeroWord;
+        end
+        else begin
+            //openMIPS按字节寻址，而指令存储器的每个地址是一个32bit的字
+            //所以要要访问存储器，就必须要将openMIPS给出的地址除以4再使用
+            //除以4就是将地址右移2位
+            //地址有17位，例如0_00000000_00000011
+            //要想右移两位，直接选取高18位，截至到低3位，任位共17位的地址
+            inst <= inst_mem[addr[`InstMemNumLog2+1:2]];
+        end
+    end
+endmodule //inst_rom

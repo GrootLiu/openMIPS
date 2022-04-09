@@ -22,6 +22,7 @@
  * @FilePath: /openMIPS/openmips.v
  * 版权声明
  */
+`include "define.v"
 
 module openmips (input wire clk,
                  input wire rst,
