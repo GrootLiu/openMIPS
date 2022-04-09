@@ -16,7 +16,8 @@ export CROSS_COMPILE
 # Rules of Complication
 # *********************
 
-all: ./inst_rom/inst_rom.data ./inst_rom/inst_rom.asm
+all:./inst_rom/inst_rom.data ./inst_rom/inst_rom.asm
+	rm -f ./inst_rom/*.o ./inst_rom/*.om ./inst_rom/*.bin
 
 ./inst_rom/%.o:./inst_rom/%.S
 		$(CC) -mips32 $< -o $@
@@ -27,7 +28,8 @@ all: ./inst_rom/inst_rom.data ./inst_rom/inst_rom.asm
 ./inst_rom/inst_rom.bin: ./inst_rom/inst_rom.om
 		$(OBJCOPY) -O binary $< $@
 
-./inst_rom/inst_rom.asm: ./inst_rom/inst_rom.om
+# 反编译，生成源文件
+#  ./inst_rom/inst_rom.asm: ./inst_rom/inst_rom.om
 		$(OBJDUMP) -D $< > $@
 
 ./inst_rom/inst_rom.data: ./inst_rom/inst_rom.bin
