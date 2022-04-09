@@ -58,8 +58,6 @@ VL_MODULE(Vtop___024root) {
     IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__ex_wdata_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__mem_wdata_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__imm;
-    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__logicout;
-    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__shiftres;
     VlUnpacked<IData/*31:0*/, 32> top__DOT__openmips0__DOT__regfile1__DOT__regs;
     VlUnpacked<IData/*31:0*/, 131071> top__DOT__inst_rom0__DOT__inst_mem;
 

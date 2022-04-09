@@ -20,7 +20,7 @@ int main(int argc, char** argv, char** env)
 	VerilatedVcdC* tfp = new VerilatedVcdC;
 
 	vtop->trace(tfp, 99);
-	tfp->open("../wave.vcd");
+	tfp->open("./wave.vcd");
 
 	vtop->rst = RstEnable;
 

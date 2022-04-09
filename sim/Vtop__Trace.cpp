@@ -104,12 +104,10 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgCData(oldp+63,(vlSelf->top__DOT__openmips0__DOT__reg2_addr),5);
             tracep->chgIData(oldp+64,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm),32);
             tracep->chgBit(oldp+65,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__instvalid));
-            tracep->chgIData(oldp+66,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__logicout),32);
-            tracep->chgIData(oldp+67,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__shiftres),32);
         }
-        tracep->chgBit(oldp+68,(vlSelf->clk));
-        tracep->chgBit(oldp+69,(vlSelf->rst));
-        tracep->chgIData(oldp+70,(((IData)(vlSelf->rst)
+        tracep->chgBit(oldp+66,(vlSelf->clk));
+        tracep->chgBit(oldp+67,(vlSelf->rst));
+        tracep->chgIData(oldp+68,(((IData)(vlSelf->rst)
                                     ? 0U : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read) 
                                               & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wreg_i)) 
                                              & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
@@ -145,7 +143,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read)
                                                    ? 0U
                                                    : vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm)))))),32);
-        tracep->chgIData(oldp+71,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+69,(((IData)(vlSelf->rst)
                                     ? 0U : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read) 
                                               & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wreg_i)) 
                                              & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 
@@ -181,12 +179,78 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read)
                                                    ? 0U
                                                    : vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm)))))),32);
-        tracep->chgIData(oldp+72,(((1U == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_alusel_i))
-                                    ? vlSelf->top__DOT__openmips0__DOT__ex0__DOT__logicout
+        tracep->chgIData(oldp+70,(((1U == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_alusel_i))
+                                    ? ((IData)(vlSelf->rst)
+                                        ? 0U : ((0x25U 
+                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                 ? 
+                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                 | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                                 : 
+                                                ((0x24U 
+                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                  ? 
+                                                 (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                                  : 
+                                                 ((0x27U 
+                                                   == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                   ? 
+                                                  (~ 
+                                                   (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                    | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i))
+                                                   : 
+                                                  ((0x26U 
+                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                    ? 
+                                                   (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                    ^ vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                                    : 0U)))))
                                     : ((2U == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_alusel_i))
-                                        ? vlSelf->top__DOT__openmips0__DOT__ex0__DOT__shiftres
+                                        ? ((IData)(vlSelf->rst)
+                                            ? 0U : 
+                                           ((0x7cU 
+                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                << 
+                                                (0x1fU 
+                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
+                                             : ((2U 
+                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                 ? 
+                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                 >> 
+                                                 (0x1fU 
+                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
+                                                 : 
+                                                ((3U 
+                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                  ? 
+                                                 (((0x1fU 
+                                                    >= 
+                                                    (0x3fU 
+                                                     & ((IData)(0x20U) 
+                                                        - 
+                                                        (0x1fU 
+                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
+                                                    ? 
+                                                   ((- (IData)(
+                                                               (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                                >> 0x1fU))) 
+                                                    << 
+                                                    (0x3fU 
+                                                     & ((IData)(0x20U) 
+                                                        - 
+                                                        (0x1fU 
+                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
+                                                    : 0U) 
+                                                  | (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                     >> 
+                                                     (0x1fU 
+                                                      & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i)))
+                                                  : 0U))))
                                         : 0U))),32);
-        tracep->chgIData(oldp+73,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+71,(((IData)(vlSelf->rst)
                                     ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr))
                                              ? 0U : 
                                             (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
@@ -199,7 +263,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  vlSelf->top__DOT__openmips0__DOT__regfile1__DOT__regs
                                                  [vlSelf->top__DOT__openmips0__DOT__reg1_addr]
                                                   : 0U))))),32);
-        tracep->chgIData(oldp+74,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+72,(((IData)(vlSelf->rst)
                                     ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr))
                                              ? 0U : 
                                             (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 
@@ -211,6 +275,71 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                   ? 
                                                  vlSelf->top__DOT__openmips0__DOT__regfile1__DOT__regs
                                                  [vlSelf->top__DOT__openmips0__DOT__reg2_addr]
+                                                  : 0U))))),32);
+        tracep->chgIData(oldp+73,(((IData)(vlSelf->rst)
+                                    ? 0U : ((0x25U 
+                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                             : ((0x24U 
+                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                 ? 
+                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                                 : 
+                                                ((0x27U 
+                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                  ? 
+                                                 (~ 
+                                                  (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                   | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i))
+                                                  : 
+                                                 ((0x26U 
+                                                   == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                   ? 
+                                                  (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
+                                                   ^ vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
+                                                   : 0U)))))),32);
+        tracep->chgIData(oldp+74,(((IData)(vlSelf->rst)
+                                    ? 0U : ((0x7cU 
+                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                << 
+                                                (0x1fU 
+                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
+                                             : ((2U 
+                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                 ? 
+                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                 >> 
+                                                 (0x1fU 
+                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
+                                                 : 
+                                                ((3U 
+                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
+                                                  ? 
+                                                 (((0x1fU 
+                                                    >= 
+                                                    (0x3fU 
+                                                     & ((IData)(0x20U) 
+                                                        - 
+                                                        (0x1fU 
+                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
+                                                    ? 
+                                                   ((- (IData)(
+                                                               (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                                >> 0x1fU))) 
+                                                    << 
+                                                    (0x3fU 
+                                                     & ((IData)(0x20U) 
+                                                        - 
+                                                        (0x1fU 
+                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
+                                                    : 0U) 
+                                                  | (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
+                                                     >> 
+                                                     (0x1fU 
+                                                      & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i)))
                                                   : 0U))))),32);
     }
 }
