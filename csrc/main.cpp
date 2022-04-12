@@ -32,11 +32,11 @@ int main(int argc, char** argv, char** env)
 			vtop->rst = RstDisable; 
 		}
 		
-		if ((contextp->time() % 10) == 1)
+		if ((contextp->time() % 10) == 0)
 		{
 			vtop->clk = 1;
 		}
-		if ((contextp->time() % 10) == 6)
+		if ((contextp->time() % 10) == 5)
 		{ 
 			vtop->clk = 0;
 		}

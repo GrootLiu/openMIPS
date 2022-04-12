@@ -42,22 +42,19 @@ VL_MODULE(Vtop___024root) {
     CData/*0:0*/ top__DOT__openmips0__DOT__reg2_read;
     CData/*4:0*/ top__DOT__openmips0__DOT__reg1_addr;
     CData/*4:0*/ top__DOT__openmips0__DOT__reg2_addr;
-    CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__ex_wreg_i;
-    CData/*4:0*/ top__DOT__openmips0__DOT__id0__DOT__ex_wd_i;
-    CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__mem_wreg_i;
-    CData/*4:0*/ top__DOT__openmips0__DOT__id0__DOT__mem_wd_i;
     CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__instvalid;
     IData/*31:0*/ top__DOT__openmips0__DOT__pc;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg1_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg2_i;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex_wdata_o;
     IData/*31:0*/ top__DOT__openmips0__DOT__mem_wdata_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__mem_wdata_o;
     IData/*31:0*/ top__DOT__openmips0__DOT__wb_wdata_i;
-    IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__ex_wdata_i;
-    IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__mem_wdata_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id0__DOT__imm;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__logicout;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__shiftres;
     VlUnpacked<IData/*31:0*/, 32> top__DOT__openmips0__DOT__regfile1__DOT__regs;
     VlUnpacked<IData/*31:0*/, 131071> top__DOT__inst_rom0__DOT__inst_mem;
 

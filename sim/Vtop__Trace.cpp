@@ -95,29 +95,32 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgCData(oldp+54,(vlSelf->top__DOT__openmips0__DOT__id_alusel_o),3);
             tracep->chgBit(oldp+55,(vlSelf->top__DOT__openmips0__DOT__id_wreg_o));
             tracep->chgCData(oldp+56,(vlSelf->top__DOT__openmips0__DOT__id_wd_o),5);
-            tracep->chgBit(oldp+57,(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o));
-            tracep->chgCData(oldp+58,(vlSelf->top__DOT__openmips0__DOT__mem_wd_o),5);
-            tracep->chgIData(oldp+59,(vlSelf->top__DOT__openmips0__DOT__mem_wdata_o),32);
-            tracep->chgBit(oldp+60,(vlSelf->top__DOT__openmips0__DOT__reg1_read));
-            tracep->chgBit(oldp+61,(vlSelf->top__DOT__openmips0__DOT__reg2_read));
-            tracep->chgCData(oldp+62,(vlSelf->top__DOT__openmips0__DOT__reg1_addr),5);
-            tracep->chgCData(oldp+63,(vlSelf->top__DOT__openmips0__DOT__reg2_addr),5);
-            tracep->chgIData(oldp+64,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm),32);
-            tracep->chgBit(oldp+65,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__instvalid));
+            tracep->chgIData(oldp+57,(vlSelf->top__DOT__openmips0__DOT__ex_wdata_o),32);
+            tracep->chgBit(oldp+58,(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o));
+            tracep->chgCData(oldp+59,(vlSelf->top__DOT__openmips0__DOT__mem_wd_o),5);
+            tracep->chgIData(oldp+60,(vlSelf->top__DOT__openmips0__DOT__mem_wdata_o),32);
+            tracep->chgBit(oldp+61,(vlSelf->top__DOT__openmips0__DOT__reg1_read));
+            tracep->chgBit(oldp+62,(vlSelf->top__DOT__openmips0__DOT__reg2_read));
+            tracep->chgCData(oldp+63,(vlSelf->top__DOT__openmips0__DOT__reg1_addr),5);
+            tracep->chgCData(oldp+64,(vlSelf->top__DOT__openmips0__DOT__reg2_addr),5);
+            tracep->chgIData(oldp+65,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm),32);
+            tracep->chgBit(oldp+66,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__instvalid));
+            tracep->chgIData(oldp+67,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__logicout),32);
+            tracep->chgIData(oldp+68,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__shiftres),32);
         }
-        tracep->chgBit(oldp+66,(vlSelf->clk));
-        tracep->chgBit(oldp+67,(vlSelf->rst));
-        tracep->chgIData(oldp+68,(((IData)(vlSelf->rst)
+        tracep->chgBit(oldp+69,(vlSelf->clk));
+        tracep->chgBit(oldp+70,(vlSelf->rst));
+        tracep->chgIData(oldp+71,(((IData)(vlSelf->rst)
                                     ? 0U : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read) 
-                                              & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wreg_i)) 
+                                              & (IData)(vlSelf->top__DOT__openmips0__DOT__ex_wreg_i)) 
                                              & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
-                                                == (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wd_i)))
-                                             ? vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wdata_i
+                                                == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_wd_i)))
+                                             ? vlSelf->top__DOT__openmips0__DOT__ex_wdata_o
                                              : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read) 
-                                                  & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wreg_i)) 
+                                                  & (IData)(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o)) 
                                                  & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
-                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wd_i)))
-                                                 ? vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wdata_i
+                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__mem_wd_o)))
+                                                 ? vlSelf->top__DOT__openmips0__DOT__mem_wdata_o
                                                  : 
                                                 ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read)
                                                   ? 
@@ -143,17 +146,17 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  ((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_read)
                                                    ? 0U
                                                    : vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm)))))),32);
-        tracep->chgIData(oldp+69,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+72,(((IData)(vlSelf->rst)
                                     ? 0U : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read) 
-                                              & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wreg_i)) 
+                                              & (IData)(vlSelf->top__DOT__openmips0__DOT__ex_wreg_i)) 
                                              & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 
-                                                == (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wd_i)))
-                                             ? vlSelf->top__DOT__openmips0__DOT__id0__DOT__ex_wdata_i
+                                                == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_wd_i)))
+                                             ? vlSelf->top__DOT__openmips0__DOT__ex_wdata_o
                                              : ((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read) 
-                                                  & (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wreg_i)) 
+                                                  & (IData)(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o)) 
                                                  & ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 
-                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wd_i)))
-                                                 ? vlSelf->top__DOT__openmips0__DOT__id0__DOT__mem_wdata_i
+                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__mem_wd_o)))
+                                                 ? vlSelf->top__DOT__openmips0__DOT__mem_wdata_o
                                                  : 
                                                 ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read)
                                                   ? 
@@ -179,78 +182,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  ((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_read)
                                                    ? 0U
                                                    : vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm)))))),32);
-        tracep->chgIData(oldp+70,(((1U == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_alusel_i))
-                                    ? ((IData)(vlSelf->rst)
-                                        ? 0U : ((0x25U 
-                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                 ? 
-                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                 | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                                 : 
-                                                ((0x24U 
-                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                  ? 
-                                                 (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                                  : 
-                                                 ((0x27U 
-                                                   == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                   ? 
-                                                  (~ 
-                                                   (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                    | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i))
-                                                   : 
-                                                  ((0x26U 
-                                                    == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                    ? 
-                                                   (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                    ^ vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                                    : 0U)))))
-                                    : ((2U == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_alusel_i))
-                                        ? ((IData)(vlSelf->rst)
-                                            ? 0U : 
-                                           ((0x7cU 
-                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                << 
-                                                (0x1fU 
-                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
-                                             : ((2U 
-                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                 ? 
-                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                 >> 
-                                                 (0x1fU 
-                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
-                                                 : 
-                                                ((3U 
-                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                  ? 
-                                                 (((0x1fU 
-                                                    >= 
-                                                    (0x3fU 
-                                                     & ((IData)(0x20U) 
-                                                        - 
-                                                        (0x1fU 
-                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
-                                                    ? 
-                                                   ((- (IData)(
-                                                               (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                                >> 0x1fU))) 
-                                                    << 
-                                                    (0x3fU 
-                                                     & ((IData)(0x20U) 
-                                                        - 
-                                                        (0x1fU 
-                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
-                                                    : 0U) 
-                                                  | (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                     >> 
-                                                     (0x1fU 
-                                                      & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i)))
-                                                  : 0U))))
-                                        : 0U))),32);
-        tracep->chgIData(oldp+71,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+73,(((IData)(vlSelf->rst)
                                     ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr))
                                              ? 0U : 
                                             (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
@@ -263,7 +195,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                  vlSelf->top__DOT__openmips0__DOT__regfile1__DOT__regs
                                                  [vlSelf->top__DOT__openmips0__DOT__reg1_addr]
                                                   : 0U))))),32);
-        tracep->chgIData(oldp+72,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+74,(((IData)(vlSelf->rst)
                                     ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr))
                                              ? 0U : 
                                             (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 
@@ -275,71 +207,6 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                   ? 
                                                  vlSelf->top__DOT__openmips0__DOT__regfile1__DOT__regs
                                                  [vlSelf->top__DOT__openmips0__DOT__reg2_addr]
-                                                  : 0U))))),32);
-        tracep->chgIData(oldp+73,(((IData)(vlSelf->rst)
-                                    ? 0U : ((0x25U 
-                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                             : ((0x24U 
-                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                 ? 
-                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                                 : 
-                                                ((0x27U 
-                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                  ? 
-                                                 (~ 
-                                                  (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                   | vlSelf->top__DOT__openmips0__DOT__ex_reg2_i))
-                                                  : 
-                                                 ((0x26U 
-                                                   == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                   ? 
-                                                  (vlSelf->top__DOT__openmips0__DOT__ex_reg1_i 
-                                                   ^ vlSelf->top__DOT__openmips0__DOT__ex_reg2_i)
-                                                   : 0U)))))),32);
-        tracep->chgIData(oldp+74,(((IData)(vlSelf->rst)
-                                    ? 0U : ((0x7cU 
-                                             == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                             ? (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                << 
-                                                (0x1fU 
-                                                 & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
-                                             : ((2U 
-                                                 == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                 ? 
-                                                (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                 >> 
-                                                 (0x1fU 
-                                                  & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))
-                                                 : 
-                                                ((3U 
-                                                  == (IData)(vlSelf->top__DOT__openmips0__DOT__ex_aluop_i))
-                                                  ? 
-                                                 (((0x1fU 
-                                                    >= 
-                                                    (0x3fU 
-                                                     & ((IData)(0x20U) 
-                                                        - 
-                                                        (0x1fU 
-                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
-                                                    ? 
-                                                   ((- (IData)(
-                                                               (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                                >> 0x1fU))) 
-                                                    << 
-                                                    (0x3fU 
-                                                     & ((IData)(0x20U) 
-                                                        - 
-                                                        (0x1fU 
-                                                         & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i))))
-                                                    : 0U) 
-                                                  | (vlSelf->top__DOT__openmips0__DOT__ex_reg2_i 
-                                                     >> 
-                                                     (0x1fU 
-                                                      & vlSelf->top__DOT__openmips0__DOT__ex_reg1_i)))
                                                   : 0U))))),32);
     }
 }
