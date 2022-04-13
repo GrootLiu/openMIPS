@@ -16,13 +16,15 @@
  * 
  * @Author: Groot
  * @Date: 2022-02-16 12:35:40
- * @LastEditTime: 2022-02-16 14:20:21
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:17:31
+ * @LastEditors: YourName
  * @Description: 
- * @FilePath: /groot/openMIPS/inst_rom.v
+ * @FilePath: /openMIPS/vsrc/inst_rom.v
  * 版权声明
  */
 //ROM的大小为128KB，按字节寻址，用17根地址线就可以访问到全部的存储单元
+`include "./include/define.v"
+
 module inst_rom (input wire ce,
                  input wire[`InstAddrBus] addr,
                  output reg[`InstBus] inst);

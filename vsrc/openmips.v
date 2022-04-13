@@ -16,14 +16,24 @@
  *
  * @Author: Groot
  * @Date: 2022-02-15 09:21:00
- * @LastEditTime: 2022-03-15 00:40:22
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:18:07
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /openMIPS/openmips.v
+ * @FilePath: /openMIPS/vsrc/openmips.v
  * 版权声明
  */
-`include "define.v"
-
+`include "./include/define.v"
+`include "./vsrc/ex_mem.v"
+`include "./vsrc/ex.v"
+`include "./vsrc/hilo_reg.v"
+`include "./vsrc/id_ex.v"
+`include "./vsrc/id.v"
+`include "./vsrc/if_id.v"
+`include "./vsrc/inst_rom.v"
+`include "./vsrc/mem_wb.v"
+`include "./vsrc/mem.v"
+`include "./vsrc/pc_reg.v"
+`include "./vsrc/regfile.v"
 module openmips (input wire clk,
                  input wire rst,
                  input wire[`RegBus] rom_data_i,  //存疑

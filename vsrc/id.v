@@ -16,13 +16,13 @@
  *
  * @Author: Groot
  * @Date: 2022-02-11 10:28:52
- * @LastEditTime: 2022-03-17 15:58:04
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:16:12
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /openMIPS/id.v
+ * @FilePath: /openMIPS/vsrc/id.v
  * 版权声明
  */
-`include "define.v"
+`include "./include/define.v"
 
 module id (input wire rst,
            input wire[`InstAddrBus] pc_i,

@@ -16,12 +16,13 @@
  *
  * @Author: Groot
  * @Date: 2022-02-14 14:24:38
- * @LastEditTime: 2022-03-17 16:00:17
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:15:07
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /openMIPS/ex_mem.v
+ * @FilePath: /openMIPS/vsrc/ex_mem.v
  * 版权声明
  */
+`include "./include/define.v"
 
 module ex_mem (input wire clk,
                input wire rst,

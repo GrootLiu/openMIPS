@@ -16,12 +16,13 @@
  *
  * @Author: Groot
  * @Date: 2022-02-10 06:12:30
- * @LastEditTime: 2022-03-17 16:00:03
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:17:26
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /openMIPS/if_id.v
+ * @FilePath: /openMIPS/vsrc/if_id.v
  * 版权声明
  */
+`include "./include/define.v"
 
 module if_id (input wire clk,
               input wire rst,

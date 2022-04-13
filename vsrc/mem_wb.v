@@ -16,12 +16,14 @@
  *
  * @Author: Groot
  * @Date: 2022-02-15 09:04:22
- * @LastEditTime: 2022-02-15 09:12:08
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:17:54
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /groot/openMIPS/mem_wb.v
+ * @FilePath: /openMIPS/vsrc/mem_wb.v
  * 版权声明
  */
+ `include "./include/define.v"
+ 
 module mem_wb (input wire clk,
                input wire rst,
                input wire[`RegAddBus] mem_wd,

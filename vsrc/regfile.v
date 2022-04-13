@@ -16,12 +16,14 @@
  *
  * @Author: Groot
  * @Date: 2022-02-10 07:09:12
- * @LastEditTime: 2022-02-12 09:57:01
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:18:25
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /groot/openMIPS/regfile.v
+ * @FilePath: /openMIPS/vsrc/regfile.v
  * 版权声明
  */
+`include "./include/define.v"
+
 module regfile (input wire clk,
                 input wire rst,
                 

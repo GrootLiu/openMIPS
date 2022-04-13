@@ -16,12 +16,14 @@
  * 
  * @Author: Groot
  * @Date: 2022-02-15 08:55:18
- * @LastEditTime: 2022-02-15 09:04:27
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:18:00
+ * @LastEditors: YourName
  * @Description: 
- * @FilePath: /groot/openMIPS/mem.v
+ * @FilePath: /openMIPS/vsrc/mem.v
  * 版权声明
  */
+ `include "./include/define.v"
+ 
 module mem (input wire rst,
             input wire[`RegAddBus] wd_i,
             input wire wreg_i,

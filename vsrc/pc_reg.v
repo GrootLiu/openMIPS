@@ -16,12 +16,14 @@
  * 
  * @Author: Groot
  * @Date: 2022-02-10 06:12:30
- * @LastEditTime: 2022-02-12 09:53:07
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:18:12
+ * @LastEditors: YourName
  * @Description: 
- * @FilePath: /groot/openMIPS/pc_reg.v
+ * @FilePath: /openMIPS/vsrc/pc_reg.v
  * 版权声明
  */
+`include "./include/define.v"
+ 
 module pc_reg (input wire clk,
                    input wire rst,
                    output reg ce,

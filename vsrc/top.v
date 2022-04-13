@@ -16,15 +16,15 @@
  *
  * @Author: Groot
  * @Date: 2022-02-16 14:19:09
- * @LastEditTime: 2022-02-17 07:21:35
- * @LastEditors: Groot
+ * @LastEditTime: 2022-04-13 19:18:32
+ * @LastEditors: YourName
  * @Description:
- * @FilePath: /groot/openMIPS/openmips_min_sopc.v
+ * @FilePath: /openMIPS/vsrc/top.v
  * 版权声明
  */
 
-`include "define.v"
-
+`include "./include/define.v"
+`include "./vsrc/openmips.v"
 module top (input wire clk,
                               input wire rst);
     //连接指令存储器
