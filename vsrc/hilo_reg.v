@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-13 16:14:33
- * @LastEditTime: 2022-04-14 15:40:01
+ * @LastEditTime: 2022-04-14 15:48:57
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/hilo_reg.v
@@ -32,8 +32,6 @@ module hilo_reg
         else if(we == `WriteEnable) begin
             hi_o <= hi_i;
             lo_o <= lo_i;
-            
         end
-    end
-
+    end //end always
 endmodule

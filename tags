@@ -1,0 +1,329 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AluOpBus	include/define.v	/^`define AluOpBus        7:0             \/\/译码阶段的输出aluop_o的宽度$/;"	c
+AluSelBus	include/define.v	/^`define AluSelBus       2:0             \/\/译码阶段的输出alusel_o的宽度$/;"	c
+CC	inst_rom/Makefile	/^CC = $(CROSS_COMPILE)as$/;"	m
+CROSS_COMPILE	inst_rom/Makefile	/^CROSS_COMPILE = mips-linux-gnu-$/;"	m
+ChipDisable	include/define.v	/^`define ChipDisable     1'b0            \/\/芯片禁止$/;"	c
+ChipEnable	include/define.v	/^`define ChipEnable      1'b1            \/\/芯片使能$/;"	c
+DoubleRegBus	include/define.v	/^`define DoubleRegBus    63:0            \/\/两倍的通用寄存器的数据线宽度$/;"	c
+DoubleRegWidth	include/define.v	/^`define DoubleRegWidth  64              \/\/两倍的通用寄存器的数据线宽度$/;"	c
+EXE_AND	include/define.v	/^`define EXE_AND         6'b100100$/;"	c
+EXE_ANDI	include/define.v	/^`define EXE_ANDI        6'b001100$/;"	c
+EXE_AND_OP	include/define.v	/^`define EXE_AND_OP      8'b00100100$/;"	c
+EXE_LUI	include/define.v	/^`define EXE_LUI         6'b001111$/;"	c
+EXE_MFHI	include/define.v	/^`define EXE_MFHI        6'b010000$/;"	c
+EXE_MFHI_OP	include/define.v	/^`define EXE_MFHI_OP  8'b00010000$/;"	c
+EXE_MFLO	include/define.v	/^`define EXE_MFLO        6'b010010$/;"	c
+EXE_MFLO_OP	include/define.v	/^`define EXE_MFLO_OP  8'b00010010$/;"	c
+EXE_MOVN	include/define.v	/^`define EXE_MOVN        6'b001011$/;"	c
+EXE_MOVN_OP	include/define.v	/^`define EXE_MOVN_OP  8'b00001011$/;"	c
+EXE_MOVZ	include/define.v	/^`define EXE_MOVZ        6'b001010$/;"	c
+EXE_MOVZ_OP	include/define.v	/^`define EXE_MOVZ_OP  8'b00001010$/;"	c
+EXE_MTHI	include/define.v	/^`define EXE_MTHI        6'b010001$/;"	c
+EXE_MTHI_OP	include/define.v	/^`define EXE_MTHI_OP  8'b00010001$/;"	c
+EXE_MTLO	include/define.v	/^`define EXE_MTLO        6'b010011$/;"	c
+EXE_MTLO_OP	include/define.v	/^`define EXE_MTLO_OP  8'b00010011$/;"	c
+EXE_NOP	include/define.v	/^`define EXE_NOP         6'b000000$/;"	c
+EXE_NOP_OP	include/define.v	/^`define EXE_NOP_OP      8'b00000000$/;"	c
+EXE_NOR	include/define.v	/^`define EXE_NOR         6'b100111$/;"	c
+EXE_NOR_OP	include/define.v	/^`define EXE_NOR_OP      8'b00100111$/;"	c
+EXE_OR	include/define.v	/^`define EXE_OR          6'b100101$/;"	c
+EXE_ORI	include/define.v	/^`define EXE_ORI         6'b001101$/;"	c
+EXE_OR_OP	include/define.v	/^`define EXE_OR_OP       8'b00100101$/;"	c
+EXE_PREF	include/define.v	/^`define EXE_PREF        6'b110011$/;"	c
+EXE_RES_LOGIC	include/define.v	/^`define EXE_RES_LOGIC   3'b001$/;"	c
+EXE_RES_MOVE	include/define.v	/^`define EXE_RES_MOVE    3'b011	$/;"	c
+EXE_RES_NOP	include/define.v	/^`define EXE_RES_NOP     3'b000$/;"	c
+EXE_RES_SHIFT	include/define.v	/^`define EXE_RES_SHIFT   3'b010$/;"	c
+EXE_SLL	include/define.v	/^`define EXE_SLL         6'b000000$/;"	c
+EXE_SLLV	include/define.v	/^`define EXE_SLLV        6'b000100$/;"	c
+EXE_SLLV_OP	include/define.v	/^`define EXE_SLLV_OP     8'b00000100$/;"	c
+EXE_SLL_OP	include/define.v	/^`define EXE_SLL_OP      8'b01111100$/;"	c
+EXE_SPECIAL_INST	include/define.v	/^`define EXE_SPECIAL_INST 6'b000000$/;"	c
+EXE_SRA	include/define.v	/^`define EXE_SRA         6'b000011$/;"	c
+EXE_SRAV	include/define.v	/^`define EXE_SRAV        6'b000111$/;"	c
+EXE_SRAV_OP	include/define.v	/^`define EXE_SRAV_OP     8'b00000111$/;"	c
+EXE_SRA_OP	include/define.v	/^`define EXE_SRA_OP      8'b00000011$/;"	c
+EXE_SRL	include/define.v	/^`define EXE_SRL         6'b000010$/;"	c
+EXE_SRLV	include/define.v	/^`define EXE_SRLV        6'b000110$/;"	c
+EXE_SRLV_OP	include/define.v	/^`define EXE_SRLV_OP     8'b00000110$/;"	c
+EXE_SRL_OP	include/define.v	/^`define EXE_SRL_OP      8'b00000010$/;"	c
+EXE_SYNC	include/define.v	/^`define EXE_SYNC        6'b001111$/;"	c
+EXE_XOR	include/define.v	/^`define EXE_XOR         6'b100110$/;"	c
+EXE_XORI	include/define.v	/^`define EXE_XORI        6'b001110$/;"	c
+EXE_XOR_OP	include/define.v	/^`define EXE_XOR_OP      8'b00100110$/;"	c
+False_v	include/define.v	/^`define False_v         1'b0            \/\/逻辑假$/;"	c
+InstAddrBus	include/define.v	/^`define InstAddrBus     31:0            \/\/ROM的地址总线宽度$/;"	c
+InstBus	include/define.v	/^`define InstBus         31:0            \/\/ROM的数据总线宽度$/;"	c
+InstInvalid	include/define.v	/^`define InstInvalid     1'b1            \/\/指令无效$/;"	c
+InstMemNum	include/define.v	/^`define InstMemNum      131071          \/\/ROM的实际大小为128KB$/;"	c
+InstMemNumLog2	include/define.v	/^`define InstMemNumLog2  17              \/\/ROM实际使用的地址线宽度$/;"	c
+InstValid	include/define.v	/^`define InstValid       1'b0            \/\/指令有效$/;"	c
+LD	inst_rom/Makefile	/^LD = $(CROSS_COMPILE)ld$/;"	m
+NOPRegAddr	include/define.v	/^`define NOPRegAddr      5'b00000$/;"	c
+OBJCOPY	inst_rom/Makefile	/^OBJCOPY = $(CROSS_COMPILE)objcopy$/;"	m
+OBJDUMP	inst_rom/Makefile	/^OBJDUMP = $(CROSS_COMPILE)objdump$/;"	m
+OBJECTS	inst_rom/Makefile	/^OBJECTS = inst_rom.o$/;"	m
+PERL	sim/Vtop.mk	/^PERL = perl$/;"	m
+ReadDisable	include/define.v	/^`define ReadDisable     1'b0            \/\/禁止读$/;"	c
+ReadEnable	include/define.v	/^`define ReadEnable      1'b1            \/\/使能读$/;"	c
+RegAddBus	include/define.v	/^`define RegAddBus       4:0             \/\/Regfile模块的地址线宽度$/;"	c
+RegBus	include/define.v	/^`define RegBus          31:0            \/\/Regfile模块的数据线宽度$/;"	c
+RegNum	include/define.v	/^`define RegNum          32              \/\/通用寄存器的数量$/;"	c
+RegNumLog2	include/define.v	/^`define RegNumLog2      5               \/\/寻址通用寄存器使用的地址位数$/;"	c
+RegWidth	include/define.v	/^`define RegWidth        32              \/\/通用寄存器的额宽度$/;"	c
+RstDisable	csrc/main.cpp	8;"	d	file:
+RstDisable	include/define.v	/^`define RstDisable      1'b0            \/\/复位信号无效$/;"	c
+RstEnable	csrc/main.cpp	7;"	d	file:
+RstEnable	include/define.v	/^`define RstEnable       1'b1            \/\/复位信号有效$/;"	c
+SYSTEMC_INCLUDE	sim/Vtop.mk	/^SYSTEMC_INCLUDE ?= $/;"	m
+SYSTEMC_LIBDIR	sim/Vtop.mk	/^SYSTEMC_LIBDIR ?= $/;"	m
+TOP	sim/Vtop__Syms.cpp	/^    , TOP(namep)$/;"	f
+TOP	sim/Vtop__Syms.h	/^    Vtop___024root                 TOP;$/;"	m	class:final
+True_v	include/define.v	/^`define True_v          1'b1            \/\/逻辑真$/;"	c
+VERILATED_VTOP_H_	sim/Vtop.h	9;"	d
+VERILATED_VTOP__SYMS_H_	sim/Vtop__Syms.h	8;"	d
+VERILATED_VTOP___024ROOT_H_	sim/Vtop___024root.h	6;"	d
+VERILATOR_ROOT	sim/Vtop.mk	/^VERILATOR_ROOT = \/home\/groot\/verilator$/;"	m
+VL_CACHE_LINE_BYTES	sim/Vtop___024root.h	/^} VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);$/;"	v
+VL_IN8	sim/Vtop.h	/^    VL_IN8(&clk,0,0);$/;"	m	class:VL_NOT_FINAL
+VL_IN8	sim/Vtop.h	/^    VL_IN8(&rst,0,0);$/;"	m	class:VL_NOT_FINAL
+VL_INCLUDE_OPT	sim/Vtop__ALL.cpp	2;"	d	file:
+VL_MODULE	sim/Vtop___024root.h	/^VL_MODULE(Vtop___024root) {$/;"	f
+VL_NOT_FINAL	sim/Vtop.h	/^class Vtop VL_NOT_FINAL {$/;"	c
+VM_C11	sim/Vtop_classes.mk	/^VM_C11 = 1$/;"	m
+VM_COVERAGE	sim/Vtop_classes.mk	/^VM_COVERAGE = 0$/;"	m
+VM_MODPREFIX	sim/Vtop.mk	/^VM_MODPREFIX = Vtop$/;"	m
+VM_PARALLEL_BUILDS	sim/Vtop_classes.mk	/^VM_PARALLEL_BUILDS = 0$/;"	m
+VM_PCLI	sim/Vtop.mk	/^VM_PCLI = 1$/;"	m
+VM_PREFIX	sim/Vtop.mk	/^VM_PREFIX = Vtop$/;"	m
+VM_PROFC	sim/Vtop.mk	/^VM_PROFC = 0$/;"	m
+VM_SC	sim/Vtop.mk	/^VM_SC = 0$/;"	m
+VM_SC_TARGET_ARCH	sim/Vtop.mk	/^VM_SC_TARGET_ARCH = linux$/;"	m
+VM_SP_OR_SC	sim/Vtop.mk	/^VM_SP_OR_SC = $(VM_SC)$/;"	m
+VM_THREADS	sim/Vtop_classes.mk	/^VM_THREADS = 0$/;"	m
+VM_TRACE	sim/Vtop_classes.mk	/^VM_TRACE = 1$/;"	m
+VM_TRACE_FST	sim/Vtop_classes.mk	/^VM_TRACE_FST = 0$/;"	m
+VM_TRACE_FST_WRITER_THREAD	sim/Vtop_classes.mk	/^VM_TRACE_FST_WRITER_THREAD = 0$/;"	m
+VM_TRACE_THREADS	sim/Vtop_classes.mk	/^VM_TRACE_THREADS = 0$/;"	m
+VM_USER_CFLAGS	sim/Vtop.mk	/^VM_USER_CFLAGS = \\$/;"	m
+VM_USER_CLASSES	sim/Vtop.mk	/^VM_USER_CLASSES = \\$/;"	m
+VM_USER_DIR	sim/Vtop.mk	/^VM_USER_DIR = \\$/;"	m
+VM_USER_LDLIBS	sim/Vtop.mk	/^VM_USER_LDLIBS = \\$/;"	m
+Vtop	sim/Vtop.cpp	/^Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)$/;"	f	class:Vtop
+Vtop	sim/Vtop.cpp	/^Vtop::Vtop(const char* _vcname__)$/;"	f	class:Vtop
+Vtop__ConstPool__CONST_d96d630f_0	sim/Vtop__ConstPool_0.cpp	/^extern const VlWide<11>\/*351:0*\/ Vtop__ConstPool__CONST_d96d630f_0 = {{$/;"	v
+Vtop__Syms	sim/Vtop__Syms.cpp	/^Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* modelp)$/;"	f	class:Vtop__Syms
+Vtop___024root	sim/Vtop___024root__Slow.cpp	/^Vtop___024root::Vtop___024root(const char* _vcname__)$/;"	f	class:Vtop___024root
+Vtop___024root___change_request	sim/Vtop___024root.cpp	/^VL_INLINE_OPT QData Vtop___024root___change_request(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___change_request_1	sim/Vtop___024root.cpp	/^VL_INLINE_OPT QData Vtop___024root___change_request_1(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___ctor_var_reset	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___eval	sim/Vtop___024root.cpp	/^void Vtop___024root___eval(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___eval_debug_assertions	sim/Vtop___024root.cpp	/^void Vtop___024root___eval_debug_assertions(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___eval_initial	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___eval_settle	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root___eval_settle(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___final	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root___final(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___initial__TOP__2	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root___initial__TOP__2(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___sequent__TOP__1	sim/Vtop___024root.cpp	/^VL_INLINE_OPT void Vtop___024root___sequent__TOP__1(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root___settle__TOP__3	sim/Vtop___024root.cpp	/^VL_INLINE_OPT void Vtop___024root___settle__TOP__3(Vtop___024root* vlSelf) {$/;"	f
+Vtop___024root__traceChgSub0	sim/Vtop__Trace.cpp	/^void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceChgTop0	sim/Vtop__Trace.cpp	/^void Vtop___024root__traceChgTop0(void* voidSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceCleanup	sim/Vtop__Trace.cpp	/^void Vtop___024root__traceCleanup(void* voidSelf, VerilatedVcd* \/*unused*\/) {$/;"	f
+Vtop___024root__traceFullSub0	sim/Vtop__Trace__Slow.cpp	/^void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceFullTop0	sim/Vtop__Trace__Slow.cpp	/^void Vtop___024root__traceFullTop0(void* voidSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceInitSub0	sim/Vtop__Trace__Slow.cpp	/^void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceInitTop	sim/Vtop__Trace__Slow.cpp	/^void Vtop___024root__traceInitTop(Vtop___024root* vlSelf, VerilatedVcd* tracep) {$/;"	f
+Vtop___024root__traceRegister	sim/Vtop__Trace__Slow.cpp	/^void Vtop___024root__traceRegister(Vtop___024root* vlSelf, VerilatedVcd* tracep) {$/;"	f
+WriteDisable	include/define.v	/^`define WriteDisable    1'b0            \/\/禁止写$/;"	c
+WriteEnable	include/define.v	/^`define WriteEnable     1'b1            \/\/使能写$/;"	c
+ZeroWord	include/define.v	/^`define ZeroWord        32'h00000000    \/\/32位数值0$/;"	c
+__Vconfigure	sim/Vtop___024root__Slow.cpp	/^void Vtop___024root::__Vconfigure(Vtop__Syms* _vlSymsp, bool first) {$/;"	f	class:Vtop___024root
+__Vm_activity	sim/Vtop__Syms.h	/^    bool __Vm_activity = false;  \/\/\/< Used by trace routines to determine change occurred$/;"	m	class:final
+__Vm_baseCode	sim/Vtop__Syms.h	/^    uint32_t __Vm_baseCode = 0;  \/\/\/< Used by trace routines when tracing multiple models$/;"	m	class:final
+__Vm_didInit	sim/Vtop__Syms.h	/^    bool __Vm_didInit = false;$/;"	m	class:final
+__Vm_modelp	sim/Vtop__Syms.h	/^    Vtop* const __Vm_modelp;$/;"	m	class:final
+_eval_initial_loop	sim/Vtop.cpp	/^static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {$/;"	f	file:
+_start	inst_rom/inst_rom.S	/^_start:$/;"	l
+contextp	sim/Vtop.cpp	/^VerilatedContext* Vtop::contextp() const {$/;"	f	class:Vtop
+eval	sim/Vtop.h	/^    void eval() { eval_step(); }$/;"	f	class:VL_NOT_FINAL
+eval_end_step	sim/Vtop.h	/^    void eval_end_step() {}$/;"	f	class:VL_NOT_FINAL
+eval_step	sim/Vtop.cpp	/^void Vtop::eval_step() {$/;"	f	class:Vtop
+ex	vsrc/ex.v	/^module ex (input wire rst,                  \/\/译码阶段送到执行阶段的信息$/;"	m
+ex_aluop_i	vsrc/openmips.v	/^    wire[`AluOpBus] ex_aluop_i;$/;"	n
+ex_alusel_i	vsrc/openmips.v	/^    wire[`AluSelBus] ex_alusel_i;$/;"	n
+ex_mem	vsrc/ex_mem.v	/^module ex_mem (input wire clk,$/;"	m
+ex_reg1_i	vsrc/openmips.v	/^    wire[`RegBus] ex_reg1_i;$/;"	n
+ex_reg2_i	vsrc/openmips.v	/^    wire[`RegBus] ex_reg2_i;$/;"	n
+ex_wd_i	vsrc/openmips.v	/^    wire[`RegAddBus] ex_wd_i;$/;"	n
+ex_wd_o	vsrc/openmips.v	/^    wire[`RegAddBus] ex_wd_o;$/;"	n
+ex_wdata_o	vsrc/openmips.v	/^    wire[`RegBus] ex_wdata_o;$/;"	n
+ex_wreg_i	vsrc/openmips.v	/^    wire ex_wreg_i;$/;"	n
+ex_wreg_o	vsrc/openmips.v	/^    wire ex_wreg_o;$/;"	n
+exception_handler	inst_rom/Bin2Mem.c	/^void exception_handler(int code) {$/;"	f
+file_in_descriptor	inst_rom/Bin2Mem.c	/^FILE *file_in_descriptor  = NULL;$/;"	v
+file_out_descriptor	inst_rom/Bin2Mem.c	/^FILE *file_out_descriptor = NULL;$/;"	v
+final	sim/Vtop.cpp	/^void Vtop::final() {$/;"	f	class:Vtop
+final	sim/Vtop__Syms.h	/^class Vtop__Syms final : public VerilatedSyms {$/;"	c
+hilo_reg	vsrc/hilo_reg.v	/^module hilo_reg$/;"	m
+id	vsrc/id.v	/^module id (input wire rst,$/;"	m
+id_aluop_o	vsrc/openmips.v	/^    wire[`AluOpBus] id_aluop_o;$/;"	n
+id_alusel_o	vsrc/openmips.v	/^    wire[`AluSelBus] id_alusel_o;$/;"	n
+id_ex	vsrc/id_ex.v	/^module id_ex (input wire clk,$/;"	m
+id_inst_i	vsrc/openmips.v	/^    wire[`InstBus] id_inst_i;$/;"	n
+id_pc_i	vsrc/openmips.v	/^    wire[`InstAddrBus] id_pc_i;$/;"	n
+id_reg1_o	vsrc/openmips.v	/^    wire[`RegBus] id_reg1_o;$/;"	n
+id_reg2_o	vsrc/openmips.v	/^    wire[`RegBus] id_reg2_o;$/;"	n
+id_wd_o	vsrc/openmips.v	/^    wire[`RegAddBus] id_wd_o;$/;"	n
+id_wreg_o	vsrc/openmips.v	/^    wire id_wreg_o;$/;"	n
+if_id	vsrc/if_id.v	/^module if_id (input wire clk,$/;"	m
+imm	vsrc/id.v	/^    reg[`RegBus] imm;$/;"	r
+inst	vsrc/top.v	/^    wire[`InstBus] inst;$/;"	n
+inst_addr	vsrc/top.v	/^    wire[`InstAddrBus] inst_addr;$/;"	n
+inst_mem	vsrc/inst_rom.v	/^    reg[`InstBus] inst_mem[0:`InstMemNum-1];$/;"	r
+inst_rom	vsrc/inst_rom.v	/^module inst_rom (input wire ce,$/;"	m
+instvalid	vsrc/id.v	/^    reg instvalid;$/;"	r
+logicout	vsrc/ex.v	/^    reg[`RegBus] logicout;$/;"	r
+main	csrc/main.cpp	/^int main(int argc, char** argv, char** env)$/;"	f
+main	inst_rom/Bin2Mem.c	/^int main(int argc, char **argv) {$/;"	f
+main_time	csrc/main.cpp	/^vluint64_t main_time = 1000;$/;"	v
+mem	vsrc/mem.v	/^module mem (input wire rst,$/;"	m
+mem_wb	vsrc/mem_wb.v	/^module mem_wb (input wire clk,$/;"	m
+mem_wd_i	vsrc/openmips.v	/^    wire[`RegAddBus] mem_wd_i;$/;"	n
+mem_wd_o	vsrc/openmips.v	/^    wire[`RegAddBus] mem_wd_o;$/;"	n
+mem_wdata_i	vsrc/openmips.v	/^    wire[`RegBus] mem_wdata_i;$/;"	n
+mem_wdata_o	vsrc/openmips.v	/^    wire[`RegBus] mem_wdata_o;$/;"	n
+mem_wreg_i	vsrc/openmips.v	/^    wire mem_wreg_i;$/;"	n
+mem_wreg_o	vsrc/openmips.v	/^    wire mem_wreg_o;$/;"	n
+modelp	sim/Vtop__Syms.cpp	/^    , __Vm_modelp(modelp)$/;"	v
+name	sim/Vtop.cpp	/^const char* Vtop::name() const {$/;"	f	class:Vtop
+name	sim/Vtop__Syms.h	/^    const char* name() { return TOP.name(); }$/;"	f	class:final
+op	vsrc/id.v	/^    wire[5:0] op  = inst_i[31:26];$/;"	n
+op2	vsrc/id.v	/^    wire[4:0] op2 = inst_i[10:6];$/;"	n
+op3	vsrc/id.v	/^    wire[5:0] op3 = inst_i[5:0];$/;"	n
+op4	vsrc/id.v	/^    wire[4:0] op4 = inst_i[20:16];$/;"	n
+openmips	vsrc/openmips.v	/^module openmips (input wire clk,$/;"	m
+option_file_in	inst_rom/Bin2Mem.c	/^char *option_file_in  = NULL;$/;"	v
+option_file_out	inst_rom/Bin2Mem.c	/^char *option_file_out = NULL;$/;"	v
+option_invalid	inst_rom/Bin2Mem.c	/^char *option_invalid  = NULL;$/;"	v
+pc	vsrc/openmips.v	/^    wire[`InstAddrBus] pc;$/;"	n
+pc_reg	vsrc/pc_reg.v	/^module pc_reg (input wire clk,$/;"	m
+reg	vsrc/ex.v	/^           output reg wreg_o,$/;"	p
+reg	vsrc/ex.v	/^           output reg[`RegAddBus] wd_o,     \/\/执行的结果$/;"	p
+reg	vsrc/ex.v	/^           output reg[`RegBus] wdata_o);$/;"	p
+reg	vsrc/ex_mem.v	/^               output reg mem_wreg,$/;"	p
+reg	vsrc/ex_mem.v	/^               output reg[`RegAddBus] mem_wd,  \/\/送到访存阶段的信息$/;"	p
+reg	vsrc/ex_mem.v	/^               output reg[`RegBus] mem_wdata);$/;"	p
+reg	vsrc/hilo_reg.v	/^    output reg[`RegBus] hi_o,$/;"	p
+reg	vsrc/hilo_reg.v	/^    output reg[`RegBus] lo_o$/;"	p
+reg	vsrc/id.v	/^           output reg reg1_read_o,$/;"	p
+reg	vsrc/id.v	/^           output reg reg2_read_o,$/;"	p
+reg	vsrc/id.v	/^           output reg wreg_o);$/;"	p
+reg	vsrc/id.v	/^           output reg[`AluOpBus] aluop_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`AluSelBus] alusel_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`RegAddBus] reg1_addr_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`RegAddBus] reg2_addr_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`RegAddBus] wd_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`RegBus] reg1_o,$/;"	p
+reg	vsrc/id.v	/^           output reg[`RegBus] reg2_o,$/;"	p
+reg	vsrc/id_ex.v	/^              output reg ex_wreg);$/;"	p
+reg	vsrc/id_ex.v	/^              output reg[`AluOpBus] ex_aluop,$/;"	p
+reg	vsrc/id_ex.v	/^              output reg[`AluSelBus] ex_alusel,$/;"	p
+reg	vsrc/id_ex.v	/^              output reg[`RegAddBus] ex_wd,$/;"	p
+reg	vsrc/id_ex.v	/^              output reg[`RegBus] ex_reg1,$/;"	p
+reg	vsrc/id_ex.v	/^              output reg[`RegBus] ex_reg2,$/;"	p
+reg	vsrc/if_id.v	/^              output reg[`InstAddrBus] id_pc,$/;"	p
+reg	vsrc/if_id.v	/^              output reg[`InstBus] id_inst);$/;"	p
+reg	vsrc/inst_rom.v	/^                 output reg[`InstBus] inst);$/;"	p
+reg	vsrc/mem.v	/^            output reg wreg_o,$/;"	p
+reg	vsrc/mem.v	/^            output reg[`RegAddBus] wd_o,$/;"	p
+reg	vsrc/mem.v	/^            output reg[`RegBus] wdata_o);$/;"	p
+reg	vsrc/mem_wb.v	/^               output reg wb_wreg,$/;"	p
+reg	vsrc/mem_wb.v	/^               output reg[`RegAddBus] wb_wd,$/;"	p
+reg	vsrc/mem_wb.v	/^               output reg[`RegBus] wb_wdata);$/;"	p
+reg	vsrc/pc_reg.v	/^                   output reg ce,$/;"	p
+reg	vsrc/pc_reg.v	/^                   output reg[`InstAddrBus] pc);$/;"	p
+reg	vsrc/regfile.v	/^                output reg[`RegBus] rdata1,    \/\/第一个读寄存器端口输出的寄存器值$/;"	p
+reg	vsrc/regfile.v	/^                output reg[`RegBus] rdata2    \/\/第二个读寄存器端口输出的寄存器值$/;"	p
+reg1_addr	vsrc/openmips.v	/^    wire[`RegAddBus] reg1_addr;$/;"	n
+reg1_data	vsrc/openmips.v	/^    wire[`RegBus] reg1_data;$/;"	n
+reg1_read	vsrc/openmips.v	/^    wire reg1_read;$/;"	n
+reg2_addr	vsrc/openmips.v	/^    wire[`RegAddBus] reg2_addr;$/;"	n
+reg2_data	vsrc/openmips.v	/^    wire[`RegBus] reg2_data;$/;"	n
+reg2_read	vsrc/openmips.v	/^    wire reg2_read;$/;"	n
+regfile	vsrc/regfile.v	/^module regfile (input wire clk,$/;"	m
+regs	vsrc/regfile.v	/^    reg [`RegBus] regs[0:`RegNum-1];$/;"	r
+rom_ce	vsrc/top.v	/^    wire rom_ce;$/;"	n
+rootp	sim/Vtop.h	/^    Vtop___024root* const rootp;$/;"	m	class:VL_NOT_FINAL
+shiftres	vsrc/ex.v	/^    reg[`RegBus] shiftres;$/;"	r
+top	vsrc/top.v	/^module top (input wire clk,$/;"	m
+trace	sim/Vtop.cpp	/^void Vtop::trace(VerilatedVcdC* tfp, int, int) {$/;"	f	class:Vtop
+traceInit	sim/Vtop.cpp	/^static void traceInit(void* voidSelf, VerilatedVcd* tracep, uint32_t code) {$/;"	f	file:
+vlSymsp	sim/Vtop.h	/^    Vtop__Syms* const vlSymsp;$/;"	m	class:VL_NOT_FINAL
+wb_wd_i	vsrc/openmips.v	/^    wire[`RegAddBus] wb_wd_i;$/;"	n
+wb_wdata_i	vsrc/openmips.v	/^    wire[`RegBus] wb_wdata_i;$/;"	n
+wb_wreg_i	vsrc/openmips.v	/^    wire wb_wreg_i;$/;"	n
+wire	vsrc/ex.v	/^           input wire wreg_i,$/;"	p
+wire	vsrc/ex.v	/^           input wire[`AluOpBus] aluop_i,$/;"	p
+wire	vsrc/ex.v	/^           input wire[`AluSelBus] alusel_i,$/;"	p
+wire	vsrc/ex.v	/^           input wire[`RegAddBus] wd_i,$/;"	p
+wire	vsrc/ex.v	/^           input wire[`RegBus] reg1_i,$/;"	p
+wire	vsrc/ex.v	/^           input wire[`RegBus] reg2_i,$/;"	p
+wire	vsrc/ex_mem.v	/^               input wire ex_wreg,$/;"	p
+wire	vsrc/ex_mem.v	/^               input wire rst,$/;"	p
+wire	vsrc/ex_mem.v	/^               input wire[`RegAddBus] ex_wd,   \/\/来自执行阶段的信息$/;"	p
+wire	vsrc/ex_mem.v	/^               input wire[`RegBus] ex_wdata,$/;"	p
+wire	vsrc/hilo_reg.v	/^    input  wire clk,$/;"	p
+wire	vsrc/hilo_reg.v	/^    input  wire rst,$/;"	p
+wire	vsrc/hilo_reg.v	/^    input  wire we,$/;"	p
+wire	vsrc/hilo_reg.v	/^    input  wire[`RegBus] hi_i,$/;"	p
+wire	vsrc/hilo_reg.v	/^    input  wire[`RegBus] lo_i,$/;"	p
+wire	vsrc/id.v	/^           input wire ex_wreg_i,$/;"	p
+wire	vsrc/id.v	/^           input wire mem_wreg_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`InstAddrBus] pc_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`InstBus] ex_wdata_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`InstBus] inst_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`InstBus] mem_wdata_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`RegAddBus] ex_wd_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`RegAddBus] mem_wd_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`RegBus] reg1_data_i,$/;"	p
+wire	vsrc/id.v	/^           input wire[`RegBus] reg2_data_i,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire [`AluSelBus] id_alusel,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire id_wreg,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire rst,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire[`AluOpBus] id_aluop,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire[`RegAddBus] id_wd,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire[`RegBus] id_reg1,$/;"	p
+wire	vsrc/id_ex.v	/^              input wire[`RegBus] id_reg2,$/;"	p
+wire	vsrc/if_id.v	/^              input wire rst,$/;"	p
+wire	vsrc/if_id.v	/^              input wire[`InstAddrBus] if_pc,$/;"	p
+wire	vsrc/if_id.v	/^              input wire[`InstBus] if_inst,$/;"	p
+wire	vsrc/inst_rom.v	/^                 input wire[`InstAddrBus] addr,$/;"	p
+wire	vsrc/mem.v	/^            input wire wreg_i,$/;"	p
+wire	vsrc/mem.v	/^            input wire[`RegAddBus] wd_i,$/;"	p
+wire	vsrc/mem.v	/^            input wire[`RegBus] wdata_i,$/;"	p
+wire	vsrc/mem_wb.v	/^               input wire mem_wreg,$/;"	p
+wire	vsrc/mem_wb.v	/^               input wire rst,$/;"	p
+wire	vsrc/mem_wb.v	/^               input wire[`RegAddBus] mem_wd,$/;"	p
+wire	vsrc/mem_wb.v	/^               input wire[`RegBus] mem_wdata,$/;"	p
+wire	vsrc/openmips.v	/^                 input wire rst,$/;"	p
+wire	vsrc/openmips.v	/^                 input wire[`RegBus] rom_data_i,  \/\/存疑$/;"	p
+wire	vsrc/openmips.v	/^                 output wire rom_ce_o);$/;"	p
+wire	vsrc/openmips.v	/^                 output wire[`RegBus] rom_addr_o, \/\/存疑$/;"	p
+wire	vsrc/pc_reg.v	/^                   input wire rst,$/;"	p
+wire	vsrc/regfile.v	/^                input wire re1,                \/\/读端口1使能信号$/;"	p
+wire	vsrc/regfile.v	/^                input wire re2,                \/\/读端口2使能信号$/;"	p
+wire	vsrc/regfile.v	/^                input wire rst,$/;"	p
+wire	vsrc/regfile.v	/^                input wire we,$/;"	p
+wire	vsrc/regfile.v	/^                input wire[`RegAddBus] raddr1, \/\/第一个读寄存器端口要读取的寄存器的地址$/;"	p
+wire	vsrc/regfile.v	/^                input wire[`RegAddBus] raddr2, \/\/第二个读寄存器端口要读取的寄存器的地址$/;"	p
+wire	vsrc/regfile.v	/^                input wire[`RegAddBus] waddr,  \/\/要写入的寄存器地址$/;"	p
+wire	vsrc/regfile.v	/^                input wire[`RegBus] wdata,     \/\/要写入的数据$/;"	p
+wire	vsrc/top.v	/^            input wire rst);$/;"	p
+~Vtop	sim/Vtop.cpp	/^Vtop::~Vtop() {$/;"	f	class:Vtop
+~Vtop__Syms	sim/Vtop__Syms.cpp	/^Vtop__Syms::~Vtop__Syms()$/;"	f	class:Vtop__Syms
+~Vtop___024root	sim/Vtop___024root__Slow.cpp	/^Vtop___024root::~Vtop___024root() {$/;"	f	class:Vtop___024root

@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:41:42
+ * @LastEditTime: 2022-04-14 16:31:27
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -137,6 +137,64 @@ module id (input wire rst,
                                     aluop_o     <= `EXE_NOP_OP;
                                     reg1_read_o <= `ReadDisable;
                                     reg2_read_o <= `ReadEnable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_MOVZ : begin
+                                    aluop_o     <= `EXE_MOVZ_OP;
+                                    alusel_o    <= `EXE_RES_MOVE;
+                                    reg1_read_o <= `WriteEnable;
+                                    reg2_read_o <= `WriteEnable;
+                                    instvalid   <= `InstValid;
+                                    //reg2_o的值就是rt寄存器的值
+                                    if(reg2_o == `ZeroWord) begin
+                                        wreg_o	<= `WriteEnable;
+                                    end	
+                                    else begin
+                                        wreg_o	<= `WriteDisable;
+                                    end
+                                end
+                                `EXE_MOVN : begin
+                                    aluop_o     <= `EXE_MOVN_OP;
+                                    alusel_o    <= `EXE_RES_MOVE;
+                                    reg1_read_o <= `WriteEnable;
+                                    reg2_read_o <= `WriteEnable;
+                                    instvalid   <= `InstValid;
+                                    //reg2_o的值就是rt寄存器的值
+                                    if(reg2_o != `ZeroWord) begin
+                                        wreg_o	<= `WriteEnable;
+                                    end	
+                                    else begin
+                                        wreg_o	<= `WriteDisable;
+                                    end
+                                end
+                                `EXE_MFHI : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o	    <= `EXE_MFHI_OP;
+                                    alusel_o    <= `EXE_RES_MOVE;
+                                    reg1_o      <= `WriteDisable;
+                                    reg2_o      <= `WriteEnable;
+                                    instvalid   <=  `InstValid;
+                                end
+                                `EXE_MFLO : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o	    <= `EXE_MFLO_OP;
+                                    alusel_o    <= `EXE_RES_MOVE;
+                                    reg1_o      <= `WriteDisable;
+                                    reg2_o      <= `WriteEnable;
+                                    instvalid   <=  `InstValid;
+                                end
+                                `EXE_MTHI : begin
+                                    wreg_o      <= `WriteDisable;
+                                    aluop_o     <= `EXE_MTHI_OP;
+                                    reg1_read_o <= `WriteEnable;
+                                    reg2_read_o <= `WriteDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_MTLO : begin
+                                    wreg_o      <= `WriteDisable;
+                                    aluop_o     <= `EXE_MTLO_OP;
+                                    reg1_read_o <= `WriteEnable;
+                                    reg2_read_o <= `WriteDisable;
                                     instvalid   <= `InstValid;
                                 end
                                 default : begin

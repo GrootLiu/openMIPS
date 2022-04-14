@@ -1,25 +1,10 @@
 /*
- *  ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
- *  │Esc│   │ F1│ F2│ F3│ F4│ │ F5│ F6│ F7│ F8│ │ F9│F10│F11│F12│ │P/S│S L│P/B│  ┌┐    ┌┐    ┌┐
- *  └───┘   └───┴───┴───┴───┘ └───┴───┴───┴───┘ └───┴───┴───┴───┘ └───┴───┴───┘  └┘    └┘    └┘
- *  ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐ ┌───┬───┬───┐ ┌───┬───┬───┬───┐
- *  │~ `│! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│_ -│+ =│ BacSp │ │Ins│Hom│PUp│ │N L│ / │ * │ - │
- *  ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤ ├───┼───┼───┤ ├───┼───┼───┼───┤
- *  │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │{ [│} ]│ | \ │ │Del│End│PDn│ │ 7 │ 8 │ 9 │   │
- *  ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤ └───┴───┴───┘ ├───┼───┼───┤ + │
- *  │ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │: ;│" '│ Enter  │               │ 4 │ 5 │ 6 │   │
- *  ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤     ┌───┐     ├───┼───┼───┼───┤
- *  │ Shift  │ Z │ X │ C │ V │ B │ N │ M │< ,│> .│? /│  Shift   │     │ ↑ │     │ 1 │ 2 │ 3 │   │
- *  ├─────┬──┴─┬─┴──┬┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐ ├───┴───┼───┤ E││
- *  │ Ctrl│    │Alt │         Space         │ Alt│    │    │Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │←─┘│
- *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
- *
  * @Author: Groot
- * @Date: 2022-02-09 07:50:51
- * @LastEditTime: 2022-02-15 03:49:19
+ * @Date: 2022-04-09 18:01:23
+ * @LastEditTime: 2022-04-14 15:59:22
  * @LastEditors: Groot
- * @Description:
- * @FilePath: /groot/openMIPS/define.v
+ * @Description: 
+ * @FilePath: /openMIPS/include/define.v
  * 版权声明
  */
 
@@ -65,6 +50,14 @@
 `define EXE_PREF        6'b110011
 `define EXE_SPECIAL_INST 6'b000000
 
+//移动指令
+`define EXE_MOVZ        6'b001010
+`define EXE_MOVN        6'b001011
+`define EXE_MFHI        6'b010000
+`define EXE_MTHI        6'b010001
+`define EXE_MFLO        6'b010010
+`define EXE_MTLO        6'b010011
+
 //AluOp
 `define EXE_AND_OP      8'b00100100
 `define EXE_OR_OP       8'b00100101
@@ -76,17 +69,25 @@
 // `define EXE_XORI_OP     8'b01011011
 // `define EXE_LUI_OP      8'b01011100
 
-`define EXE_SLL_OP  8'b01111100
-`define EXE_SLLV_OP  8'b00000100
-`define EXE_SRL_OP  8'b00000010
-`define EXE_SRLV_OP  8'b00000110
-`define EXE_SRA_OP  8'b00000011
-`define EXE_SRAV_OP  8'b00000111
+`define EXE_SLL_OP      8'b01111100
+`define EXE_SLLV_OP     8'b00000100
+`define EXE_SRL_OP      8'b00000010
+`define EXE_SRLV_OP     8'b00000110
+`define EXE_SRA_OP      8'b00000011
+`define EXE_SRAV_OP     8'b00000111
+
+`define EXE_MOVZ_OP  8'b00001010
+`define EXE_MOVN_OP  8'b00001011
+`define EXE_MFHI_OP  8'b00010000
+`define EXE_MTHI_OP  8'b00010001
+`define EXE_MFLO_OP  8'b00010010
+`define EXE_MTLO_OP  8'b00010011
 
 //AluSel
 `define EXE_RES_LOGIC   3'b001
 `define EXE_RES_SHIFT   3'b010
 `define EXE_RES_NOP     3'b000
+`define EXE_RES_MOVE    3'b011	
 
 
 //*************************     与指令存储器ROM有关的宏定义     **************************
