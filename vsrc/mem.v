@@ -1,29 +1,14 @@
 /*
- *  ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
- *  │Esc│   │ F1│ F2│ F3│ F4│ │ F5│ F6│ F7│ F8│ │ F9│F10│F11│F12│ │P/S│S L│P/B│  ┌┐    ┌┐    ┌┐
- *  └───┘   └───┴───┴───┴───┘ └───┴───┴───┴───┘ └───┴───┴───┴───┘ └───┴───┴───┘  └┘    └┘    └┘
- *  ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐ ┌───┬───┬───┐ ┌───┬───┬───┬───┐
- *  │~ `│! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│_ -│+ =│ BacSp │ │Ins│Hom│PUp│ │N L│ / │ * │ - │
- *  ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤ ├───┼───┼───┤ ├───┼───┼───┼───┤
- *  │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │{ [│} ]│ | \ │ │Del│End│PDn│ │ 7 │ 8 │ 9 │   │
- *  ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤ └───┴───┴───┘ ├───┼───┼───┤ + │
- *  │ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │: ;│" '│ Enter  │               │ 4 │ 5 │ 6 │   │
- *  ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤     ┌───┐     ├───┼───┼───┼───┤
- *  │ Shift  │ Z │ X │ C │ V │ B │ N │ M │< ,│> .│? /│  Shift   │     │ ↑ │     │ 1 │ 2 │ 3 │   │
- *  ├─────┬──┴─┬─┴──┬┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤ ┌───┼───┼───┐ ├───┴───┼───┤ E││
- *  │ Ctrl│    │Alt │         Space         │ Alt│    │    │Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │←─┘│
- *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
- * 
  * @Author: Groot
- * @Date: 2022-02-15 08:55:18
- * @LastEditTime: 2022-04-13 19:18:00
- * @LastEditors: YourName
- * @Description: 
+ * @Date: 2022-04-09 18:01:23
+ * @LastEditTime: 2022-04-14 15:13:29
+ * @LastEditors: Groot
+ * @Description:
  * @FilePath: /openMIPS/vsrc/mem.v
  * 版权声明
  */
- `include "./include/define.v"
- 
+`include "./include/define.v"
+
 module mem (input wire rst,
             input wire[`RegAddBus] wd_i,
             input wire wreg_i,
@@ -31,18 +16,18 @@ module mem (input wire rst,
             output reg[`RegAddBus] wd_o,
             output reg wreg_o,
             output reg[`RegBus] wdata_o);
-
-            always @( * ) begin
-                if (rst == `RstEnable) begin
-                    wd_o <= `NOPRegAddr;
-                    wreg_o <= `WriteDisable;
-                    wdata_o <= `ZeroWord;
-                end
-                else begin
-                    wd_o <= wd_i;
-                    wreg_o <= wreg_i;
-                    wdata_o <= wdata_i;
-                end
-            end
+    
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            wd_o    <= `NOPRegAddr;
+            wreg_o  <= `WriteDisable;
+            wdata_o <= `ZeroWord;
+        end
+        else begin
+            wd_o    <= wd_i;
+            wreg_o  <= wreg_i;
+            wdata_o <= wdata_i;
+        end
+    end
     
 endmodule //mem
