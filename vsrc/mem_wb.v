@@ -1,13 +1,13 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:13:34
+ * @LastEditTime: 2022-04-14 15:41:51
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/mem_wb.v
  * 版权声明
  */
-`include "./include/define.v"
+`include "/home/groot/openMIPS/include/define.v"
 
 module mem_wb (input wire clk,
                input wire rst,

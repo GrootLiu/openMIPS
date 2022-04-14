@@ -1,13 +1,13 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:13:59
+ * @LastEditTime: 2022-04-14 15:41:39
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id_ex.v
  * 版权声明
  */
-`include "./include/define.v"
+`include "/home/groot/openMIPS/include/define.v"
 
 module id_ex (input wire clk,
               input wire rst,

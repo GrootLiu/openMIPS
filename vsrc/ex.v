@@ -1,13 +1,13 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:14:27
+ * @LastEditTime: 2022-04-14 15:41:36
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/ex.v
  * 版权声明
  */
-`include "./include/define.v"
+`include "/home/groot/openMIPS/include/define.v"
 
 module ex (input wire rst,                  //译码阶段送到执行阶段的信息
            input wire[`AluOpBus] aluop_i,
