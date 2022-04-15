@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 16:31:27
+ * @LastEditTime: 2022-04-14 17:36:33
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -146,6 +146,7 @@ module id (input wire rst,
                                     reg2_read_o <= `WriteEnable;
                                     instvalid   <= `InstValid;
                                     //reg2_o的值就是rt寄存器的值
+                                    //如果rt为0,则能够将rs中的值移动到rt
                                     if(reg2_o == `ZeroWord) begin
                                         wreg_o	<= `WriteEnable;
                                     end	
@@ -160,6 +161,7 @@ module id (input wire rst,
                                     reg2_read_o <= `WriteEnable;
                                     instvalid   <= `InstValid;
                                     //reg2_o的值就是rt寄存器的值
+                                    //如果rt不为0,则能够将rs中的值移动到rt
                                     if(reg2_o != `ZeroWord) begin
                                         wreg_o	<= `WriteEnable;
                                     end	
