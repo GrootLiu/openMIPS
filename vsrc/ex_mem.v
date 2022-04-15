@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:41:31
+ * @LastEditTime: 2022-04-15 09:55:51
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/ex_mem.v
@@ -16,18 +16,33 @@ module ex_mem (input wire clk,
                input wire[`RegBus] ex_wdata,
                output reg[`RegAddBus] mem_wd,  //送到访存阶段的信息
                output reg mem_wreg,
-               output reg[`RegBus] mem_wdata);
+               output reg[`RegBus] mem_wdata,
+               
+               input wire ex_whilo,
+               input wire[`RegBus] ex_hi,
+               input wire[`RegBus] ex_lo,
+
+               output reg mem_whilo,
+               output reg[`RegBus] mem_hi,
+               output reg[`RegBus] mem_lo
+               );
     
     always @(posedge clk) begin
         if (rst == `RstEnable) begin
             mem_wd    <= `NOPRegAddr;
             mem_wreg  <= `WriteDisable;
             mem_wdata <= `ZeroWord;
+            mem_whilo <= `WriteDisable;
+            mem_hi    <= `ZeroWord;
+            mem_lo    <= `ZeroWord;
         end
         else begin
             mem_wd    <= ex_wd;
             mem_wreg  <= ex_wreg;
             mem_wdata <= ex_wdata;
+            mem_whilo <= ex_whilo;
+            mem_hi    <= ex_hi;
+            mem_lo    <= ex_lo;
         end
     end
     
