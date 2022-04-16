@@ -1,16 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 17:55:48
- * @LastEditors: Groot
- * @Description:
- * @FilePath: /openMIPS/vsrc/ex.v
- * 版权声明
- */
-/*
- * @Author: Groot
- * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 17:13:56
+ * @LastEditTime: 2022-04-15 11:46:04
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -38,7 +29,8 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
            input wire[`RegBus] wb_lo_i,     //处于写回阶段的指令要写入的LO寄存器的值
            output reg whilo_o,              //处于执行阶段的指令是否要写HI、LO寄存器
            output reg[`RegBus] hi_o,        //处于执行阶段的指令要写入的HI寄存器的值
-           output reg[`RegBus] lo_o);       //处于执行阶段的指令要写入的LO寄存器的值
+           output reg[`RegBus] lo_o         //处于执行阶段的指令要写入的LO寄存器的值
+           );       
     
     reg[`RegBus] logicout;      //逻辑操作的结果
     reg[`RegBus] shiftres;      //以为操作的结果
