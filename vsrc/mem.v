@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-15 10:01:34
+ * @LastEditTime: 2022-04-18 19:48:30
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/mem.v
@@ -32,11 +32,14 @@ module mem (input wire rst,
             wreg_o  <= `WriteDisable;
             wdata_o <= `ZeroWord;
             whilo_o <= `WriteDisable;
+						hi_o    <= `ZeroWord;
+						lo_o		<= `ZeroWord;
         end
         else begin
             wd_o    <= wd_i;
             wreg_o  <= wreg_i;
             wdata_o <= wdata_i;
+            whilo_o <= whilo_i;
             hi_o    <= hi_i;
             lo_o    <= lo_i;
         end

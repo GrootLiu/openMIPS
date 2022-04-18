@@ -206,7 +206,7 @@ module openmips (input wire clk,
     .rst(rst),
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
-    .ex_wdata(ex_data_o),
+    .ex_wdata(ex_wdata_o),
     .mem_wd(mem_wd_i),
     .mem_wreg(mem_wreg_i),
     .mem_wdata(mem_wdata_i),
@@ -256,15 +256,15 @@ module openmips (input wire clk,
     );
     
     //hilo_reg模块例化
-    hilo_reg u_hilo_reg(
+    hilo_reg hilo_reg0(
     //ports
     .rst(rst),
     .clk(clk),
     .we (wb_whilo_i),
     .hi_i(wb_hi_i),
     .lo_i(wb_lo_i),
-    .hi_o(hi_o),
-    .lo_o(lo_o)
+    .hi_o(hi),
+    .lo_o(lo)
     );
     
 endmodule ///home/groot/openmips
