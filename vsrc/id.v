@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-19 20:53:07
+ * @LastEditTime: 2022-04-19 21:52:28
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -235,7 +235,7 @@ module id (input wire rst,
                                     reg2_read_o <= `ReadDisable;
                                     instvalid   <= `InstValid;
                                 end
-                                 `EXE_SLT : begin
+                                `EXE_SLT : begin
                                     wreg_o      <= `WriteEnable;
                                     aluop_o     <= `EXE_SLT_OP;
                                     alusel_o    <= `EXE_RES_ARITHMETIC;
@@ -243,12 +243,26 @@ module id (input wire rst,
                                     reg2_read_o <= `ReadDisable;
                                     instvalid   <= `InstValid;
                                 end
-                                 `EXE_SLTU : begin
+                                `EXE_SLTU : begin
                                     wreg_o      <= `WriteEnable;
                                     aluop_o     <= `EXE_SLTU_OP;
                                     alusel_o    <= `EXE_RES_ARITHMETIC;
                                     reg1_read_o <= `ReadDisable;
                                     reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_MULT : begin
+                                    wreg_o      <= `WriteDisable;
+                                    aluop_o     <= `EXE_MUL_OP;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadEnable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_MULTU : begin
+                                    wreg_o      <= `WriteDisable;
+                                    aluop_o     <= `EXE_MULTU_OP;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadEnable;
                                     instvalid   <= `InstValid;
                                 end
                                 default : begin
@@ -276,6 +290,14 @@ module id (input wire rst,
                             aluop_o     <= `EXE_CLO_OP;
                             reg1_read_o <= `ReadEnable;
                             reg2_read_o <= `ReadDisable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_MUL : begin
+                            wreg_o      <= `WriteEnable;
+                            alusel_o    <= `EXE_RES_ARITHMETIC;
+                            aluop_o     <= `EXE_MUL_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
                             instvalid   <= `InstValid;
                         end
                     default : begin 

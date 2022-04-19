@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-19 18:29:53
+ * @LastEditTime: 2022-04-19 21:13:46
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -72,6 +72,9 @@
 `define EXE_SLTIU       6'b001011
 `define EXE_CLZ         6'b100000
 `define EXE_CLO         6'b100001
+`define EXE_MUL         6'b000010
+`define EXE_MULT        6'b011000
+`define EXE_MULTU       6'b011001
 
 //AluOp
 `define EXE_AND_OP      8'b00100100
