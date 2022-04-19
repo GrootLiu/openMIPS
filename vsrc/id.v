@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 17:36:33
+ * @LastEditTime: 2022-04-19 18:10:04
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -33,9 +33,13 @@ module id (input wire rst,
     
     //取得指令的指令码，功能码
     //对于ori指令只需要通过判断第26-31bit的值，即可判断是否是ori指令
+    // op = I-type的指令码
     wire[5:0] op  = inst_i[31:26];
+    // op2 = 移位指令使用
     wire[4:0] op2 = inst_i[10:6];
+    // op3 = R-type指令的指令码
     wire[5:0] op3 = inst_i[5:0];
+    // 
     wire[4:0] op4 = inst_i[20:16];
     
     //保存指令执行需要的立即数
@@ -142,8 +146,8 @@ module id (input wire rst,
                                 `EXE_MOVZ : begin
                                     aluop_o     <= `EXE_MOVZ_OP;
                                     alusel_o    <= `EXE_RES_MOVE;
-                                    reg1_read_o <= `WriteEnable;
-                                    reg2_read_o <= `WriteEnable;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadEnable;
                                     instvalid   <= `InstValid;
                                     //reg2_o的值就是rt寄存器的值
                                     //如果rt为0,则能够将rs中的值移动到rt
@@ -157,8 +161,8 @@ module id (input wire rst,
                                 `EXE_MOVN : begin
                                     aluop_o     <= `EXE_MOVN_OP;
                                     alusel_o    <= `EXE_RES_MOVE;
-                                    reg1_read_o <= `WriteEnable;
-                                    reg2_read_o <= `WriteEnable;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadEnable;
                                     instvalid   <= `InstValid;
                                     //reg2_o的值就是rt寄存器的值
                                     //如果rt不为0,则能够将rs中的值移动到rt
@@ -173,30 +177,78 @@ module id (input wire rst,
                                     wreg_o      <= `WriteEnable;
                                     aluop_o	    <= `EXE_MFHI_OP;
                                     alusel_o    <= `EXE_RES_MOVE;
-                                    reg1_o      <= `WriteDisable;
-                                    reg2_o      <= `WriteEnable;
-                                    instvalid   <=  `InstValid;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadEnable;
+                                    instvalid   <= `InstValid;
                                 end
                                 `EXE_MFLO : begin
                                     wreg_o      <= `WriteEnable;
                                     aluop_o	    <= `EXE_MFLO_OP;
                                     alusel_o    <= `EXE_RES_MOVE;
-                                    reg1_o      <= `WriteDisable;
-                                    reg2_o      <= `WriteEnable;
-                                    instvalid   <=  `InstValid;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadEnable;
+                                    instvalid   <= `InstValid;
                                 end
                                 `EXE_MTHI : begin
                                     wreg_o      <= `WriteDisable;
                                     aluop_o     <= `EXE_MTHI_OP;
-                                    reg1_read_o <= `WriteEnable;
-                                    reg2_read_o <= `WriteDisable;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadDisable;
                                     instvalid   <= `InstValid;
                                 end
                                 `EXE_MTLO : begin
                                     wreg_o      <= `WriteDisable;
                                     aluop_o     <= `EXE_MTLO_OP;
-                                    reg1_read_o <= `WriteEnable;
-                                    reg2_read_o <= `WriteDisable;
+                                    reg1_read_o <= `ReadEnable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_ADD : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_ADD_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_ADDU : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_ADDU_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_SUB : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_SUB_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                `EXE_SUBU : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_SUBU_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                 `EXE_SLT : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_SLT_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
+                                    instvalid   <= `InstValid;
+                                end
+                                 `EXE_SLTU : begin
+                                    wreg_o      <= `WriteEnable;
+                                    aluop_o     <= `EXE_SLTU_OP;
+                                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                                    reg1_read_o <= `ReadDisable;
+                                    reg2_read_o <= `ReadDisable;
                                     instvalid   <= `InstValid;
                                 end
                                 default : begin
@@ -208,28 +260,20 @@ module id (input wire rst,
                     endcase //case op2
                 end
                 `EXE_ORI : begin            //依据op的值判断是否是ori指令
-                    
                     //ori指令需要将结果写入目的寄存器，所以wreg_o为WriteEnable
                     wreg_o <= `WriteEnable;
-                    
                     //运算类型是逻辑运算
                     alusel_o <= `EXE_RES_LOGIC;
-                    
                     //运算的子类型是逻辑“或”运算
                     aluop_o <= `EXE_OR_OP;
-                    
                     //需要通过Regfile的读端口1读取寄存器
                     reg1_read_o <= `ReadEnable;
-                    
                     //不需要通过Regfile的读端口2读取寄存器
                     reg2_read_o <= `ReadDisable;
-                    
                     //指令执行需要的立即数
                     imm <= {16'h0000,  inst_i[15:0]};
-                    
                     //指令执行要写的目的寄存器地址
                     wd_o <= inst_i[20:16];
-                    
                     //ori指令是有效指令
                     instvalid <= `InstValid;
                 end
@@ -273,6 +317,46 @@ module id (input wire rst,
                     instvalid   <= `InstValid;
                 end
                 //有待填写
+                `EXE_ADDI : begin
+                    wreg_o      <= `WriteEnable;
+                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                    aluop_o     <= `EXE_ADD_OP;
+                    reg1_read_o <= `ReadEnable;
+                    reg2_read_o <= `ReadDisable;
+                    imm         <= {{16{inst_i[15]}}, inst_i[15:0]};
+                    wd_o        <= inst_i[20:16];
+                    instvalid   <= `InstValid;
+                end
+                `EXE_ADDIU : begin
+                    wreg_o      <= `WriteEnable;
+                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                    aluop_o     <= `EXE_ADDU_OP;
+                    reg1_read_o <= `ReadEnable;
+                    reg2_read_o <= `ReadDisable;
+                    imm         <= {{16{inst_i[15]}}, inst_i[15:0]};
+                    wd_o        <= inst_i[20:16];
+                    instvalid   <= `InstValid;
+                end
+                `EXE_SLTI : begin
+                    wreg_o      <= `WriteEnable;
+                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                    aluop_o     <= `EXE_SLT_OP;
+                    reg1_read_o <= `ReadEnable;
+                    reg2_read_o <= `ReadDisable;
+                    imm         <= {{16{inst_i[15]}}, inst_i[15:0]};
+                    wd_o        <= inst_i[20:16];
+                    instvalid   <= `InstValid;
+                end
+                `EXE_SLTIU : begin
+                    wreg_o      <= `WriteEnable;
+                    alusel_o    <= `EXE_RES_ARITHMETIC;
+                    aluop_o     <= `EXE_SLTU_OP;
+                    reg1_read_o <= `ReadEnable;
+                    reg2_read_o <= `ReadDisable;
+                    imm         <= {{16{inst_i[15]}}, inst_i[15:0]};
+                    wd_o        <= inst_i[20:16];
+                    instvalid   <= `InstValid;
+                end
                 default : begin
                 end
             endcase //case op
