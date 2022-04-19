@@ -50,7 +50,6 @@ VL_MODULE(Vtop___024root) {
     IData/*31:0*/ top__DOT__openmips0__DOT__pc;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
-    IData/*31:0*/ top__DOT__openmips0__DOT__id_reg1_o;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_reg2_o;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg1_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg2_i;

@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-19 18:10:04
+ * @LastEditTime: 2022-04-19 20:53:07
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -258,6 +258,29 @@ module id (input wire rst,
                         default : begin 
                         end
                     endcase //case op2
+                end
+                `EXE_SPECIAL_INST2 : begin
+                    case (op3)
+                    // wd_o为默认值
+                        `EXE_CLZ : begin
+                            wreg_o      <= `WriteEnable;
+                            alusel_o    <= `EXE_RES_ARITHMETIC;
+                            aluop_o     <= `EXE_CLZ_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadDisable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_CLO : begin
+                            wreg_o      <= `WriteEnable;
+                            alusel_o    <= `EXE_RES_ARITHMETIC;
+                            aluop_o     <= `EXE_CLO_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadDisable;
+                            instvalid   <= `InstValid;
+                        end
+                    default : begin 
+                    end
+                    endcase
                 end
                 `EXE_ORI : begin            //依据op的值判断是否是ori指令
                     //ori指令需要将结果写入目的寄存器，所以wreg_o为WriteEnable

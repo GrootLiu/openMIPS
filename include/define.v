@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-19 18:02:57
+ * @LastEditTime: 2022-04-19 18:29:53
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -46,9 +46,10 @@
 `define EXE_SRAV        6'b000111
 
 //空指令
-`define EXE_SYNC        6'b001111
-`define EXE_PREF        6'b110011
-`define EXE_SPECIAL_INST 6'b000000
+`define EXE_SYNC            6'b001111
+`define EXE_PREF            6'b110011
+`define EXE_SPECIAL_INST    6'b000000
+`define EXE_SPECIAL_INST2   6'b011100
 
 //移动指令
 `define EXE_MOVZ        6'b001010
@@ -69,6 +70,8 @@
 `define EXE_ADDIU       6'b001001
 `define EXE_SLTI        6'b001010
 `define EXE_SLTIU       6'b001011
+`define EXE_CLZ         6'b100000
+`define EXE_CLO         6'b100001
 
 //AluOp
 `define EXE_AND_OP      8'b00100100
