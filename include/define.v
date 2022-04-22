@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-19 21:13:46
+ * @LastEditTime: 2022-04-22 11:17:05
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -24,6 +24,8 @@
 `define False_v         1'b0            //逻辑假
 `define ChipEnable      1'b1            //芯片使能
 `define ChipDisable     1'b0            //芯片禁止
+`define NegNum          1'b1
+`define PosNum          1'b0
 
 //*************************     与具体指令有关的宏定义     **************************
 //逻辑操作指令
