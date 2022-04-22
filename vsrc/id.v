@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-21 16:17:51
+ * @LastEditTime: 2022-04-22 15:24:52
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -260,7 +260,7 @@ module id (input wire rst,
                                 end
                                 `EXE_MULTU : begin
                                     wreg_o      <= `WriteDisable;
-                                    aluop_o     <= `EXE_MULTU_OP;
+                                    aluop_o     <= `EXE_MULT_OP;
                                     reg1_read_o <= `ReadEnable;
                                     reg2_read_o <= `ReadEnable;
                                     instvalid   <= `InstValid;

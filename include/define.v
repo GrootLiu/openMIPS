@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-22 11:17:05
+ * @LastEditTime: 2022-04-22 15:06:53
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -26,6 +26,7 @@
 `define ChipDisable     1'b0            //芯片禁止
 `define NegNum          1'b1
 `define PosNum          1'b0
+`define OverFlow        1'b1
 
 //*************************     与具体指令有关的宏定义     **************************
 //逻辑操作指令
@@ -126,6 +127,7 @@
 `define EXE_RES_SHIFT   3'b010
 `define EXE_RES_MOVE    3'b011
 `define EXE_RES_ARITHMETIC  3'b100
+`define EXE_RES_MUL     3'b101
 
 
 //*************************     与指令存储器ROM有关的宏定义     **************************
