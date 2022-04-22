@@ -32,6 +32,7 @@ VL_MODULE(Vtop___024root) {
     CData/*2:0*/ top__DOT__openmips0__DOT__ex_alusel_i;
     CData/*0:0*/ top__DOT__openmips0__DOT__ex_wreg_i;
     CData/*4:0*/ top__DOT__openmips0__DOT__ex_wd_i;
+    CData/*0:0*/ top__DOT__openmips0__DOT__ex_wreg_o;
     CData/*0:0*/ top__DOT__openmips0__DOT__ex_whilo_o;
     CData/*0:0*/ top__DOT__openmips0__DOT__mem_wreg_i;
     CData/*4:0*/ top__DOT__openmips0__DOT__mem_wd_i;
@@ -47,6 +48,7 @@ VL_MODULE(Vtop___024root) {
     CData/*4:0*/ top__DOT__openmips0__DOT__reg1_addr;
     CData/*4:0*/ top__DOT__openmips0__DOT__reg2_addr;
     CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__instvalid;
+    CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__reg1_eq_reg2;
     IData/*31:0*/ top__DOT__openmips0__DOT__pc;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
     IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
@@ -73,6 +75,11 @@ VL_MODULE(Vtop___024root) {
     IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__movres;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__HI;
     IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__LO;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__arithmeticres;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__reg2_i_mux;
+    IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__result_sum;
+    QData/*63:0*/ top__DOT__openmips0__DOT__ex0__DOT__hilo_temp;
+    QData/*63:0*/ top__DOT__openmips0__DOT__ex0__DOT__mulres;
     VlUnpacked<IData/*31:0*/, 32> top__DOT__openmips0__DOT__regfile1__DOT__regs;
     VlUnpacked<IData/*31:0*/, 131071> top__DOT__inst_rom0__DOT__inst_mem;
 

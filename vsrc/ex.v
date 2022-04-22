@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-22 15:26:00
+ * @LastEditTime: 2022-04-23 00:07:54
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -53,7 +53,7 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
     /*****************************************第一段：计算以下五个变量的值**************************************/
     // 1.如果是减法或者有符号比较运算，那么第二个操作数需要使用补码
     //   否则，第二个操作数仍等于它自身
-    assign reg2_i_mux = ((aluop_i == `EXE_SUB_OP)||(aluop_i == `EXE_SLT_OP) ? (~reg2_i)+1 : reg2_i);
+    assign reg2_i_mux = ((aluop_i == `EXE_SUB_OP) || (aluop_i == `EXE_SLT_OP) || (aluop_i == `EXE_SUBU_OP))? (~reg2_i)+1 : reg2_i;
     // 2. 分三种情况
     //      a. 如果是加法运算，那么reg2_i_mux就是第二个操作数reg2_i。所以result_sum就是加运算的结果
     //      b. 如果是减法运算，此时reg2_i_mux的值为第二个操作数reg2_i的补码。所以result_sum就是减法运算的结果
@@ -65,7 +65,7 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
     //    满足以下两种情况之一时，会产生溢出
     //        a. reg1_i为正数，reg2_i_mux为正数，但二者之和为负数
     //        b. reg1_i为负数，reg2_i_mux为负数，但二者之和为整数
-    assign ov_sum = ((!reg1_i[31] && !reg2_i_mux[31] && result_sum[31]) || (reg1_i[31] && reg2_i_mux[31] && !result_sum[31]));
+    assign ov_sum = ((!reg1_i[31] && !reg2_i_mux[31]) && result_sum[31]) || ((reg1_i[31] && reg2_i_mux[31]) && !result_sum[31]);
     // 4. 计算操作数1是否小于操作数2，分两种情况
     //    a. aluop_i为`EXE_SLT_OP表示有符号运算，此时又分三种情况
     //          - reg1_i为负数，reg2_i_mux为正数，显然reg1_i小于reg2_i_mux
@@ -84,7 +84,7 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
         end
         else begin
             case(aluop_i)
-                `EXE_SLT_OP : begin
+                `EXE_SLT_OP, `EXE_SLTU_OP : begin
                     arithmeticres <= reg1_lt_reg2;
                 end
                 `EXE_ADD_OP, `EXE_ADDU_OP : begin
@@ -94,6 +94,24 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
                     arithmeticres <= result_sum;
                 end
                 `EXE_CLO_OP : begin
+                    arithmeticres <= reg1_i_not[31] ? 0 : reg1_i_not[30] ? 1 :
+                                     reg1_i_not[29] ? 2 : reg1_i_not[28] ? 3 :
+                                     reg1_i_not[27] ? 4 : reg1_i_not[26] ? 5 :
+                                     reg1_i_not[25] ? 6 : reg1_i_not[24] ? 7 :
+                                     reg1_i_not[23] ? 8 : reg1_i_not[22] ? 9 :
+                                     reg1_i_not[21] ? 10 : reg1_i_not[20] ? 11 :
+                                     reg1_i_not[19] ? 12 : reg1_i_not[18] ? 13 :
+                                     reg1_i_not[17] ? 14 : reg1_i_not[16] ? 15 :
+                                     reg1_i_not[15] ? 16 : reg1_i_not[14] ? 17 :
+                                     reg1_i_not[13] ? 18 : reg1_i_not[12] ? 19 :
+                                     reg1_i_not[11] ? 20 : reg1_i_not[10] ? 21 :
+                                     reg1_i_not[9] ? 22 : reg1_i_not[8] ? 23 :
+                                     reg1_i_not[7] ? 24 : reg1_i_not[6] ? 25 :
+                                     reg1_i_not[5] ? 26 : reg1_i_not[4] ? 27 :
+                                     reg1_i_not[3] ? 28 : reg1_i_not[2] ? 29 :
+                                     reg1_i_not[1] ? 30 : reg1_i_not[0] ? 31 : 32;
+                end
+                `EXE_CLZ_OP : begin
                     arithmeticres <= reg1_i[31] ? 0 : reg1_i[30] ? 1 :
                                      reg1_i[29] ? 2 : reg1_i[28] ? 3 :
                                      reg1_i[27] ? 4 : reg1_i[26] ? 5 :
@@ -110,40 +128,7 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
                                      reg1_i[5] ? 26 : reg1_i[4] ? 27 :
                                      reg1_i[3] ? 28 : reg1_i[2] ? 29 :
                                      reg1_i[1] ? 30 : reg1_i[0] ? 31 : 32;
-                end
-                `EXE_CLZ_OP : begin
-                    arithmeticres <= reg1_i_not[31] ? 0 : 
-                                     reg1_i_not[30] ? 1 :
-                                     reg1_i_not[29] ? 2 : 
-                                     reg1_i_not[28] ? 3 :
-                                     reg1_i_not[27] ? 4 : 
-                                     reg1_i_not[26] ? 5 :
-                                     reg1_i_not[25] ? 6 : 
-                                     reg1_i_not[24] ? 7 :
-                                     reg1_i_not[23] ? 8 : 
-                                     reg1_i_not[22] ? 9 :
-                                     reg1_i_not[21] ? 10 : 
-                                     reg1_i_not[20] ? 11 :
-                                     reg1_i_not[19] ? 12 : 
-                                     reg1_i_not[18] ? 13 :
-                                     reg1_i_not[17] ? 14 : 
-                                     reg1_i_not[16] ? 15 :
-                                     reg1_i_not[15] ? 16 : 
-                                     reg1_i_not[14] ? 17 :
-                                     reg1_i_not[13] ? 18 : 
-                                     reg1_i_not[12] ? 19 :
-                                     reg1_i_not[11] ? 20 :
-                                     reg1_i_not[10] ? 21 :
-                                     reg1_i_not[9] ? 22 :
-                                     reg1_i_not[8] ? 23 :
-                                     reg1_i_not[7] ? 24 :
-                                     reg1_i_not[6] ? 25 :
-                                     reg1_i_not[5] ? 26 :
-                                     reg1_i_not[4] ? 27 :
-                                     reg1_i_not[3] ? 28 :
-                                     reg1_i_not[2] ? 29 :
-                                     reg1_i_not[1] ? 30 :
-                                     reg1_i_not[0] ? 31 : 32;
+                                     
                 end
                 default : begin
                     arithmeticres <= `ZeroWord;
@@ -154,9 +139,9 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
 
     /*****************************************第三段：进行乘法运算**************************************/
     // 1. 取得乘法运算的被乘数，如果是有符号乘法且被乘数是负数，那么取补码
-    assign opdata1_mult = ((aluop_i == `EXE_MUL_OP) && (reg1_i[31] == `NegNum)) ? (reg1_i_not + 1) : reg1_i;
+    assign opdata1_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP) && (reg1_i[31] == `NegNum)) ? (reg1_i_not + 1) : reg1_i;
     // 2. 取得乘法运算的乘数，如果是有符号乘法且乘数是负数，那么取补码
-    assign opdata2_mult = ((aluop_i == `EXE_MUL_OP) && (reg2_i[31] == `NegNum)) ? (reg2_i_mux) : reg1_i;
+    assign opdata2_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP) && (reg2_i[31] == `NegNum)) ? (reg2_i_mux) : reg2_i;
     // 3. 得到临时乘法结果
     assign hilo_temp = opdata1_mult * opdata2_mult;
     // 4. 对临时乘法结果进行修正，最终的乘法结果保存在变量mulres中
@@ -175,7 +160,6 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
                 mulres <= hilo_temp;
         end
     end
-
     //得到最新的HI、LO寄存器的值，此处要解决数据相关问题。
     //如果访存和回写阶段的指令要写HI、LO寄存器，则务必及时更新这两个寄存器
     always @(*) begin
@@ -292,7 +276,7 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
             hi_o    <= `ZeroWord;
             lo_o    <= `ZeroWord;
         end
-        else if (aluop_i == `EXE_MULT_OP) begin
+        else if (aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MULTU_OP) begin
             whilo_o <= `WriteEnable;
             hi_o    <= mulres[63:32];
             lo_o    <= mulres[31:0];
