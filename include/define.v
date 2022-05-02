@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-22 15:06:53
+ * @LastEditTime: 2022-05-02 11:30:28
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -27,6 +27,8 @@
 `define NegNum          1'b1
 `define PosNum          1'b0
 `define OverFlow        1'b1
+`define Stop            1'b1
+`define NoStop          1'b0
 
 //*************************     与具体指令有关的宏定义     **************************
 //逻辑操作指令
