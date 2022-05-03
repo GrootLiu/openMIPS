@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 15:46:52
+ * @LastEditTime: 2022-05-03 22:42:24
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex_mem.v
@@ -38,6 +38,8 @@ module ex_mem (input wire clk,
             mem_whilo <= `WriteDisable;
             mem_hi    <= `ZeroWord;
             mem_lo    <= `ZeroWord;
+            hilo_o    <= {`ZeroWord, `ZeroWord};
+            cnt_o     <= 2'b00;
         end
         else if (stall[3] == `Stop && stall[4] == `NoStop) begin
             mem_wd    <= `NOPRegAddr;
@@ -48,22 +50,18 @@ module ex_mem (input wire clk,
             mem_lo    <= `ZeroWord;
             hilo_o    <= hilo_i;
             cnt_o     <= cnt_i;     
-        end
-            else if (stall[3] == `NoStop) begin
+        end else if (stall[3] == `NoStop) begin
             mem_wd    <= ex_wd;
             mem_wreg  <= ex_wreg;
             mem_wdata <= ex_wdata;
             mem_whilo <= ex_whilo;
             mem_hi    <= ex_hi;
             mem_lo    <= ex_lo;
-            end
-        else begin
-            mem_wd    <= ex_wd;
-            mem_wreg  <= ex_wreg;
-            mem_wdata <= ex_wdata;
-            mem_whilo <= ex_whilo;
-            mem_hi    <= ex_hi;
-            mem_lo    <= ex_lo;
+            hilo_o    <= {`ZeroWord, `ZeroWord};
+            cnt_o     <= 2'b00;
+        end else begin
+            hilo_o    <= hilo_i;
+            cnt_o     <= cnt_i;   
         end
     end
     

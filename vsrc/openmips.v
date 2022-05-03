@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-05-03 15:52:26
+ * @LastEditTime: 2022-05-03 21:35:35
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
@@ -93,21 +93,22 @@ module openmips (input wire clk,
     wire[`RegBus] lo;
     
     // 用于流水线暂停的连线
-    wire stall;
+    wire[5:0] stall;
     wire stallreq_from_id;
     wire stallreq_from_ex;
 
     // 用于累乘加、累乘减指令的ex模块和ex/mem模块的连线
-    wire[`DoubleRegBus] cnt_i;
-    wire[1:0] hilo_temp_i;
-    wire[`DoubleRegBus] cnt_o;
-    wire[1:0] hilo_temp_o;
+    wire[1:0] cnt_i;
+    wire[`DoubleRegBus] hilo_temp_i;
+    wire[1:0] cnt_o;
+    wire[`DoubleRegBus] hilo_temp_o;
     
     //pc_reg的例化
     pc_reg pc_reg0(.clk(clk),
     .rst(rst),
     .pc(pc),
-    .ce(rom_ce_o));
+    .ce(rom_ce_o),
+    .stall(stall));
     
     assign rom_addr_o = pc;
     
@@ -226,6 +227,7 @@ module openmips (input wire clk,
     //ports
     .clk(clk),
     .rst(rst),
+    .stall(stall),
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
@@ -238,7 +240,6 @@ module openmips (input wire clk,
     .mem_whilo(mem_whilo_i),
     .mem_hi(mem_hi_i),
     .mem_lo(mem_lo_i),
-    .stall(stall),
     .cnt_i(cnt_o),
     .hilo_i(hilo_temp_o),
     .cnt_o(cnt_i),

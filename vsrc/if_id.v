@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 10:09:36
+ * @LastEditTime: 2022-05-03 21:56:51
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/if_id.v
@@ -27,10 +27,6 @@ module if_id (input wire clk,
             id_inst <= `ZeroWord;
         end
         else if (stall[1] == `NoStop) begin
-            id_inst <= if_inst;
-            id_pc   <= if_pc;
-        end
-        else begin
             id_inst <= if_inst;
             id_pc   <= if_pc;
         end

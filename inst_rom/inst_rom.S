@@ -1,69 +1,24 @@
-	.org 0x0
-	.set noat
-	.global _start
+   .org 0x0
+   .set noat
+   .global _start
 _start:
-# 第一段：测试add、addi、addiu、addu、sub、subu指令
-# 给$1赋初值
-ori $1,$0,0x8000			# $1 = 0x00008000
-sll $1,$1,16				# $1 = 0x80000000
-ori $1,$1,0x0010			# $1 = 0x80000010
+   ori  $1,$0,0xffff                  
+   sll  $1,$1,16
+   ori  $1,$1,0xfffb           # $1 = -5
+   ori  $2,$0,6                # $2 = 6
 
-# 给$2赋初值
-ori $2,$0,0x8000			# $2 = 0x00008000
-sll $2,$2,16				# $2 = 0x80000000
-ori $2,$2,0x0001			# $2 = 0x80000001
+   mult $1,$2                  # hi = 0xffffffff
+                               # lo = 0xffffffe2
 
-ori $3,$0,0x0000			# $3 = 0x00000000
-addu $3,$2,$1				# $3 = $2 + $1 = 0x00000011
-ori $3,$0,0x0000			# $3 = 0x00000000
-add $3,$2,$1				# $3 = 10000 0000 0000 0000 0000 0000 0001 0001 由于溢出，所以$3应该保持不变
-							# $3 = 0x00000000
-sub $3,$1,$3				# $3 = 0x80000010
-subu $3,$3,$2				# $3 = 0x0000000f
+   madd $1,$2                  # hi = 0xffffffff
+                               # lo = 0xffffffc4
 
-addi $3,$3,2				# $3 = 0x00000011
-ori $3,$0,0x0000			# $3 = 0x00000000
-addiu $3,$3,0x8000			# $3 = 0xffff8000
+   maddu $1,$2                 # hi = 0x5
+                               # lo = 0xffffffa6
 
-# 测试slt、sltu、slti、sltiu
-or $1,$0,0xffff           	# $1 = 0x0000ffff
-sll $1,$1,16               	# $1 = 0xffff0000
-slt $2,$1,$0               	# $2 = 1
-sltu $2,$1,$0               # $2 = 0
-slti $2,$1,0x8000           # $2 = 1
-sltiu $2,$1,0x8000          # $2 = 1
+   msub $1,$2                  # hi = 0x5
+                               # lo = 0xffffffc4   
 
-# 测试clo、clz
-lui $1,0x0000          		# $1 = 0x00000000
-clo $2,$1              		# $2 = 0x00000000
-clz $2,$1              		# $2 = 0x00000020
+   msubu $1,$2                 # hi = 0xffffffff
+                               # lo = 0xffffffe2   
 
-lui $1,0xffff          		# $1 = 0xffff0000
-ori $1,$1,0xffff       		# $1 = 0xfffffff
-clz $2,$1              		# $2 = 0x00000000
-clo $2,$1              		# $2 = 0x00000020
-
-lui $1,0xa100          		# $1 = 0xa1000000
-clz $2,$1              		# $2 = 0x00000000
-clo $2,$1              		# $2 = 0x00000001
-
-lui $1,0x1100          		# $1 = 0x11000000
-clz $2,$1              		# $2 = 0x00000003
-clo $2,$1              		# $2 = 0x00000000
-
-# 第四段：测试mul、mult、multu
-ori  $1,$0,0xffff			# $1 = 0x0000ffff
-sll $1,$1,16				# $1 = 0xffff0000
-ori $1,$1,0xfffb			# $1 = 0xfffffffb = -5
-ori $2,$0,6					# $2 = 0x00000006 = 6
-# $1乘以$2，有符号乘法，结果的低32位保存到$3
-mul $3,$1,$2				# $3 = 0xffffffe2
-# $1乘以$2，有符号乘法，结果保存到HI、LO
-mult $1,$2					# HI = 0xffffffff
-							# LO = 0xfffffffe2
-# $1乘以$2，无符号乘法，结果保存到HI、LO
-multu $1,$2					# HI = 0x00000005
-							# LO = 0xffffffe2
-
-nop
-nop

@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 15:15:20
+ * @LastEditTime: 2022-05-03 21:31:59
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -30,7 +30,7 @@ module id (input wire rst,
            output reg[`RegBus] reg2_o,
            output reg[`RegAddBus] wd_o,
            output reg wreg_o,
-           output reg stallreq);
+           output wire stallreq);
     
     //取得指令的指令码，功能码
     //对于ori指令只需要通过判断第26-31bit的值，即可判断是否是ori指令
@@ -49,6 +49,8 @@ module id (input wire rst,
     //指令是否有效
     reg instvalid;
     
+  assign stallreq = `NoStop;
+
     //****************************第一段：对指令进行译码***************************
     always @(*) begin
         if (rst == `RstEnable) begin
@@ -62,7 +64,6 @@ module id (input wire rst,
             reg1_addr_o <= `NOPRegAddr;
             reg2_addr_o <= `NOPRegAddr;
             imm         <= 32'h00000000;
-            stallreq    <= `NoStop;
         end
         else begin
             aluop_o     <= `EXE_NOP_OP;
@@ -75,7 +76,6 @@ module id (input wire rst,
             reg1_addr_o <= inst_i[25:21];   //默认通过Regfile读端口1读取的寄存器地址
             reg2_addr_o <= inst_i[20:16];   //默认通过Regfile读端口2读取的寄存器地址
             imm         <= `ZeroWord;
-            stallreq    <= `NoStop;
 
             case (op)
                 `EXE_SPECIAL_INST : begin

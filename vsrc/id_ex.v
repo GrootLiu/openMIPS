@@ -43,15 +43,7 @@ module id_ex (input wire clk,
             ex_wd     <= `NOPRegAddr;
             ex_wreg   <= `WriteDisable;
         end
-        else if (stall == `NoStop) begin
-            ex_aluop  <= id_aluop;
-            ex_alusel <= id_alusel;
-            ex_reg1   <= id_reg1;
-            ex_reg2   <= id_reg2;
-            ex_wd     <= id_wd;
-            ex_wreg   <= id_wreg;
-        end
-        else begin
+        else if (stall[2] == `NoStop) begin
             ex_aluop  <= id_aluop;
             ex_alusel <= id_alusel;
             ex_reg1   <= id_reg1;

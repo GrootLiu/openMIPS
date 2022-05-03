@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 15:38:04
+ * @LastEditTime: 2022-05-03 22:38:49
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -161,22 +161,27 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
 
     always @(*) begin
         if (rst == `RstEnable) begin
-                mulres <= {`ZeroWord, `ZeroWord};
+            mulres <= {`ZeroWord, `ZeroWord};
         end
         else if ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MSUB_OP) && (reg1_i[31] ^ reg2_i[31] == `NegNum)) begin
-                mulres <= ~hilo_temp + 1;
+            mulres <= ~hilo_temp + 1;
         end
         else begin
-                mulres <= hilo_temp;
+            mulres <= hilo_temp;
         end
+    end
+
+    // 暂停流水线
+    always @(*) begin
+        stallreq <= stallreq_for_madd_msub;
     end
 
     // *********************************************累乘加、累乘减*********************************************
     always @(*) begin
         if(rst == `RstEnable) begin
-            hilo_temp_o <= {`ZeroWord, `ZeroWord};
-            cnt_o       <= 2'b00;
-            stallreq_for_madd_msub    <= `NoStop;
+            hilo_temp_o                 <= {`ZeroWord, `ZeroWord};
+            cnt_o                       <= 2'b00;
+            stallreq_for_madd_msub      <= `NoStop;
         end
         else begin
             case (aluop_i)
@@ -209,17 +214,14 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
                     end
                 end
                 default : begin
-                    hilo_temp_o                     <= {`ZeroWord, `ZeroWord};;
-                        cnt_o                       <= 2'b00;
-                        stallreq_for_madd_msub      <= `NoStop;
+                    hilo_temp_o                 <= {`ZeroWord, `ZeroWord};;
+                    cnt_o                       <= 2'b00;
+                    stallreq_for_madd_msub      <= `NoStop;
                 end
             endcase
         end
     end
-    // 暂停流水线
-    always @(*) begin
-        stallreq <= stallreq_for_madd_msub;
-    end
+
 
     //得到最新的HI、LO寄存器的值，此处要解决数据相关问题。
     //如果访存和回写阶段的指令要写HI、LO寄存器，则务必及时更新这两个寄存器
@@ -339,12 +341,12 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
         end
         else if (aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MADDU_OP) begin
             whilo_o <= `WriteEnable;
-            hi_o    <= mulres[63:32];
-            lo_o    <= mulres[31:0];
+            hi_o    <= hilo_temp1[63:32];
+            lo_o    <= hilo_temp1[31:0];
         end else if (aluop_i == `EXE_MSUB_OP || aluop_i == `EXE_MSUBU_OP) begin
             whilo_o <= `WriteEnable;
-            hi_o    <= mulres[63:32];
-            lo_o    <= mulres[31:0];
+            hi_o    <= hilo_temp1[63:32];
+            lo_o    <= hilo_temp1[31:0];
         end
         else if (aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MULTU_OP) begin
             whilo_o <= `WriteEnable;
