@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:41:46
+ * @LastEditTime: 2022-05-03 10:09:36
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/if_id.v
@@ -13,6 +13,7 @@ module if_id (input wire clk,
               input wire rst,
               input wire[`InstAddrBus] if_pc,
               input wire[`InstBus] if_inst,
+              input wire[5:0] stall,
               output reg[`InstAddrBus] id_pc,
               output reg[`InstBus] id_inst);
     
@@ -21,9 +22,17 @@ module if_id (input wire clk,
             id_pc   <= `ZeroWord;               //复位的时候pc为0
             id_inst <= `ZeroWord;                //复位的时候指令也为0，实际就是空指令
         end
-        else begin
-            id_pc   <= if_pc;                   //其余时 刻向下传递取值阶段的值
+        else if (stall[1] == `Stop && stall[2] == `NoStop) begin
+            id_pc   <= `ZeroWord;                   //其余时 刻向下传递取值阶段的值
+            id_inst <= `ZeroWord;
+        end
+        else if (stall[1] == `NoStop) begin
             id_inst <= if_inst;
+            id_pc   <= if_pc;
+        end
+        else begin
+            id_inst <= if_inst;
+            id_pc   <= if_pc;
         end
     end
 endmodule //if_id

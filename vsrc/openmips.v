@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-04-17 00:11:23
+ * @LastEditTime: 2022-05-03 10:43:42
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
@@ -19,6 +19,7 @@
 `include "/home/groot/openMIPS/vsrc/mem.v"
 `include "/home/groot/openMIPS/vsrc/pc_reg.v"
 `include "/home/groot/openMIPS/vsrc/regfile.v"
+`include "/home/groot/openMIPS/vsrc/ctrl.v"
 
 module openmips (input wire clk,
                  input wire rst,
@@ -91,6 +92,11 @@ module openmips (input wire clk,
     wire[`RegBus] hi;
     wire[`RegBus] lo;
     
+    // 用于流水线暂停的连线
+    wire stall;
+    wire stallreq_from_id;
+    wire stallreq_from_ex;
+    
     //pc_reg的例化
     pc_reg pc_reg0(.clk(clk),
     .rst(rst),
@@ -105,7 +111,8 @@ module openmips (input wire clk,
     .if_pc(pc),
     .if_inst(rom_data_i),
     .id_pc(id_pc_i),
-    .id_inst(id_inst_i));
+    .id_inst(id_inst_i),
+    .stall(stall));
     
     //译码阶段ID模块的例化
     id id0(.rst(rst),
@@ -136,7 +143,10 @@ module openmips (input wire clk,
     .reg1_o(id_reg1_o),
     .reg2_o(id_reg2_o),
     .wd_o(id_wd_o),
-    .wreg_o(id_wreg_o)
+    .wreg_o(id_wreg_o),
+
+    // 流水线暂停指令输出
+    .stallreq(stallreq_from_id)
     );
     
     //通用寄存器Regfile的例化
@@ -169,7 +179,8 @@ module openmips (input wire clk,
     .ex_reg1(ex_reg1_i),
     .ex_reg2(ex_reg2_i),
     .ex_wd(ex_wd_i),
-    .ex_wreg(ex_wreg_i)
+    .ex_wreg(ex_wreg_i),
+    .stall(stall)
     );
     
     //EX模块例化
@@ -195,7 +206,8 @@ module openmips (input wire clk,
     .wb_lo_i(wb_lo_i),
     .whilo_o(ex_whilo_o),
     .hi_o(ex_hi_o),
-    .lo_o(ex_lo_o)
+    .lo_o(ex_lo_o),
+    .stallreq(stallreq_from_ex)
     );
     
     
@@ -215,7 +227,8 @@ module openmips (input wire clk,
     .ex_lo(ex_lo_o),
     .mem_whilo(mem_whilo_i),
     .mem_hi(mem_hi_i),
-    .mem_lo(mem_lo_i)
+    .mem_lo(mem_lo_i),
+    .stall(stall)
     );
     
     //MEM模块例化
@@ -252,7 +265,8 @@ module openmips (input wire clk,
     .mem_lo(mem_lo_o),
     .wb_whilo(wb_whilo_i),
     .wb_hi(wb_hi_i),
-    .wb_lo(wb_lo_i)
+    .wb_lo(wb_lo_i),
+    .stall(stall)
     );
     
     //hilo_reg模块例化
@@ -267,4 +281,14 @@ module openmips (input wire clk,
     .lo_o(lo)
     );
     
+    // ctrl模块
+    ctrl ctrl0(
+    //ports
+    .rst(rst),
+    .stallreq_from_id(stallreq_from_id),
+    .stallreq_from_ex(stallreq_from_ex),
+    .stall(stall)
+    );
+
+
 endmodule ///home/groot/openmips

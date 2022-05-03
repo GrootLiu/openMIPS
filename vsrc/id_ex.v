@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:41:39
+ * @LastEditTime: 2022-05-03 10:14:55
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id_ex.v
@@ -17,6 +17,7 @@ module id_ex (input wire clk,
               input wire[`RegBus] id_reg2,
               input wire[`RegAddBus] id_wd,
               input wire id_wreg,
+              input wire[5:0] stall,
               output reg[`AluOpBus] ex_aluop,
               output reg[`AluSelBus] ex_alusel,
               output reg[`RegBus] ex_reg1,
@@ -26,8 +27,7 @@ module id_ex (input wire clk,
     
     always @(posedge clk)
     begin
-        if (rst == `RstEnable)
-        begin
+        if (rst == `RstEnable) begin
             ex_aluop  <= `EXE_NOP_OP;
             ex_alusel <= `EXE_RES_NOP;
             ex_reg1   <= `ZeroWord;
@@ -35,8 +35,23 @@ module id_ex (input wire clk,
             ex_wd     <= `NOPRegAddr;
             ex_wreg   <= `WriteDisable;
         end
-        else
-        begin
+        else if (stall[2] == `Stop && stall[3] == `NoStop) begin
+            ex_aluop  <= `EXE_NOP_OP;
+            ex_alusel <= `EXE_RES_NOP;
+            ex_reg1   <= `ZeroWord;
+            ex_reg2   <= `ZeroWord;
+            ex_wd     <= `NOPRegAddr;
+            ex_wreg   <= `WriteDisable;
+        end
+        else if (stall == `NoStop) begin
+            ex_aluop  <= id_aluop;
+            ex_alusel <= id_alusel;
+            ex_reg1   <= id_reg1;
+            ex_reg2   <= id_reg2;
+            ex_wd     <= id_wd;
+            ex_wreg   <= id_wreg;
+        end
+        else begin
             ex_aluop  <= id_aluop;
             ex_alusel <= id_alusel;
             ex_reg1   <= id_reg1;

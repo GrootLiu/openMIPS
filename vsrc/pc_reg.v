@@ -1,33 +1,35 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-14 15:44:10
+ * @LastEditTime: 2022-05-03 09:56:35
  * @LastEditors: Groot
- * @Description: 
+ * @Description:
  * @FilePath: /openMIPS/vsrc/pc_reg.v
  * 版权声明
  */
 `include "/home/groot/openMIPS/include/define.v"
- 
-module pc_reg (input wire clk,
-                   input wire rst,
-                   output reg ce,
-                   output reg[`InstAddrBus] pc);
 
+module pc_reg (input wire clk,
+               input wire rst,
+               input wire[5:0] stall,
+               output reg ce,
+               output reg[`InstAddrBus] pc);
+    
     //clk时钟信号
     //rst复位信号
     //ce指令存储器使能信号
     //pc要读取的指令地址
-
+    
     always @(posedge clk) begin //时钟上升沿触发
         if (ce == `ChipDisable) begin   //指令存储器使能信号无效的时候，pc保持为0
             pc <= 32'h00000000;
         end
-        else begin              //指令存储器使能信号有效的时候，pc在每个时钟加1
+        // 当stall[0]为NoStop时，pc加4，否则，保持pc不变
+        else if (stall[0] == `NoStop) begin              //指令存储器使能信号有效的时候，pc在每个时钟加1
             pc <= pc + 4'h4;
         end
     end
-
+    
     always @(posedge clk) begin //时钟上升沿触发
         if (rst == `RstEnable) begin //复位信号有效的时候，指令存储器使能信号无效
             ce <= `ChipDisable;
@@ -36,7 +38,7 @@ module pc_reg (input wire clk,
             ce <= `ChipEnable;
         end
     end
-
-
-
+    
+    
+    
 endmodule //pc_reg

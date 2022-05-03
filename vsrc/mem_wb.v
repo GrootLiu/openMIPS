@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-15 10:04:46
+ * @LastEditTime: 2022-05-03 10:25:46
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/mem_wb.v
@@ -11,6 +11,7 @@
 
 module mem_wb (input wire clk,
                input wire rst,
+               input wire[5:0] stall,
                input wire[`RegAddBus] mem_wd,
                input wire mem_wreg,
                input wire[`RegBus] mem_wdata,
@@ -33,6 +34,20 @@ module mem_wb (input wire clk,
             wb_wreg  <= `WriteDisable;
             wb_wdata <= `ZeroWord;
             wb_whilo <= `WriteDisable;
+        end
+        else if (stall[4] == `Stop && stall[5] == `NoStop) begin
+            wb_wd    <= `NOPRegAddr;
+            wb_wreg  <= `WriteDisable;
+            wb_wdata <= `ZeroWord;
+            wb_whilo <= `WriteDisable;
+        end
+        else if (stall[4] == `NoStop) begin
+            wb_wd    <= mem_wd;
+            wb_wreg  <= mem_wreg;
+            wb_wdata <= mem_wdata;
+            wb_whilo <= mem_whilo;
+            wb_hi    <= mem_hi;
+            wb_lo    <= mem_lo;
         end
         else begin
             wb_wd    <= mem_wd;

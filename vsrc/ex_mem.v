@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-04-15 09:55:51
+ * @LastEditTime: 2022-05-03 10:23:14
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/ex_mem.v
@@ -11,6 +11,7 @@
 
 module ex_mem (input wire clk,
                input wire rst,
+               input wire[5:0] stall,
                input wire[`RegAddBus] ex_wd,   //来自执行阶段的信息
                input wire ex_wreg,
                input wire[`RegBus] ex_wdata,
@@ -35,6 +36,22 @@ module ex_mem (input wire clk,
             mem_whilo <= `WriteDisable;
             mem_hi    <= `ZeroWord;
             mem_lo    <= `ZeroWord;
+        end
+        else if (stall[3] == `Stop && stall[4] == `NoStop) begin
+            mem_wd    <= `NOPRegAddr;
+            mem_wreg  <= `WriteDisable;
+            mem_wdata <= `ZeroWord;
+            mem_whilo <= `WriteDisable;
+            mem_hi    <= `ZeroWord;
+            mem_lo    <= `ZeroWord;
+        end
+        else if (stall[3] == `NoStop) begin
+            mem_wd    <= ex_wd;
+            mem_wreg  <= ex_wreg;
+            mem_wdata <= ex_wdata;
+            mem_whilo <= ex_whilo;
+            mem_hi    <= ex_hi;
+            mem_lo    <= ex_lo;
         end
         else begin
             mem_wd    <= ex_wd;
