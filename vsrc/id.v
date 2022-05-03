@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 10:12:51
+ * @LastEditTime: 2022-05-03 15:15:20
  * @LastEditors: Groot
  * @Description: 
  * @FilePath: /openMIPS/vsrc/id.v
@@ -299,6 +299,38 @@ module id (input wire rst,
                             wreg_o      <= `WriteEnable;
                             alusel_o    <= `EXE_RES_MUL;
                             aluop_o     <= `EXE_MUL_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_MADD : begin
+                            wreg_o      <= `WriteDisable;
+                            alusel_o    <= `EXE_RES_MUL;
+                            aluop_o     <= `EXE_MADD_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_MADDU : begin
+                            wreg_o      <= `WriteDisable;
+                            alusel_o    <= `EXE_RES_MUL;
+                            aluop_o     <= `EXE_MADDU_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_MSUB : begin
+                            wreg_o      <= `WriteDisable;
+                            alusel_o    <= `EXE_RES_MUL;
+                            aluop_o     <= `EXE_MSUB_OP;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            instvalid   <= `InstValid;
+                        end
+                        `EXE_MSUBU : begin
+                            wreg_o      <= `WriteDisable;
+                            alusel_o    <= `EXE_RES_MUL;
+                            aluop_o     <= `EXE_MSUBU_OP;
                             reg1_read_o <= `ReadEnable;
                             reg2_read_o <= `ReadEnable;
                             instvalid   <= `InstValid;

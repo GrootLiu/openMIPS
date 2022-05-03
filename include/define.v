@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-02 11:30:28
+ * @LastEditTime: 2022-05-03 15:15:40
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -81,6 +81,12 @@
 `define EXE_MULT        6'b011000
 `define EXE_MULTU       6'b011001
 
+// 累乘加、累乘减
+`define EXE_MADD        6'b000000
+`define EXE_MADDU       6'b000001
+`define EXE_MSUB        6'b000100
+`define EXE_MSUBU       6'b000101
+
 //AluOp
 `define EXE_AND_OP      8'b00100100
 `define EXE_OR_OP       8'b00100101
@@ -119,9 +125,14 @@
 `define EXE_CLZ_OP      8'b10110000
 `define EXE_CLO_OP      8'b10110001
 
-`define EXE_MULT_OP  8'b00011000
-`define EXE_MULTU_OP  8'b00011001
-`define EXE_MUL_OP  8'b10101001
+`define EXE_MULT_OP     8'b00011000
+`define EXE_MULTU_OP    8'b00011001
+`define EXE_MUL_OP      8'b10101001
+
+`define EXE_MADD_OP     8'b10100110
+`define EXE_MADDU_OP    8'b10101000
+`define EXE_MSUB_OP     8'b10101010
+`define EXE_MSUBU_OP    8'b10101011
 
 //AluSel
 `define EXE_RES_NOP     3'b000

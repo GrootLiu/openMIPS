@@ -1,9 +1,9 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 10:23:14
+ * @LastEditTime: 2022-05-03 15:46:52
  * @LastEditors: Groot
- * @Description: 
+ * @Description:
  * @FilePath: /openMIPS/vsrc/ex_mem.v
  * 版权声明
  */
@@ -12,20 +12,22 @@
 module ex_mem (input wire clk,
                input wire rst,
                input wire[5:0] stall,
-               input wire[`RegAddBus] ex_wd,   //来自执行阶段的信息
+               input wire[`RegAddBus] ex_wd,  //来自执行阶段的信息
                input wire ex_wreg,
                input wire[`RegBus] ex_wdata,
-               output reg[`RegAddBus] mem_wd,  //送到访存阶段的信息
+               output reg[`RegAddBus] mem_wd, //送到访存阶段的信息
                output reg mem_wreg,
                output reg[`RegBus] mem_wdata,
-               
                input wire ex_whilo,
                input wire[`RegBus] ex_hi,
                input wire[`RegBus] ex_lo,
-
                output reg mem_whilo,
                output reg[`RegBus] mem_hi,
-               output reg[`RegBus] mem_lo
+               output reg[`RegBus] mem_lo,
+               input[`DoubleRegBus] hilo_i,
+               input[1:0] cnt_i,
+               output reg[`DoubleRegBus] hilo_o,
+               output reg[1:0] cnt_o
                );
     
     always @(posedge clk) begin
@@ -44,15 +46,17 @@ module ex_mem (input wire clk,
             mem_whilo <= `WriteDisable;
             mem_hi    <= `ZeroWord;
             mem_lo    <= `ZeroWord;
+            hilo_o    <= hilo_i;
+            cnt_o     <= cnt_i;     
         end
-        else if (stall[3] == `NoStop) begin
+            else if (stall[3] == `NoStop) begin
             mem_wd    <= ex_wd;
             mem_wreg  <= ex_wreg;
             mem_wdata <= ex_wdata;
             mem_whilo <= ex_whilo;
             mem_hi    <= ex_hi;
             mem_lo    <= ex_lo;
-        end
+            end
         else begin
             mem_wd    <= ex_wd;
             mem_wreg  <= ex_wreg;

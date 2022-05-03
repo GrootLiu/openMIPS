@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 10:18:11
+ * @LastEditTime: 2022-05-03 15:38:04
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -30,7 +30,13 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
            output reg whilo_o,              //处于执行阶段的指令是否要写HI、LO寄存器
            output reg[`RegBus] hi_o,        //处于执行阶段的指令要写入的HI寄存器的值
            output reg[`RegBus] lo_o,        //处于执行阶段的指令要写入的LO寄存器的值
-           output reg stallreq);            
+           output reg stallreq,
+
+           input wire[`DoubleRegBus] hilo_temp_i,
+           input wire[1:0] cnt_i,
+           output reg[`DoubleRegBus] hilo_temp_o,
+           output reg[1:0] cnt_o
+           );            
     
     reg[`RegBus] logicout;      //逻辑操作的结果
     reg[`RegBus] shiftres;      //以为操作的结果
@@ -49,6 +55,8 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
     wire[`RegBus] opdata1_mult;     // 乘法操作中的被乘数
     wire[`RegBus] opdata2_mult;     // 乘法操作中的乘数
     wire[`DoubleRegBus] hilo_temp;  // 临时保存乘法结果，宽度为64位
+    reg[`DoubleRegBus] hilo_temp1;  // 临时保存累乘加减的结果
+    reg stallreq_for_madd_msub;     // 累乘加减发出的流水线暂停请求
     reg[`DoubleRegBus] mulres;      // 保存乘法结果，宽度为64位
     
     /*****************************************第一段：计算以下五个变量的值**************************************/
@@ -140,9 +148,9 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
 
     /*****************************************第三段：进行乘法运算**************************************/
     // 1. 取得乘法运算的被乘数，如果是有符号乘法且被乘数是负数，那么取补码
-    assign opdata1_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP) && (reg1_i[31] == `NegNum)) ? (reg1_i_not + 1) : reg1_i;
+    assign opdata1_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MSUB_OP) && (reg1_i[31] == `NegNum)) ? (reg1_i_not + 1) : reg1_i;
     // 2. 取得乘法运算的乘数，如果是有符号乘法且乘数是负数，那么取补码
-    assign opdata2_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP) && (reg2_i[31] == `NegNum)) ? (reg2_i_mux) : reg2_i;
+    assign opdata2_mult = ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MSUB_OP) && (reg2_i[31] == `NegNum)) ? (reg2_i_mux) : reg2_i;
     // 3. 得到临时乘法结果
     assign hilo_temp = opdata1_mult * opdata2_mult;
     // 4. 对临时乘法结果进行修正，最终的乘法结果保存在变量mulres中
@@ -150,17 +158,69 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
     //          - 如果被乘数与乘数一正一负，那么需要对临时乘法结果hilo_temp求补码，作为最后的结果赋值给mulres
     //          - 如果被乘数与乘数同号，那么hilo_temp的值就作为最终的乘法结果赋值给mulres
     //      b. 如果是无符号乘法指令multu，那么hilo_temp的值就作为最终的乘法结果赋值给 mulres
+
     always @(*) begin
         if (rst == `RstEnable) begin
                 mulres <= {`ZeroWord, `ZeroWord};
         end
-        else if ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP) && (reg1_i[31] ^ reg2_i[31] == `NegNum)) begin
+        else if ((aluop_i == `EXE_MUL_OP || aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MSUB_OP) && (reg1_i[31] ^ reg2_i[31] == `NegNum)) begin
                 mulres <= ~hilo_temp + 1;
         end
         else begin
                 mulres <= hilo_temp;
         end
     end
+
+    // *********************************************累乘加、累乘减*********************************************
+    always @(*) begin
+        if(rst == `RstEnable) begin
+            hilo_temp_o <= {`ZeroWord, `ZeroWord};
+            cnt_o       <= 2'b00;
+            stallreq_for_madd_msub    <= `NoStop;
+        end
+        else begin
+            case (aluop_i)
+                `EXE_MADD_OP, `EXE_MADDU_OP : begin
+                    if (cnt_i == 2'b00) begin       // 执行阶段的第一个时钟周期
+                        hilo_temp_o                 <= mulres;
+                        cnt_o                       <= 2'b01;
+                        hilo_temp1                  <=  {`ZeroWord, `ZeroWord};
+                        stallreq_for_madd_msub      <= `Stop;
+                    end
+                    else if (cnt_i == 2'b01) begin  // 执行阶段的第二个时钟周期
+                        hilo_temp_o                 <= {`ZeroWord, `ZeroWord};;
+                        cnt_o                       <= 2'b10;
+                        hilo_temp1                  <=  hilo_temp_i + {HI, LO};
+                        stallreq_for_madd_msub      <= `NoStop;
+                    end
+                end
+                `EXE_MSUB_OP, `EXE_MSUBU_OP : begin
+                    if (cnt_i == 2'b00) begin       // 执行阶段的第一个时钟周期
+                        hilo_temp_o                 <= ~mulres + 1;
+                        cnt_o                       <= 2'b01;
+                        hilo_temp1                  <=  {`ZeroWord, `ZeroWord};
+                        stallreq_for_madd_msub      <= `Stop;
+                    end
+                    else if (cnt_i == 2'b01) begin  // 执行阶段的第二个时钟周期
+                        hilo_temp_o                 <= {`ZeroWord, `ZeroWord};;
+                        cnt_o                       <= 2'b10;
+                        hilo_temp1                  <=  hilo_temp_i + {HI, LO};
+                        stallreq_for_madd_msub      <= `NoStop;
+                    end
+                end
+                default : begin
+                    hilo_temp_o                     <= {`ZeroWord, `ZeroWord};;
+                        cnt_o                       <= 2'b00;
+                        stallreq_for_madd_msub      <= `NoStop;
+                end
+            endcase
+        end
+    end
+    // 暂停流水线
+    always @(*) begin
+        stallreq <= stallreq_for_madd_msub;
+    end
+
     //得到最新的HI、LO寄存器的值，此处要解决数据相关问题。
     //如果访存和回写阶段的指令要写HI、LO寄存器，则务必及时更新这两个寄存器
     always @(*) begin
@@ -276,6 +336,15 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
             whilo_o <= `WriteDisable;
             hi_o    <= `ZeroWord;
             lo_o    <= `ZeroWord;
+        end
+        else if (aluop_i == `EXE_MADD_OP || aluop_i == `EXE_MADDU_OP) begin
+            whilo_o <= `WriteEnable;
+            hi_o    <= mulres[63:32];
+            lo_o    <= mulres[31:0];
+        end else if (aluop_i == `EXE_MSUB_OP || aluop_i == `EXE_MSUBU_OP) begin
+            whilo_o <= `WriteEnable;
+            hi_o    <= mulres[63:32];
+            lo_o    <= mulres[31:0];
         end
         else if (aluop_i == `EXE_MULT_OP || aluop_i == `EXE_MULTU_OP) begin
             whilo_o <= `WriteEnable;
