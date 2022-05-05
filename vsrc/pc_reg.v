@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 09:56:35
+ * @LastEditTime: 2022-05-05 21:48:22
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/pc_reg.v
@@ -12,8 +12,10 @@
 module pc_reg (input wire clk,
                input wire rst,
                input wire[5:0] stall,
+               input branch_flag_i,
                output reg ce,
-               output reg[`InstAddrBus] pc);
+               output reg[`InstAddrBus] pc,
+               output reg[`RegBus] branch_target_address_i);
     
     //clk时钟信号
     //rst复位信号
@@ -26,7 +28,12 @@ module pc_reg (input wire clk,
         end
         // 当stall[0]为NoStop时，pc加4，否则，保持pc不变
         else if (stall[0] == `NoStop) begin              //指令存储器使能信号有效的时候，pc在每个时钟加1
-            pc <= pc + 4'h4;
+            if (branch_flag_i == `Branch) begin
+                pc <= branch_target_address_i;
+            end
+            else begin
+                pc <= pc + 4'h4;
+            end
         end
     end
     
