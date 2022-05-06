@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-05 21:47:44
+ * @LastEditTime: 2022-05-06 12:11:24
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -31,6 +31,9 @@
 `define NoStop          1'b0            //流水线不暂停
 `define Branch          1'b1            //转移
 `define NotBranch       1'b0            //不转移
+`define InDelaySlot     1'b1            //在延迟槽里
+`define NotInDelaySlot  1'b0            //不在延迟槽里
+
 
 //*************************     与具体指令有关的宏定义     **************************
 //逻辑操作指令
@@ -89,6 +92,22 @@
 `define EXE_MSUB        6'b000100
 `define EXE_MSUBU       6'b000101
 
+// 转移指令
+`define EXE_JR          6'b001000
+`define EXE_JALR        6'b001001
+`define EXE_J           6'b000010
+`define EXE_JAL         6'b000011
+`define EXE_BEQ         6'b000100
+// `define EXE_B           6'b000100
+`define EXE_BGTZ        6'b000111
+`define EXE_BLEZ        6'b000110
+`define EXE_BNE         6'b000101
+`define EXE_BLTZ        5'b00000
+`define EXE_BLTZAL      5'b10000
+`define EXE_BGEZ        5'b00001
+`define EXE_BGEZAL      5'b10001
+// `define EXE_BAL      5'b10001
+
 //AluOp
 `define EXE_AND_OP      8'b00100100
 `define EXE_OR_OP       8'b00100101
@@ -136,13 +155,27 @@
 `define EXE_MSUB_OP     8'b10101010
 `define EXE_MSUBU_OP    8'b10101011
 
+`define EXE_J_OP        8'b01001111
+`define EXE_JAL_OP      8'b01010000
+`define EXE_JALR_OP     8'b00001001
+`define EXE_JR_OP       8'b00001000
+`define EXE_BEQ_OP      8'b01010001
+`define EXE_BGEZ_OP     8'b01000001
+`define EXE_BGEZAL_OP   8'b01001011
+`define EXE_BGTZ_OP     8'b01010100
+`define EXE_BLEZ_OP     8'b01010011
+`define EXE_BLTZ_OP     8'b01000000
+`define EXE_BLTZAL_OP   8'b01001010
+`define EXE_BNE_OP      8'b01010010
+
 //AluSel
-`define EXE_RES_NOP     3'b000
-`define EXE_RES_LOGIC   3'b001
-`define EXE_RES_SHIFT   3'b010
-`define EXE_RES_MOVE    3'b011
-`define EXE_RES_ARITHMETIC  3'b100
-`define EXE_RES_MUL     3'b101
+`define EXE_RES_NOP             3'b000
+`define EXE_RES_LOGIC           3'b001
+`define EXE_RES_SHIFT           3'b010
+`define EXE_RES_MOVE            3'b011
+`define EXE_RES_ARITHMETIC      3'b100
+`define EXE_RES_MUL             3'b101
+`define EXE_RES_JUMP_BRANCH     3'b110
 
 
 //*************************     与指令存储器ROM有关的宏定义     **************************
