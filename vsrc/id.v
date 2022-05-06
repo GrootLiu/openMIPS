@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-06 12:13:36
+ * @LastEditTime: 2022-05-06 15:03:05
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id.v
@@ -77,6 +77,10 @@ module id (input wire rst,
             reg1_addr_o <= `NOPRegAddr;
             reg2_addr_o <= `NOPRegAddr;
             imm         <= 32'h00000000;
+            link_addr_o                 <= `ZeroWord;
+            branch_target_address_o     <= `ZeroWord;
+            branch_flag_o               <= `NotBranch;
+            next_inst_in_delayslot_o    <= `NotInDelaySlot;
         end
         else begin
             aluop_o     <= `EXE_NOP_OP;
@@ -89,7 +93,10 @@ module id (input wire rst,
             reg1_addr_o <= inst_i[25:21];   //默认通过Regfile读端口1读取的寄存器地址
             reg2_addr_o <= inst_i[20:16];   //默认通过Regfile读端口2读取的寄存器地址
             imm         <= `ZeroWord;
-            
+            link_addr_o                 <= `ZeroWord;
+            branch_target_address_o     <= `ZeroWord;
+            branch_flag_o               <= `NotBranch;
+            next_inst_in_delayslot_o    <= `NotInDelaySlot;
             case (op)
                 `EXE_SPECIAL_INST : begin
                     case (op2)
@@ -299,7 +306,7 @@ module id (input wire rst,
                                     alusel_o                <= `EXE_RES_JUMP_BRANCH;
                                     reg1_read_o             <= `ReadEnable;
                                     reg2_read_o             <= `ReadDisable;
-                                    wd_o                    <= inst_i[15:11];
+                                    // wd_o                    <= inst_i[15:11];
                                     link_addr_o             <= pc_plus_8;
                                     branch_target_address_o <= reg1_o;
                                     branch_flag_o           <= `Branch;
@@ -474,6 +481,31 @@ module id (input wire rst,
                     imm         <= {{16{inst_i[15]}}, inst_i[15:0]};
                     wd_o        <= inst_i[20:16];
                     instvalid   <= `InstValid;
+                end
+                `EXE_J : begin
+                    wreg_o                      <= `WriteDisable;
+                    aluop_o                     <= `EXE_J_OP;
+                    alusel_o                    <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o                 <= `ReadDisable;
+                    reg2_read_o                 <= `ReadDisable;
+                    link_addr_o                 <= `ZeroWord;
+                    next_inst_in_delayslot_o    <= `InDelaySlot;
+                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
+                    branch_flag_o               <= `Branch;
+                    instvalid                   <= `InstValid;
+                end
+                `EXE_JAL : begin
+                    wreg_o                      <= `WriteEnable;
+                    aluop_o                     <= `EXE_JAL_OP;
+                    alusel_o                    <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o                 <= `ReadDisable;
+                    reg2_read_o                 <= `ReadDisable;
+                    wd_o                        <= 5'b11111;                // JAL将返回地址先暂存到$32寄存器中
+                    link_addr_o                 <= pc_plus_8;
+                    next_inst_in_delayslot_o    <= `InDelaySlot;
+                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
+                    branch_flag_o               <= `Branch;
+                    instvalid                   <= `InstValid;                      
                 end
                 default : begin
                 end
