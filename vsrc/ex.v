@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-03 22:38:49
+ * @LastEditTime: 2022-05-10 15:26:48
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -35,7 +35,10 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
            input wire[`DoubleRegBus] hilo_temp_i,
            input wire[1:0] cnt_i,
            output reg[`DoubleRegBus] hilo_temp_o,
-           output reg[1:0] cnt_o
+           output reg[1:0] cnt_o,
+
+           input wire is_in_delayslot_i,
+           input wire[`RegBus] link_address_i
            );            
     
     reg[`RegBus] logicout;      //逻辑操作的结果
@@ -325,6 +328,9 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
             end
             `EXE_RES_MUL : begin
                 wdata_o <= mulres;
+            end
+            `EXE_RES_JUMP_BRANCH : begin
+                wdata_o <= link_address_i;
             end
             default : begin
                 wdata_o <= `ZeroWord;
