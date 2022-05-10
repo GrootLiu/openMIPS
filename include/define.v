@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-06 12:11:24
+ * @LastEditTime: 2022-05-10 14:33:50
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -60,6 +60,7 @@
 `define EXE_PREF            6'b110011
 `define EXE_SPECIAL_INST    6'b000000
 `define EXE_SPECIAL_INST2   6'b011100
+`define EXE_REGIMM_INST     6'b000001
 
 //移动指令
 `define EXE_MOVZ        6'b001010

@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-06 15:03:05
+ * @LastEditTime: 2022-05-10 15:09:19
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id.v
@@ -58,10 +58,10 @@ module id (input wire rst,
 
     wire[`RegBus] pc_plus_4;
     wire[`RegBus] pc_plus_8;
-    wire[`RegBus] imm_sll2_signedext;       //imm_sll2_signedext对应分支指令中的offset左移两位（×4），再进行符号扩展至32位
+    wire[`RegBus] imm_sll2_signedext;       
     assign pc_plus_4 = pc_i + 4;            //保存当前译码阶段指令的下一条指令的地址
     assign pc_plus_8 = pc_i + 8;            //保存当前译码阶段指令的下一条的下一条指令的地址
-    
+    assign imm_sll2_signedext = {{14{inst_i[15]}}, inst_i[15:0], 2'b00};    //imm_sll2_signedext对应分支指令中的offset左移两位（×4），再进行符号扩展至32位
     assign stallreq = `NoStop;
     
     //****************************第一段：对指令进行译码***************************
@@ -384,6 +384,64 @@ module id (input wire rst,
                         end
                     endcase
                 end
+                `EXE_REGIMM_INST : begin
+                    case (op4)
+                        `EXE_BLTZ : begin
+                            wreg_o              <= `WriteDisable;
+                            aluop_o             <= `EXE_BLTZ_OP;
+                            alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                            reg1_read_o         <= `ReadEnable;
+                            reg2_read_o         <= `ReadDisable;
+                            if(inst_i[31] == 1'b1) begin
+                                branch_flag_o               <= `Branch;
+                                next_inst_in_delayslot_o    <= `InDelaySlot;
+                                branch_target_address_o     <= pc_plus_4 + imm_sll2_signedext;
+                            end
+                            instvalid           <= `InstValid;
+                        end
+                        `EXE_BLTZAL : begin
+                            wreg_o              <= `WriteEnable;
+                            aluop_o             <= `EXE_BLTZAL_OP;
+                            alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                            reg1_read_o         <= `ReadEnable;
+                            reg2_read_o         <= `ReadDisable;
+                            link_addr_o         <= pc_plus_8;
+                            wd_o                <= 5'b11111;
+                            if(inst_i[31] == 1'b1) begin
+                                branch_flag_o               <= `Branch;
+                                next_inst_in_delayslot_o    <= `InDelaySlot;
+                                branch_target_address_o     <= pc_plus_4 + imm_sll2_signedext;
+                            end
+                        end
+                        `EXE_BGEZ : begin
+                            wreg_o              <= `WriteDisable;
+                            aluop_o             <= `EXE_BLTZ_OP;
+                            alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                            reg1_read_o         <= `ReadEnable;
+                            reg2_read_o         <= `ReadDisable;
+                            if(inst_i[31] == 1'b0) begin
+                                branch_flag_o               <= `Branch;
+                                next_inst_in_delayslot_o    <= `InDelaySlot;
+                                branch_target_address_o     <= pc_plus_4 + imm_sll2_signedext;
+                            end
+                            instvalid           <= `InstValid;
+                        end
+                        `EXE_BGEZAL : begin
+                            wreg_o              <= `WriteEnable;
+                            aluop_o             <= `EXE_BLTZAL_OP;
+                            alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                            reg1_read_o         <= `ReadEnable;
+                            reg2_read_o         <= `ReadDisable;
+                            link_addr_o         <= pc_plus_8;
+                            wd_o                <= 5'b11111;
+                            if(inst_i[31] == 1'b0) begin
+                                branch_flag_o               <= `Branch;
+                                next_inst_in_delayslot_o    <= `InDelaySlot;
+                                branch_target_address_o     <= pc_plus_4 + imm_sll2_signedext;
+                            end
+                        end
+                    endcase //op4
+                end
                 `EXE_ORI : begin            //依据op的值判断是否是ori指令
                     //ori指令需要将结果写入目的寄存器，所以wreg_o为WriteEnable
                     wreg_o <= `WriteEnable;
@@ -488,10 +546,10 @@ module id (input wire rst,
                     alusel_o                    <= `EXE_RES_JUMP_BRANCH;
                     reg1_read_o                 <= `ReadDisable;
                     reg2_read_o                 <= `ReadDisable;
+                    branch_flag_o               <= `Branch;
                     link_addr_o                 <= `ZeroWord;
                     next_inst_in_delayslot_o    <= `InDelaySlot;
-                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
-                    branch_flag_o               <= `Branch;
+                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};                   
                     instvalid                   <= `InstValid;
                 end
                 `EXE_JAL : begin
@@ -501,11 +559,63 @@ module id (input wire rst,
                     reg1_read_o                 <= `ReadDisable;
                     reg2_read_o                 <= `ReadDisable;
                     wd_o                        <= 5'b11111;                // JAL将返回地址先暂存到$32寄存器中
+                    branch_flag_o               <= `Branch;
                     link_addr_o                 <= pc_plus_8;
                     next_inst_in_delayslot_o    <= `InDelaySlot;
-                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
-                    branch_flag_o               <= `Branch;
+                    branch_target_address_o     <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};                    
                     instvalid                   <= `InstValid;                      
+                end
+                `EXE_BEQ : begin
+                    wreg_o              <= `WriteDisable;
+                    aluop_o             <= `EXE_BEQ_OP;
+                    alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o         <= `ReadEnable;
+                    reg2_read_o         <= `ReadEnable;
+                    if (reg1_o == reg2_o) begin
+                        branch_flag_o               <= `Branch;
+                        next_inst_in_delayslot_o    <= `InDelaySlot;
+                        branch_target_address_o     <=  pc_plus_4 + imm_sll2_signedext;
+                    end
+                    instvalid           <= `InstValid;
+                end
+                `EXE_BGTZ : begin
+                    wreg_o              <= `WriteDisable;
+                    aluop_o             <= `EXE_BEQ_OP;
+                    alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o         <= `ReadEnable;
+                    reg2_read_o         <= `ReadDisable;
+                    if(reg1_o[31] == 1'b0 && reg1_o != `ZeroWord) begin
+                        branch_flag_o               <= `Branch;
+                        next_inst_in_delayslot_o    <= `InDelaySlot;
+                        branch_target_address_o     <=  pc_plus_4 + imm_sll2_signedext;
+                    end
+                    instvalid           <= `InstValid;
+                end
+                `EXE_BLEZ : begin
+                    wreg_o              <= `WriteDisable;
+                    aluop_o             <= `EXE_BLEZ_OP;
+                    alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o         <= `ReadEnable;
+                    reg2_read_o         <= `ReadDisable;
+                    if (reg1_o[31] == 1'b1 || reg1_o == `ZeroWord) begin
+                        branch_flag_o               <= `Branch;
+                        next_inst_in_delayslot_o    <= `InDelaySlot;
+                        branch_target_address_o     <=  pc_plus_4 + imm_sll2_signedext;
+                    end
+                    instvalid           <= `InstValid;
+                end
+                `EXE_BNE : begin
+                    wreg_o              <= `WriteDisable;
+                    aluop_o             <= `EXE_BLEZ_OP;
+                    alusel_o            <= `EXE_RES_JUMP_BRANCH;
+                    reg1_read_o         <= `ReadEnable;
+                    reg2_read_o         <= `ReadEnable;
+                    if (reg1_o != reg2_o) begin
+                        branch_flag_o               <= `Branch;
+                        next_inst_in_delayslot_o    <= `InDelaySlot;
+                        branch_target_address_o     <=  pc_plus_4 + imm_sll2_signedext;
+                    end
+                    instvalid           <= `InstValid;
                 end
                 default : begin
                 end
@@ -531,7 +641,7 @@ module id (input wire rst,
                     wd_o        <= inst_i[15:11];
                     instvalid   <= `InstValid;
                 end
-                    else if (op3 == `EXE_SRA) begin
+                else if (op3 == `EXE_SRA) begin
                     wreg_o      <= `WriteEnable;
                     alusel_o    <= `EXE_RES_SHIFT;
                     aluop_o     <= `EXE_SRA_OP;
@@ -540,56 +650,66 @@ module id (input wire rst,
                     imm[4:0]    <= inst_i[10:6];
                     wd_o        <= inst_i[15:11];
                     instvalid   <= `InstValid;
-                    end
-                    end
-                    end
-                    end //always
-                    
-                    //****************************第二段：确定进行运算的源操作数1***************************
-                    //给reg1_赋值的过程增加了两种情况:
-                    //1. 如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行阶段的结果ex_wdata_i作为reg1_o的值
-                    //2. 如果Regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存阶段的结果mem_wdata_i作为reg1_o的值
-                    always @(*) begin
-                        if (rst == `RstEnable) begin
-                            reg1_o <= `ZeroWord;
-                        end
-                        else if ((reg1_read_o == `ReadEnable) && (ex_wreg_i == `ReadEnable) && (reg1_addr_o == ex_wd_i)) begin
-                            reg1_o <= ex_wdata_i;
-                        end
-                            else if ((reg1_read_o == `ReadEnable) && (mem_wreg_i == `ReadEnable) && (reg1_addr_o == mem_wd_i)) begin
-                            reg1_o <= mem_wdata_i;
-                            end
-                            else if (reg1_read_o == `ReadEnable) begin
-                            reg1_o <= reg1_data_i;                  //Regfile读端口1的输出值
-                            end
-                            else if (reg1_read_o == `ReadDisable) begin
-                            reg1_o <= imm;
-                            end
-                        else begin
-                            reg1_o <= `ZeroWord;
-                        end
-                    end
-                    
-                    //****************************第三段：确定进行运算的源操作数2***************************
-                    //给reg2赋值过程同样也增加了两种情况，参考第二段
-                    always @(*) begin
-                        if (rst == `RstEnable) begin
-                            reg2_o <= `ZeroWord;
-                        end
-                        else if ((reg2_read_o == `ReadEnable) && (ex_wreg_i == `ReadEnable) && (reg2_addr_o == ex_wd_i)) begin
-                            reg2_o <= ex_wdata_i;
-                        end
-                            else if ((reg2_read_o == `ReadEnable) && (mem_wreg_i == `ReadEnable) && (reg2_addr_o == mem_wd_i)) begin
-                            reg2_o <= mem_wdata_i;
-                            end
-                            else if (reg2_read_o == `ReadEnable) begin
-                            reg2_o <= reg2_data_i;                              //Regfile读端口2的输出值
-                            end
-                            else if (reg2_read_o == `ReadDisable) begin
-                            reg2_o <= imm;                                      //立即数
-                            end
-                        else begin
-                            reg2_o <= `ZeroWord;
-                        end
-                    end
-                    endmodule //id
+                end
+            end
+        end
+    end //always
+
+    // 输出变量is_in_delayslot_o表示本条指令是否是延迟槽指令
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            is_in_delayslot_o <= `NotInDelaySlot;
+        end
+        else begin
+            is_in_delayslot_o <= is_in_delayslot_i;
+        end
+    end
+
+    //****************************第二段：确定进行运算的源操作数1***************************
+    //给reg1_赋值的过程增加了两种情况:
+    //1. 如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的目的寄存器，那么直接把执行阶段的结果ex_wdata_i作为reg1_o的值
+    //2. 如果Regfile模块读端口1要读取的寄存器就是访存阶段要写的目的寄存器，那么直接把访存阶段的结果mem_wdata_i作为reg1_o的值
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            reg1_o <= `ZeroWord;
+        end
+        else if ((reg1_read_o == `ReadEnable) && (ex_wreg_i == `ReadEnable) && (reg1_addr_o == ex_wd_i)) begin
+            reg1_o <= ex_wdata_i;
+        end
+        else if ((reg1_read_o == `ReadEnable) && (mem_wreg_i == `ReadEnable) && (reg1_addr_o == mem_wd_i)) begin
+            reg1_o <= mem_wdata_i;
+        end
+        else if (reg1_read_o == `ReadEnable) begin
+            reg1_o <= reg1_data_i;                  //Regfile读端口1的输出值
+        end
+            else if (reg1_read_o == `ReadDisable) begin
+            reg1_o <= imm;
+        end
+        else begin
+            reg1_o <= `ZeroWord;
+        end
+    end
+
+    //****************************第三段：确定进行运算的源操作数2***************************
+    //给reg2赋值过程同样也增加了两种情况，参考第二段
+    always @(*) begin
+        if (rst == `RstEnable) begin
+            reg2_o <= `ZeroWord;
+        end
+        else if ((reg2_read_o == `ReadEnable) && (ex_wreg_i == `ReadEnable) && (reg2_addr_o == ex_wd_i)) begin
+            reg2_o <= ex_wdata_i;
+        end
+        else if ((reg2_read_o == `ReadEnable) && (mem_wreg_i == `ReadEnable) && (reg2_addr_o == mem_wd_i)) begin
+            reg2_o <= mem_wdata_i;
+        end
+        else if (reg2_read_o == `ReadEnable) begin
+            reg2_o <= reg2_data_i;                              //Regfile读端口2的输出值
+        end
+        else if (reg2_read_o == `ReadDisable) begin
+            reg2_o <= imm;                                      //立即数
+        end
+        else begin
+            reg2_o <= `ZeroWord;
+        end
+    end
+endmodule //id
