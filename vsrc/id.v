@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-10 15:10:46
+ * @LastEditTime: 2022-05-10 18:08:55
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id.v
@@ -439,6 +439,9 @@ module id (input wire rst,
                                 next_inst_in_delayslot_o    <= `InDelaySlot;
                                 branch_target_address_o     <= pc_plus_4 + imm_sll2_signedext;
                             end
+                        end
+                        default : begin
+                            
                         end
                     endcase //op4
                 end

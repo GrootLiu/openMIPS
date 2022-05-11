@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-05-03 21:35:35
+ * @LastEditTime: 2022-05-11 14:22:30
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
@@ -38,7 +38,10 @@ module openmips (input wire clk,
     wire[`RegBus] id_reg2_o;
     wire id_wreg_o;
     wire[`RegAddBus] id_wd_o;
-    
+    wire id_is_in_delayslot_o;
+    wire[`RegBus] id_link_addr_o;
+    wire id_next_inst_in_delayslot_o;
+
     //连接ID/EX模块输出与执行阶段EX模块输入的变量
     wire[`AluOpBus] ex_aluop_i;
     wire[`AluSelBus] ex_alusel_i;
@@ -46,6 +49,7 @@ module openmips (input wire clk,
     wire[`RegBus] ex_reg2_i;
     wire ex_wreg_i;
     wire[`RegAddBus] ex_wd_i;
+
     
     //连接执行阶段EX模块的输出与EX/MEM模块的输入的变量
     wire ex_wreg_o;
@@ -54,6 +58,8 @@ module openmips (input wire clk,
     wire ex_whilo_o;
     wire[`RegBus] ex_hi_o;
     wire[`RegBus] ex_lo_o;
+    wire ex_is_in_delayslot_i;
+    wire[`RegBus] ex_link_address_i;
     
     //连接EX/MEM模块的输出与访存阶段MEM模块的输入的变量
     wire mem_wreg_i;
@@ -102,13 +108,20 @@ module openmips (input wire clk,
     wire[`DoubleRegBus] hilo_temp_i;
     wire[1:0] cnt_o;
     wire[`DoubleRegBus] hilo_temp_o;
+
+    wire is_in_delayslot_i;
+    wire is_in_delayslot_o;
+    wire[`RegBus] branch_target_address;
+    wire id_branch_flag_o;
     
     //pc_reg的例化
     pc_reg pc_reg0(.clk(clk),
     .rst(rst),
     .pc(pc),
     .ce(rom_ce_o),
-    .stall(stall));
+    .stall(stall),
+    .branch_target_address_i(branch_target_address),
+    .branch_flag_i(id_branch_flag_o));
     
     assign rom_addr_o = pc;
     
@@ -153,7 +166,15 @@ module openmips (input wire clk,
     .wreg_o(id_wreg_o),
 
     // 流水线暂停指令输出
-    .stallreq(stallreq_from_id)
+    .stallreq(stallreq_from_id),
+
+    // 用于转移指令的连线
+    .is_in_delayslot_o(id_is_in_delayslot_o),
+    .link_addr_o(id_link_addr_o),
+    .next_inst_in_delayslot_o(id_next_inst_in_delayslot_o),
+    .branch_target_address_o(branch_target_address),
+    .branch_flag_o(id_branch_flag_o),
+    .is_in_delayslot_i(is_in_delayslot_o)
     );
     
     //通用寄存器Regfile的例化
@@ -171,7 +192,8 @@ module openmips (input wire clk,
     );
     
     //ID/EX模块例化
-    id_ex id_ex0(.clk(clk),
+    id_ex id_ex0(
+    .clk(clk),
     .rst(rst),
     //从译码阶段ID模块传递过来的信息
     .id_aluop(id_aluop_o),
@@ -180,6 +202,9 @@ module openmips (input wire clk,
     .id_reg2(id_reg2_o),
     .id_wd(id_wd_o),
     .id_wreg(id_wreg_o),
+    .id_is_in_delayslot(id_is_in_delayslot_o),
+    .id_link_address(id_link_addr_o),
+    .next_inst_in_delayslot_i(id_next_inst_in_delayslot_o),
     //传递到执行阶段EX模块的信息
     .ex_aluop(ex_aluop_i),
     .ex_alusel(ex_alusel_i),
@@ -187,7 +212,10 @@ module openmips (input wire clk,
     .ex_reg2(ex_reg2_i),
     .ex_wd(ex_wd_i),
     .ex_wreg(ex_wreg_i),
-    .stall(stall)
+    .stall(stall),
+    .ex_is_in_delayslot(ex_is_in_delayslot_i),
+    .ex_link_address(ex_link_address_i),
+    .is_in_delayslot_o(is_in_delayslot_i)
     );
     
     //EX模块例化
@@ -218,7 +246,9 @@ module openmips (input wire clk,
     .cnt_i(cnt_i),
     .hilo_temp_i(hilo_temp_i),
     .cnt_o(cnt_o),
-    .hilo_temp_o(hilo_temp_o)
+    .hilo_temp_o(hilo_temp_o),
+    .link_address_i(ex_link_address_i),
+    .is_in_delayslot_i(ex_is_in_delayslot_i)
     );
     
     
