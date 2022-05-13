@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-05-11 14:22:30
+ * @LastEditTime: 2022-05-13 17:40:58
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
@@ -25,7 +25,14 @@ module openmips (input wire clk,
                  input wire rst,
                  input wire[`RegBus] rom_data_i,  //存疑
                  output wire[`RegBus] rom_addr_o, //存疑
-                 output wire rom_ce_o);
+                 output wire rom_ce_o,
+                 input wire[`RegBus] ram_data_i,
+                 output reg[`RegBus] ram_addr_o,
+                 output reg[`RegBus] ram_data_o,
+                 output reg ram_we_o,
+                 output reg ram_ce_o,
+                 output reg[3:0] ram_sel_o
+                 );
     //连接 IF/ID模块与译码阶段ID模块的变量
     wire[`InstAddrBus] pc;
     wire[`InstAddrBus] id_pc_i;
@@ -41,6 +48,7 @@ module openmips (input wire clk,
     wire id_is_in_delayslot_o;
     wire[`RegBus] id_link_addr_o;
     wire id_next_inst_in_delayslot_o;
+    wire[`RegBus] id_inst_o;
 
     //连接ID/EX模块输出与执行阶段EX模块输入的变量
     wire[`AluOpBus] ex_aluop_i;
@@ -49,6 +57,7 @@ module openmips (input wire clk,
     wire[`RegBus] ex_reg2_i;
     wire ex_wreg_i;
     wire[`RegAddBus] ex_wd_i;
+    wire[`RegBus] ex_inst_i;
 
     
     //连接执行阶段EX模块的输出与EX/MEM模块的输入的变量
@@ -58,6 +67,9 @@ module openmips (input wire clk,
     wire ex_whilo_o;
     wire[`RegBus] ex_hi_o;
     wire[`RegBus] ex_lo_o;
+    wire[`AluOpBus] ex_aluop_o;
+    wire[`RegBus] ex_mem_addr_o;
+    wire[`RegBus] ex_reg2_o;
     wire ex_is_in_delayslot_i;
     wire[`RegBus] ex_link_address_i;
     
@@ -68,7 +80,9 @@ module openmips (input wire clk,
     wire mem_whilo_i;
     wire[`RegBus] mem_hi_i;
     wire[`RegBus] mem_lo_i;
-    
+    wire[`AluOpBus] mem_aluop_i;
+    wire[`RegBus] mem_mem_addr_i;
+    wire[`RegBus] mem_reg2_i;
     
     //连接访存阶段MEM模块的输出与MEM/WB模块的输入的变量
     wire mem_wreg_o;
@@ -174,7 +188,9 @@ module openmips (input wire clk,
     .next_inst_in_delayslot_o(id_next_inst_in_delayslot_o),
     .branch_target_address_o(branch_target_address),
     .branch_flag_o(id_branch_flag_o),
-    .is_in_delayslot_i(is_in_delayslot_o)
+    .is_in_delayslot_i(is_in_delayslot_o),
+
+    .inst_o(id_inst_o)
     );
     
     //通用寄存器Regfile的例化
@@ -204,6 +220,8 @@ module openmips (input wire clk,
     .id_wreg(id_wreg_o),
     .id_is_in_delayslot(id_is_in_delayslot_o),
     .id_link_address(id_link_addr_o),
+    .id_inst(id_inst_o),
+    .ex_inst(ex_inst_i),
     .next_inst_in_delayslot_i(id_next_inst_in_delayslot_o),
     //传递到执行阶段EX模块的信息
     .ex_aluop(ex_aluop_i),
@@ -239,6 +257,10 @@ module openmips (input wire clk,
     .wb_whilo_i(wb_whilo_i),
     .wb_hi_i(wb_hi_i),
     .wb_lo_i(wb_lo_i),
+    .inst_i(ex_inst_i),
+    .aluop_o(ex_aluop_o),
+    .mem_addr_o(ex_mem_addr_o),
+    .reg2_o(ex_reg2_o),
     .whilo_o(ex_whilo_o),
     .hi_o(ex_hi_o),
     .lo_o(ex_lo_o),
@@ -261,15 +283,21 @@ module openmips (input wire clk,
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
-    .mem_wd(mem_wd_i),
-    .mem_wreg(mem_wreg_i),
-    .mem_wdata(mem_wdata_i),
     .ex_whilo(ex_whilo_o),
     .ex_hi(ex_hi_o),
     .ex_lo(ex_lo_o),
+    .ex_aluop(ex_aluop_o),
+    .ex_mem_addr(ex_mem_addr_o),
+    .ex_reg2(ex_reg2_o),
     .mem_whilo(mem_whilo_i),
     .mem_hi(mem_hi_i),
     .mem_lo(mem_lo_i),
+    .mem_wd(mem_wd_i),
+    .mem_wreg(mem_wreg_i),
+    .mem_wdata(mem_wdata_i),
+    .mem_aluop(mem_aluop_i),
+    .mem_mem_addr(mem_mem_addr_i),
+    .mem_reg2(mem_reg2_i),
     .cnt_i(cnt_o),
     .hilo_i(hilo_temp_o),
     .cnt_o(cnt_i),
@@ -291,7 +319,16 @@ module openmips (input wire clk,
     .lo_i(mem_lo_i),
     .whilo_o(mem_whilo_o),
     .hi_o(mem_hi_o),
-    .lo_o(mem_lo_o)
+    .lo_o(mem_lo_o),
+    .aluop_i(mem_aluop_i),
+    .mem_addr_i(mem_mem_addr_i),
+    .reg2_i(mem_reg2_i),
+    .mem_data_i(ram_data_i),
+    .mem_addr_o(ram_addr_o),
+    .mem_we_o(ram_we_o),
+    .mem_sel_o(ram_sel_o),
+    .mem_data_o(ram_data_o),
+    .mem_ce_o(ram_ce_o)
     );
     
     //MEM/WB模块例化

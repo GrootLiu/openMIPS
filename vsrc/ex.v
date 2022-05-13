@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-10 15:26:48
+ * @LastEditTime: 2022-05-13 11:13:11
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/ex.v
@@ -38,7 +38,12 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
            output reg[1:0] cnt_o,
 
            input wire is_in_delayslot_i,
-           input wire[`RegBus] link_address_i
+           input wire[`RegBus] link_address_i,
+
+           input wire[`RegBus] inst_i,
+           output wire[`AluOpBus] aluop_o,
+           output wire[`RegBus] mem_addr_o,
+           output wire[`RegBus] reg2_o
            );            
     
     reg[`RegBus] logicout;      //逻辑操作的结果
@@ -62,6 +67,10 @@ module ex (input wire rst,                  //译码阶段送到执行阶段的�
     reg stallreq_for_madd_msub;     // 累乘加减发出的流水线暂停请求
     reg[`DoubleRegBus] mulres;      // 保存乘法结果，宽度为64位
     
+    assign aluop_o = aluop_i;
+    assign reg2_o  = reg2_i;
+    assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+
     /*****************************************第一段：计算以下五个变量的值**************************************/
     // 1.如果是减法或者有符号比较运算，那么第二个操作数需要使用补码
     //   否则，第二个操作数仍等于它自身

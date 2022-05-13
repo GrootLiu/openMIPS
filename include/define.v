@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-10 14:33:50
+ * @LastEditTime: 2022-05-13 18:17:00
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/include/define.v
@@ -109,6 +109,21 @@
 `define EXE_BGEZAL      5'b10001
 // `define EXE_BAL      5'b10001
 
+// 存取指令
+`define EXE_LB          6'b100000
+`define EXE_LBU         6'b100100
+`define EXE_LH          6'b100001
+`define EXE_LHU         6'b100101
+`define EXE_LW          6'b100011
+`define EXE_LWL         6'b100010
+`define EXE_LWR         6'b100110
+`define EXE_SB          6'b101000
+`define EXE_SH          6'b101001
+`define EXE_SW          6'b101011
+`define EXE_SWL         6'b101010
+`define EXE_SWR         6'b101110
+
+
 //AluOp
 `define EXE_AND_OP      8'b00100100
 `define EXE_OR_OP       8'b00100101
@@ -169,6 +184,22 @@
 `define EXE_BLTZAL_OP   8'b01001010
 `define EXE_BNE_OP      8'b01010010
 
+`define EXE_LB_OP  8'b11100000
+`define EXE_LBU_OP  8'b11100100
+`define EXE_LH_OP  8'b11100001
+`define EXE_LHU_OP  8'b11100101
+`define EXE_LL_OP  8'b11110000
+`define EXE_LW_OP  8'b11100011
+`define EXE_LWL_OP  8'b11100010
+`define EXE_LWR_OP  8'b11100110
+
+`define EXE_SB_OP  8'b11101000
+`define EXE_SC_OP  8'b11111000
+`define EXE_SH_OP  8'b11101001
+`define EXE_SW_OP  8'b11101011
+`define EXE_SWL_OP  8'b11101010
+`define EXE_SWR_OP  8'b11101110
+
 //AluSel
 `define EXE_RES_NOP             3'b000
 `define EXE_RES_LOGIC           3'b001
@@ -177,6 +208,7 @@
 `define EXE_RES_ARITHMETIC      3'b100
 `define EXE_RES_MUL             3'b101
 `define EXE_RES_JUMP_BRANCH     3'b110
+`define EXE_RES_LOAD_STORE      3'b111
 
 
 //*************************     与指令存储器ROM有关的宏定义     **************************
@@ -197,6 +229,12 @@
 `define NOPRegAddr      5'b00000
 
 
+//数据存储器data_ram
+`define DataAddrBus     31:0
+`define DataBus         31:0
+`define DataMemNum      131071
+`define DataMemNumLog2  17
+`define ByteWidth       7:0
 
 //Regfile.v 寄存器文件
 

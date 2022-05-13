@@ -26,6 +26,9 @@ VL_MODULE(Vtop___024root) {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         CData/*0:0*/ top__DOT__rom_ce;
+        CData/*0:0*/ top__DOT__mem_we_i;
+        CData/*3:0*/ top__DOT__mem_sel_i;
+        CData/*0:0*/ top__DOT__mem_ce_i;
         CData/*7:0*/ top__DOT__openmips0__DOT__id_aluop_o;
         CData/*2:0*/ top__DOT__openmips0__DOT__id_alusel_o;
         CData/*0:0*/ top__DOT__openmips0__DOT__id_wreg_o;
@@ -41,6 +44,7 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__openmips0__DOT__mem_wreg_i;
         CData/*4:0*/ top__DOT__openmips0__DOT__mem_wd_i;
         CData/*0:0*/ top__DOT__openmips0__DOT__mem_whilo_i;
+        CData/*7:0*/ top__DOT__openmips0__DOT__mem_aluop_i;
         CData/*0:0*/ top__DOT__openmips0__DOT__mem_wreg_o;
         CData/*4:0*/ top__DOT__openmips0__DOT__mem_wd_o;
         CData/*0:0*/ top__DOT__openmips0__DOT__mem_whilo_o;
@@ -60,6 +64,9 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__instvalid;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__reg1_eq_reg2;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__stallreq_for_madd_msub;
+        IData/*31:0*/ top__DOT__mem_addr_i;
+        IData/*31:0*/ top__DOT__mem_data_i;
+        IData/*31:0*/ top__DOT__mem_data_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__pc;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
@@ -68,6 +75,7 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__openmips0__DOT__id_link_addr_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg1_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex_reg2_i;
+        IData/*31:0*/ top__DOT__openmips0__DOT__ex_inst_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex_wdata_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex_hi_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex_lo_o;
@@ -75,10 +83,14 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_wdata_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_hi_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_lo_i;
+        IData/*31:0*/ top__DOT__openmips0__DOT__mem_mem_addr_i;
+        IData/*31:0*/ top__DOT__openmips0__DOT__mem_reg2_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_wdata_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_hi_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_lo_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_wdata_i;
+    };
+    struct {
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_hi_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_lo_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__hi;
@@ -89,8 +101,6 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__logicout;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__shiftres;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__movres;
-    };
-    struct {
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__HI;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__LO;
         IData/*31:0*/ top__DOT__openmips0__DOT__ex0__DOT__arithmeticres;
@@ -103,9 +113,17 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__openmips0__DOT__ex0__DOT__mulres;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__openmips0__DOT__regfile1__DOT__regs;
         VlUnpacked<IData/*31:0*/, 131071> top__DOT__inst_rom0__DOT__inst_mem;
+        VlUnpacked<CData/*7:0*/, 131071> top__DOT__data_ram0__DOT__data_mem0;
+        VlUnpacked<CData/*7:0*/, 131071> top__DOT__data_ram0__DOT__data_mem1;
+        VlUnpacked<CData/*7:0*/, 131071> top__DOT__data_ram0__DOT__data_mem2;
+        VlUnpacked<CData/*7:0*/, 131071> top__DOT__data_ram0__DOT__data_mem3;
     };
 
     // LOCAL VARIABLES
+    CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound1;
+    CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound2;
+    CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound3;
+    CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound4;
     CData/*0:0*/ __Vclklast__TOP__clk;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
