@@ -26,9 +26,9 @@ VL_MODULE(Vtop___024root) {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         CData/*0:0*/ top__DOT__rom_ce;
-        CData/*0:0*/ top__DOT__mem_we_i;
-        CData/*3:0*/ top__DOT__mem_sel_i;
-        CData/*0:0*/ top__DOT__mem_ce_i;
+        CData/*3:0*/ top__DOT__ram_sel_i;
+        CData/*0:0*/ top__DOT__ram_ce_i;
+        CData/*0:0*/ top__DOT__ram_we_i;
         CData/*7:0*/ top__DOT__openmips0__DOT__id_aluop_o;
         CData/*2:0*/ top__DOT__openmips0__DOT__id_alusel_o;
         CData/*0:0*/ top__DOT__openmips0__DOT__id_wreg_o;
@@ -64,9 +64,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__instvalid;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__reg1_eq_reg2;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__stallreq_for_madd_msub;
-        IData/*31:0*/ top__DOT__mem_addr_i;
-        IData/*31:0*/ top__DOT__mem_data_i;
-        IData/*31:0*/ top__DOT__mem_data_o;
+        IData/*31:0*/ top__DOT__ram_addr_i;
+        IData/*31:0*/ top__DOT__ram_data_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__pc;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
@@ -89,9 +88,9 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_hi_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_lo_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_wdata_i;
+        IData/*31:0*/ top__DOT__openmips0__DOT__wb_hi_i;
     };
     struct {
-        IData/*31:0*/ top__DOT__openmips0__DOT__wb_hi_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_lo_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__hi;
         IData/*31:0*/ top__DOT__openmips0__DOT__lo;
@@ -125,6 +124,7 @@ VL_MODULE(Vtop___024root) {
     CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound3;
     CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound4;
     CData/*0:0*/ __Vclklast__TOP__clk;
+    IData/*31:0*/ top__DOT____Vcellout__openmips0__ram_data_o;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
