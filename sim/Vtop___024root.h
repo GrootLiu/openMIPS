@@ -62,10 +62,13 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__openmips0__DOT__is_in_delayslot_o;
         CData/*0:0*/ top__DOT__openmips0__DOT__id_branch_flag_o;
         CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__instvalid;
+        CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__text;
+        CData/*0:0*/ top__DOT__openmips0__DOT__id0__DOT__pre_inst_is_load;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__reg1_eq_reg2;
         CData/*0:0*/ top__DOT__openmips0__DOT__ex0__DOT__stallreq_for_madd_msub;
         IData/*31:0*/ top__DOT__ram_addr_i;
         IData/*31:0*/ top__DOT__ram_data_o;
+        IData/*31:0*/ top__DOT__ram_data_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__pc;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_pc_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__id_inst_i;
@@ -86,11 +89,11 @@ VL_MODULE(Vtop___024root) {
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_reg2_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_wdata_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_hi_o;
+    };
+    struct {
         IData/*31:0*/ top__DOT__openmips0__DOT__mem_lo_o;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_wdata_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_hi_i;
-    };
-    struct {
         IData/*31:0*/ top__DOT__openmips0__DOT__wb_lo_i;
         IData/*31:0*/ top__DOT__openmips0__DOT__hi;
         IData/*31:0*/ top__DOT__openmips0__DOT__lo;
@@ -124,7 +127,6 @@ VL_MODULE(Vtop___024root) {
     CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound3;
     CData/*7:0*/ top__DOT__data_ram0__DOT____Vlvbound4;
     CData/*0:0*/ __Vclklast__TOP__clk;
-    IData/*31:0*/ top__DOT____Vcellout__openmips0__ram_data_o;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 
     // INTERNAL VARIABLES

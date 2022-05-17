@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-13 11:53:10
+ * @LastEditTime: 2022-05-14 16:18:32
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/id.v
@@ -15,6 +15,7 @@ module id (input wire rst,
            input wire[`RegBus] reg1_data_i,
            input wire[`RegBus] reg2_data_i,
            input wire ex_wreg_i,
+        //    input wire[`AluOpBus] ex_aluop_i,
            input wire[`RegAddBus] ex_wd_i,
            input wire[`InstBus] ex_wdata_i,
            input wire mem_wreg_i,
@@ -57,15 +58,30 @@ module id (input wire rst,
     
     //指令是否有效
     reg instvalid;
+    reg text;
 
     wire[`RegBus] pc_plus_4;
     wire[`RegBus] pc_plus_8;
-    wire[`RegBus] imm_sll2_signedext;       
+    wire[`RegBus] imm_sll2_signedext;
+
+    wire pre_inst_is_load;
+
     assign pc_plus_4 = pc_i + 4;            //保存当前译码阶段指令的下一条指令的地址
     assign pc_plus_8 = pc_i + 8;            //保存当前译码阶段指令的下一条的下一条指令的地址
     assign imm_sll2_signedext = {{14{inst_i[15]}}, inst_i[15:0], 2'b00};    //imm_sll2_signedext对应分支指令中的offset左移两位（×4），再进行符号扩展至32位
     assign stallreq = `NoStop;
     assign inst_o = inst_i;
+
+    // assign pre_inst_is_load = ( (ex_aluop_i == `EXE_LB_OP) || 
+    //                             (ex_aluop_i == `EXE_LBU_OP)||
+    //                             (ex_aluop_i == `EXE_LH_OP) ||
+    //                             (ex_aluop_i == `EXE_LHU_OP)||
+    //                             (ex_aluop_i == `EXE_LW_OP) ||
+    //                             (ex_aluop_i == `EXE_LWR_OP)||
+    //                             (ex_aluop_i == `EXE_LWL_OP)||
+    //                             (ex_aluop_i == `EXE_LL_OP) ||
+    //                             (ex_aluop_i == `EXE_SC_OP)) ? 1'b1 : 1'b0;
+
     //****************************第一段：对指令进行译码***************************
     always @(*) begin
         if (rst == `RstEnable) begin
@@ -689,48 +705,43 @@ module id (input wire rst,
                     instvalid   <= `InstValid;
                 end
                 `EXE_SB : begin
-                    wreg_o      <= `WriteEnable;
+                    wreg_o      <= `WriteDisable;
                     aluop_o     <= `EXE_SB_OP;
                     alusel_o    <= `EXE_RES_LOAD_STORE;
                     reg1_read_o <= `ReadEnable;
-                    reg2_read_o <= `ReadDisable;
-                    wd_o        <= op4;
+                    reg2_read_o <= `ReadEnable;
                     instvalid   <= `InstValid;
                 end
                 `EXE_SH : begin
-                    wreg_o      <= `WriteEnable;
+                    wreg_o      <= `WriteDisable;
                     aluop_o     <= `EXE_SH_OP;
                     alusel_o    <= `EXE_RES_LOAD_STORE;
                     reg1_read_o <= `ReadEnable;
-                    reg2_read_o <= `ReadDisable;
-                    wd_o        <= op4;
+                    reg2_read_o <= `ReadEnable;
                     instvalid   <= `InstValid;
                 end
                 `EXE_SW : begin
-                    wreg_o      <= `WriteEnable;
+                    wreg_o      <= `WriteDisable;
                     aluop_o     <= `EXE_SW_OP;
                     alusel_o    <= `EXE_RES_LOAD_STORE;
                     reg1_read_o <= `ReadEnable;
-                    reg2_read_o <= `ReadDisable;
-                    wd_o        <= op4;
+                    reg2_read_o <= `ReadEnable;
                     instvalid   <= `InstValid;
                 end
                 `EXE_SWL : begin
-                    wreg_o      <= `WriteEnable;
+                    wreg_o      <= `WriteDisable;
                     aluop_o     <= `EXE_SWL_OP;
                     alusel_o    <= `EXE_RES_LOAD_STORE;
                     reg1_read_o <= `ReadEnable;
                     reg2_read_o <= `ReadEnable;
-                    wd_o        <= op4;
                     instvalid   <= `InstValid;
                 end
-                `EXE_SWL : begin
-                    wreg_o      <= `WriteEnable;
+                `EXE_SWR : begin
+                    wreg_o      <= `WriteDisable;
                     aluop_o     <= `EXE_SWR_OP;
                     alusel_o    <= `EXE_RES_LOAD_STORE;
                     reg1_read_o <= `ReadEnable;
                     reg2_read_o <= `ReadEnable;
-                    wd_o        <= op4;
                     instvalid   <= `InstValid;
                 end
                 default : begin
@@ -798,7 +809,7 @@ module id (input wire rst,
         else if (reg1_read_o == `ReadEnable) begin
             reg1_o <= reg1_data_i;                  //Regfile读端口1的输出值
         end
-            else if (reg1_read_o == `ReadDisable) begin
+        else if (reg1_read_o == `ReadDisable) begin
             reg1_o <= imm;
         end
         else begin
@@ -814,15 +825,19 @@ module id (input wire rst,
         end
         else if ((reg2_read_o == `ReadEnable) && (ex_wreg_i == `ReadEnable) && (reg2_addr_o == ex_wd_i)) begin
             reg2_o <= ex_wdata_i;
+            text   <= 1'b1;
         end
         else if ((reg2_read_o == `ReadEnable) && (mem_wreg_i == `ReadEnable) && (reg2_addr_o == mem_wd_i)) begin
             reg2_o <= mem_wdata_i;
+            text   <= 1'b0;
         end
         else if (reg2_read_o == `ReadEnable) begin
             reg2_o <= reg2_data_i;                              //Regfile读端口2的输出值
+            text   <= 1'b1;
         end
         else if (reg2_read_o == `ReadDisable) begin
             reg2_o <= imm;                                      //立即数
+            text   <= 1'b0;
         end
         else begin
             reg2_o <= `ZeroWord;

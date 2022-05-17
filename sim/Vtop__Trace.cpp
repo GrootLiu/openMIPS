@@ -184,38 +184,38 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgCData(oldp+87,(vlSelf->top__DOT__ram_sel_i),4);
             tracep->chgBit(oldp+88,(vlSelf->top__DOT__ram_ce_i));
             tracep->chgBit(oldp+89,(vlSelf->top__DOT__ram_we_i));
-            tracep->chgBit(oldp+90,((1U & vlSelf->top__DOT____Vcellout__openmips0__ram_data_o)));
-            tracep->chgIData(oldp+91,(vlSelf->top__DOT____Vcellout__openmips0__ram_data_o),32);
-            tracep->chgCData(oldp+92,(vlSelf->top__DOT__openmips0__DOT__id_aluop_o),8);
-            tracep->chgCData(oldp+93,(vlSelf->top__DOT__openmips0__DOT__id_alusel_o),3);
-            tracep->chgIData(oldp+94,(vlSelf->top__DOT__openmips0__DOT__id_reg1_o),32);
-            tracep->chgIData(oldp+95,(vlSelf->top__DOT__openmips0__DOT__id_reg2_o),32);
-            tracep->chgBit(oldp+96,(vlSelf->top__DOT__openmips0__DOT__id_wreg_o));
-            tracep->chgCData(oldp+97,(vlSelf->top__DOT__openmips0__DOT__id_wd_o),5);
-            tracep->chgIData(oldp+98,(vlSelf->top__DOT__openmips0__DOT__id_link_addr_o),32);
-            tracep->chgBit(oldp+99,(vlSelf->top__DOT__openmips0__DOT__id_next_inst_in_delayslot_o));
-            tracep->chgIData(oldp+100,(vlSelf->top__DOT__openmips0__DOT__ex_wdata_o),32);
-            tracep->chgBit(oldp+101,(vlSelf->top__DOT__openmips0__DOT__ex_whilo_o));
-            tracep->chgIData(oldp+102,(vlSelf->top__DOT__openmips0__DOT__ex_hi_o),32);
-            tracep->chgIData(oldp+103,(vlSelf->top__DOT__openmips0__DOT__ex_lo_o),32);
-            tracep->chgBit(oldp+104,(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o));
-            tracep->chgCData(oldp+105,(vlSelf->top__DOT__openmips0__DOT__mem_wd_o),5);
-            tracep->chgIData(oldp+106,(vlSelf->top__DOT__openmips0__DOT__mem_wdata_o),32);
-            tracep->chgBit(oldp+107,(vlSelf->top__DOT__openmips0__DOT__mem_whilo_o));
-            tracep->chgIData(oldp+108,(vlSelf->top__DOT__openmips0__DOT__mem_hi_o),32);
-            tracep->chgIData(oldp+109,(vlSelf->top__DOT__openmips0__DOT__mem_lo_o),32);
-            tracep->chgBit(oldp+110,(vlSelf->top__DOT__openmips0__DOT__reg1_read));
-            tracep->chgBit(oldp+111,(vlSelf->top__DOT__openmips0__DOT__reg2_read));
-            tracep->chgCData(oldp+112,(vlSelf->top__DOT__openmips0__DOT__reg1_addr),5);
-            tracep->chgCData(oldp+113,(vlSelf->top__DOT__openmips0__DOT__reg2_addr),5);
-            tracep->chgCData(oldp+114,(vlSelf->top__DOT__openmips0__DOT__stall),6);
-            tracep->chgBit(oldp+115,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__stallreq_for_madd_msub));
-            tracep->chgCData(oldp+116,(vlSelf->top__DOT__openmips0__DOT__cnt_o),2);
-            tracep->chgQData(oldp+117,(vlSelf->top__DOT__openmips0__DOT__hilo_temp_o),64);
-            tracep->chgIData(oldp+119,(vlSelf->top__DOT__openmips0__DOT__branch_target_address),32);
-            tracep->chgBit(oldp+120,(vlSelf->top__DOT__openmips0__DOT__id_branch_flag_o));
-            tracep->chgIData(oldp+121,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm),32);
-            tracep->chgBit(oldp+122,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__instvalid));
+            tracep->chgIData(oldp+90,(vlSelf->top__DOT__ram_data_i),32);
+            tracep->chgCData(oldp+91,(vlSelf->top__DOT__openmips0__DOT__id_aluop_o),8);
+            tracep->chgCData(oldp+92,(vlSelf->top__DOT__openmips0__DOT__id_alusel_o),3);
+            tracep->chgIData(oldp+93,(vlSelf->top__DOT__openmips0__DOT__id_reg1_o),32);
+            tracep->chgIData(oldp+94,(vlSelf->top__DOT__openmips0__DOT__id_reg2_o),32);
+            tracep->chgBit(oldp+95,(vlSelf->top__DOT__openmips0__DOT__id_wreg_o));
+            tracep->chgCData(oldp+96,(vlSelf->top__DOT__openmips0__DOT__id_wd_o),5);
+            tracep->chgIData(oldp+97,(vlSelf->top__DOT__openmips0__DOT__id_link_addr_o),32);
+            tracep->chgBit(oldp+98,(vlSelf->top__DOT__openmips0__DOT__id_next_inst_in_delayslot_o));
+            tracep->chgIData(oldp+99,(vlSelf->top__DOT__openmips0__DOT__ex_wdata_o),32);
+            tracep->chgBit(oldp+100,(vlSelf->top__DOT__openmips0__DOT__ex_whilo_o));
+            tracep->chgIData(oldp+101,(vlSelf->top__DOT__openmips0__DOT__ex_hi_o),32);
+            tracep->chgIData(oldp+102,(vlSelf->top__DOT__openmips0__DOT__ex_lo_o),32);
+            tracep->chgBit(oldp+103,(vlSelf->top__DOT__openmips0__DOT__mem_wreg_o));
+            tracep->chgCData(oldp+104,(vlSelf->top__DOT__openmips0__DOT__mem_wd_o),5);
+            tracep->chgIData(oldp+105,(vlSelf->top__DOT__openmips0__DOT__mem_wdata_o),32);
+            tracep->chgBit(oldp+106,(vlSelf->top__DOT__openmips0__DOT__mem_whilo_o));
+            tracep->chgIData(oldp+107,(vlSelf->top__DOT__openmips0__DOT__mem_hi_o),32);
+            tracep->chgIData(oldp+108,(vlSelf->top__DOT__openmips0__DOT__mem_lo_o),32);
+            tracep->chgBit(oldp+109,(vlSelf->top__DOT__openmips0__DOT__reg1_read));
+            tracep->chgBit(oldp+110,(vlSelf->top__DOT__openmips0__DOT__reg2_read));
+            tracep->chgCData(oldp+111,(vlSelf->top__DOT__openmips0__DOT__reg1_addr),5);
+            tracep->chgCData(oldp+112,(vlSelf->top__DOT__openmips0__DOT__reg2_addr),5);
+            tracep->chgCData(oldp+113,(vlSelf->top__DOT__openmips0__DOT__stall),6);
+            tracep->chgBit(oldp+114,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__stallreq_for_madd_msub));
+            tracep->chgCData(oldp+115,(vlSelf->top__DOT__openmips0__DOT__cnt_o),2);
+            tracep->chgQData(oldp+116,(vlSelf->top__DOT__openmips0__DOT__hilo_temp_o),64);
+            tracep->chgIData(oldp+118,(vlSelf->top__DOT__openmips0__DOT__branch_target_address),32);
+            tracep->chgBit(oldp+119,(vlSelf->top__DOT__openmips0__DOT__id_branch_flag_o));
+            tracep->chgIData(oldp+120,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__imm),32);
+            tracep->chgBit(oldp+121,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__instvalid));
+            tracep->chgBit(oldp+122,(vlSelf->top__DOT__openmips0__DOT__id0__DOT__text));
             tracep->chgIData(oldp+123,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__logicout),32);
             tracep->chgIData(oldp+124,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__shiftres),32);
             tracep->chgIData(oldp+125,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__movres),32);
@@ -224,13 +224,12 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgIData(oldp+128,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__arithmeticres),32);
             tracep->chgQData(oldp+129,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__hilo_temp1),64);
             tracep->chgQData(oldp+131,(vlSelf->top__DOT__openmips0__DOT__ex0__DOT__mulres),64);
-            tracep->chgIData(oldp+133,((1U & vlSelf->top__DOT____Vcellout__openmips0__ram_data_o)),32);
         }
-        tracep->chgBit(oldp+134,(vlSelf->clk));
-        tracep->chgBit(oldp+135,(vlSelf->rst));
-        tracep->chgBit(oldp+136,(((~ (IData)(vlSelf->rst)) 
+        tracep->chgBit(oldp+133,(vlSelf->clk));
+        tracep->chgBit(oldp+134,(vlSelf->rst));
+        tracep->chgBit(oldp+135,(((~ (IData)(vlSelf->rst)) 
                                   & (IData)(vlSelf->top__DOT__openmips0__DOT__is_in_delayslot_o))));
-        tracep->chgIData(oldp+137,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+136,(((IData)(vlSelf->rst)
                                      ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr))
                                               ? 0U : 
                                              (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg1_addr) 
@@ -243,7 +242,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                   vlSelf->top__DOT__openmips0__DOT__regfile1__DOT__regs
                                                   [vlSelf->top__DOT__openmips0__DOT__reg1_addr]
                                                    : 0U))))),32);
-        tracep->chgIData(oldp+138,(((IData)(vlSelf->rst)
+        tracep->chgIData(oldp+137,(((IData)(vlSelf->rst)
                                      ? 0U : ((0U == (IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr))
                                               ? 0U : 
                                              (((((IData)(vlSelf->top__DOT__openmips0__DOT__reg2_addr) 

@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-05-13 17:40:58
+ * @LastEditTime: 2022-05-14 14:08:11
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
@@ -27,11 +27,11 @@ module openmips (input wire clk,
                  output wire[`RegBus] rom_addr_o, //存疑
                  output wire rom_ce_o,
                  input wire[`RegBus] ram_data_i,
-                 output reg[`RegBus] ram_addr_o,
-                 output reg[`RegBus] ram_data_o,
-                 output reg ram_we_o,
-                 output reg ram_ce_o,
-                 output reg[3:0] ram_sel_o
+                 output wire[`RegBus] ram_addr_o,
+                 output wire[`RegBus] ram_data_o,
+                 output wire ram_we_o,
+                 output wire ram_ce_o,
+                 output wire[3:0] ram_sel_o
                  );
     //连接 IF/ID模块与译码阶段ID模块的变量
     wire[`InstAddrBus] pc;

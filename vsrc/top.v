@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-14 11:12:54
+ * @LastEditTime: 2022-05-14 14:31:41
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/top.v
@@ -23,7 +23,7 @@ module top (input wire clk,
     wire[3:0] ram_sel_i;
     wire ram_ce_i;
     wire ram_we_i;
-    wire ram_data_i;
+    wire[`RegBus] ram_data_i;
     
     //例化处理器openMIPS
     openmips openmips0(.clk(clk),

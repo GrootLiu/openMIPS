@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-13 16:10:02
+ * @LastEditTime: 2022-05-14 15:27:24
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/mem.v
@@ -112,7 +112,7 @@ module mem (input wire rst,
                         end
                     endcase
                 end
-                `EXE_LH : begin
+                `EXE_LH_OP : begin
                     mem_addr_o  <= mem_addr_i;
                     mem_we_o    <= `WriteDisable;
                     mem_ce_o    <= `ChipEnable;
