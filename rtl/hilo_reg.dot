@@ -1,0 +1,40 @@
+digraph "hilo_reg" {
+label="hilo_reg";
+rankdir="LR";
+remincross=true;
+n5 [ shape=octagon, label="clk", color="black", fontcolor="black" ];
+n6 [ shape=octagon, label="hi_i", color="black", fontcolor="black" ];
+n7 [ shape=octagon, label="hi_o", color="black", fontcolor="black" ];
+n8 [ shape=octagon, label="lo_i", color="black", fontcolor="black" ];
+n9 [ shape=octagon, label="lo_o", color="black", fontcolor="black" ];
+n10 [ shape=octagon, label="rst", color="black", fontcolor="black" ];
+n11 [ shape=octagon, label="we", color="black", fontcolor="black" ];
+{ rank="source"; n10; n11; n5; n6; n8;}
+{ rank="sink"; n7; n9;}
+c15 [ shape=record, label="{{<p12> CLK|<p13> D}|$2583\n$dff|{<p14> Q}}" ];
+c16 [ shape=record, label="{{<p12> CLK|<p13> D}|$2584\n$dff|{<p14> Q}}" ];
+c21 [ shape=record, label="{{<p17> A|<p18> B|<p19> S}|$1592\n$mux|{<p20> Y}}" ];
+v0 [ label="0" ];
+c22 [ shape=record, label="{{<p17> A|<p18> B|<p19> S}|$1595\n$mux|{<p20> Y}}" ];
+c23 [ shape=record, label="{{<p17> A|<p18> B|<p19> S}|$1597\n$mux|{<p20> Y}}" ];
+v1 [ label="0" ];
+c24 [ shape=record, label="{{<p17> A|<p18> B|<p19> S}|$1600\n$mux|{<p20> Y}}" ];
+c24:p20:e -> c15:p13:w [color="black", style="setlinewidth(3)", label=""];
+n10:e -> c22:p19:w [color="black", label=""];
+n10:e -> c24:p19:w [color="black", label=""];
+n11:e -> c21:p19:w [color="black", label=""];
+n11:e -> c23:p19:w [color="black", label=""];
+c22:p20:e -> c16:p13:w [color="black", style="setlinewidth(3)", label=""];
+c21:p20:e -> c22:p17:w [color="black", style="setlinewidth(3)", label=""];
+c23:p20:e -> c24:p17:w [color="black", style="setlinewidth(3)", label=""];
+n5:e -> c15:p12:w [color="black", label=""];
+n5:e -> c16:p12:w [color="black", label=""];
+n6:e -> c23:p18:w [color="black", style="setlinewidth(3)", label=""];
+c15:p14:e -> n7:w [color="black", style="setlinewidth(3)", label=""];
+n7:e -> c23:p17:w [color="black", style="setlinewidth(3)", label=""];
+n8:e -> c21:p18:w [color="black", style="setlinewidth(3)", label=""];
+c16:p14:e -> n9:w [color="black", style="setlinewidth(3)", label=""];
+n9:e -> c21:p17:w [color="black", style="setlinewidth(3)", label=""];
+v0:e -> c22:p18:w [color="black", style="setlinewidth(3)", label=""];
+v1:e -> c24:p18:w [color="black", style="setlinewidth(3)", label=""];
+}

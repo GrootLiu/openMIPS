@@ -1,0 +1,6 @@
+# read design
+read_verilog ~/openMIPS/vsrc/*.v ~/openMIPS/include/define.v 
+hierarchy -top top 
+# high-level synthesis
+# proc;opt;fsm;opt;#techmap;opt;
+write_verilog synth.v

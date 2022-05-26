@@ -1,15 +1,16 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-14 14:31:41
+ * @LastEditTime: 2022-05-18 11:24:34
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/top.v
  * 版权声明
  */
 `include "/home/groot/openMIPS/include/define.v"
-`include "/home/groot/openMIPS/vsrc/openmips.v"
-`include "/home/groot/openMIPS/vsrc/data_ram.v"
+// `include "/home/groot/openMIPS/vsrc/openmips.v"
+// `include "/home/groot/openMIPS/vsrc/inst_rom.v"
+// `include "/home/groot/openMIPS/vsrc/data_ram.v"
 module top (input wire clk,
             input wire rst);
     //连接指令存储器

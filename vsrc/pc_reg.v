@@ -1,7 +1,7 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-09 18:01:23
- * @LastEditTime: 2022-05-05 21:48:22
+ * @LastEditTime: 2022-05-20 10:48:41
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/pc_reg.v
@@ -45,7 +45,4 @@ module pc_reg (input wire clk,
             ce <= `ChipEnable;
         end
     end
-    
-    
-    
 endmodule //pc_reg

@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/groot/openMIPS'
 echo "Making..."
-verilator --Mdir sim  -Wno-COMBDLY -Wno-WIDTH -Wno-LATCH -Wno-MODDUP --trace --cc --exe --build --top top -y ~/openMIPS/include ./csrc/main.cpp ./vsrc/*.v
+verilator --Mdir sim  -Wno-COMBDLY -Wno-WIDTH -Wno-LATCH -Wno-MODDUP  --trace --cc --exe --build --top top -y ~/openMIPS/include ./csrc/main.cpp ./vsrc/*.v
 make: Leaving directory '/home/groot/openMIPS'
  

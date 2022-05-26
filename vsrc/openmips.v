@@ -1,25 +1,25 @@
 /*
  * @Author: Groot
  * @Date: 2022-04-12 16:04:07
- * @LastEditTime: 2022-05-14 14:08:11
+ * @LastEditTime: 2022-05-18 11:24:26
  * @LastEditors: Groot
  * @Description:
  * @FilePath: /openMIPS/vsrc/openmips.v
  * 版权声明
  */
 `include "/home/groot/openMIPS/include/define.v"
-`include "/home/groot/openMIPS/vsrc/ex_mem.v"
-`include "/home/groot/openMIPS/vsrc/ex.v"
-`include "/home/groot/openMIPS/vsrc/hilo_reg.v"
-`include "/home/groot/openMIPS/vsrc/id_ex.v"
-`include "/home/groot/openMIPS/vsrc/id.v"
-`include "/home/groot/openMIPS/vsrc/if_id.v"
-`include "/home/groot/openMIPS/vsrc/inst_rom.v"
-`include "/home/groot/openMIPS/vsrc/mem_wb.v"
-`include "/home/groot/openMIPS/vsrc/mem.v"
-`include "/home/groot/openMIPS/vsrc/pc_reg.v"
-`include "/home/groot/openMIPS/vsrc/regfile.v"
-`include "/home/groot/openMIPS/vsrc/ctrl.v"
+// `include "/home/groot/openMIPS/vsrc/ex_mem.v"
+// `include "/home/groot/openMIPS/vsrc/ex.v"
+// `include "/home/groot/openMIPS/vsrc/hilo_reg.v"
+// `include "/home/groot/openMIPS/vsrc/id_ex.v"
+// `include "/home/groot/openMIPS/vsrc/id.v"
+// `include "/home/groot/openMIPS/vsrc/if_id.v"
+// `include "/home/groot/openMIPS/vsrc/inst_rom.v"
+// `include "/home/groot/openMIPS/vsrc/mem_wb.v"
+// `include "/home/groot/openMIPS/vsrc/mem.v"
+// `include "/home/groot/openMIPS/vsrc/pc_reg.v"
+// `include "/home/groot/openMIPS/vsrc/regfile.v"
+// `include "/home/groot/openMIPS/vsrc/ctrl.v"
 
 module openmips (input wire clk,
                  input wire rst,

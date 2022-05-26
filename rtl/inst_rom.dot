@@ -1,0 +1,36 @@
+digraph "inst_rom" {
+label="inst_rom";
+rankdir="LR";
+remincross=true;
+n2 [ shape=octagon, label="addr", color="black", fontcolor="black" ];
+n3 [ shape=octagon, label="ce", color="black", fontcolor="black" ];
+n4 [ shape=octagon, label="inst", color="black", fontcolor="black" ];
+{ rank="source"; n2; n3;}
+{ rank="sink"; n4;}
+v0 [ label="0" ];
+c9 [ shape=record, label="{{<p5> A|<p6> B|<p7> S}|$693\n$mux|{<p8> Y}}" ];
+v2 [ label="1'0" ];
+v3 [ label="1'x" ];
+v4 [ label="1'1" ];
+v5 [ label="1'0" ];
+v6 [ label="" ];
+v7 [ label="" ];
+v8 [ label="" ];
+v9 [ label="" ];
+c20 [ shape=record, label="{{<p10> RD_ADDR|<p11> RD_ARST|<p12> RD_CLK|<p13> RD_EN|<p14> RD_SRST|<p15> WR_ADDR|<p16> WR_CLK|<p17> WR_DATA|<p18> WR_EN}|inst_mem\n$mem_v2|{<p19> RD_DATA}}" ];
+x1 [ shape=record, style=rounded, label="<s0> 18:2 - 16:0 " ];
+x1:e -> c20:p10:w [arrowhead=odiamond, arrowtail=odiamond, dir=both, color="black", style="setlinewidth(3)", label=""];
+c20:p19:e -> c9:p6:w [color="black", style="setlinewidth(3)", label=""];
+n2:e -> x1:s0:w [color="black", style="setlinewidth(3)", label=""];
+n3:e -> c9:p7:w [color="black", label=""];
+c9:p8:e -> n4:w [color="black", style="setlinewidth(3)", label=""];
+v0:e -> c9:p5:w [color="black", style="setlinewidth(3)", label=""];
+v2:e -> c20:p11:w [color="black", label=""];
+v3:e -> c20:p12:w [color="black", label=""];
+v4:e -> c20:p13:w [color="black", label=""];
+v5:e -> c20:p14:w [color="black", label=""];
+v6:e -> c20:p15:w [color="black", label=""];
+v7:e -> c20:p16:w [color="black", label=""];
+v8:e -> c20:p17:w [color="black", label=""];
+v9:e -> c20:p18:w [color="black", label=""];
+}
